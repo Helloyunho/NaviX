@@ -12,6 +12,9 @@
 		553C7DEB2C0ADEFE002C8C0B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7DEA2C0ADEFE002C8C0B /* Item.swift */; };
 		553C7DED2C0ADF01002C8C0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553C7DEC2C0ADF01002C8C0B /* Assets.xcassets */; };
 		553C7DF12C0ADF01002C8C0B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553C7DF02C0ADF01002C8C0B /* Preview Assets.xcassets */; };
+		553C7DF92C0B8E0A002C8C0B /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7DF82C0B8E0A002C8C0B /* SwiftSoup */; };
+		553C7DFC2C0B8E4E002C8C0B /* SwiftCSSParser in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7DFB2C0B8E4E002C8C0B /* SwiftCSSParser */; };
+		553C7DFF2C0B9286002C8C0B /* SwiftFetch in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7DFE2C0B9286002C8C0B /* SwiftFetch */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,8 @@
 		553C7DEC2C0ADF01002C8C0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		553C7DEE2C0ADF01002C8C0B /* NaviX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NaviX.entitlements; sourceTree = "<group>"; };
 		553C7DF02C0ADF01002C8C0B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		553C7E002C0B941E002C8C0B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		553C7E012C0B947A002C8C0B /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +34,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				553C7DFF2C0B9286002C8C0B /* SwiftFetch in Frameworks */,
+				553C7DF92C0B8E0A002C8C0B /* SwiftSoup in Frameworks */,
+				553C7DFC2C0B8E4E002C8C0B /* SwiftCSSParser in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +46,8 @@
 		553C7DDA2C0ADEFE002C8C0B = {
 			isa = PBXGroup;
 			children = (
+				553C7E012C0B947A002C8C0B /* LICENSE */,
+				553C7E002C0B941E002C8C0B /* README.md */,
 				553C7DE52C0ADEFE002C8C0B /* NaviX */,
 				553C7DE42C0ADEFE002C8C0B /* Products */,
 			);
@@ -88,6 +98,11 @@
 			dependencies = (
 			);
 			name = NaviX;
+			packageProductDependencies = (
+				553C7DF82C0B8E0A002C8C0B /* SwiftSoup */,
+				553C7DFB2C0B8E4E002C8C0B /* SwiftCSSParser */,
+				553C7DFE2C0B9286002C8C0B /* SwiftFetch */,
+			);
 			productName = NaviX;
 			productReference = 553C7DE32C0ADEFE002C8C0B /* NaviX.app */;
 			productType = "com.apple.product-type.application";
@@ -116,6 +131,11 @@
 				Base,
 			);
 			mainGroup = 553C7DDA2C0ADEFE002C8C0B;
+			packageReferences = (
+				553C7DF72C0B8E0A002C8C0B /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				553C7DFA2C0B8E4E002C8C0B /* XCRemoteSwiftPackageReference "swift-css-parser" */,
+				553C7DFD2C0B9286002C8C0B /* XCRemoteSwiftPackageReference "SwiftFetch" */,
+			);
 			productRefGroup = 553C7DE42C0ADEFE002C8C0B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -363,6 +383,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		553C7DF72C0B8E0A002C8C0B /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.2;
+			};
+		};
+		553C7DFA2C0B8E4E002C8C0B /* XCRemoteSwiftPackageReference "swift-css-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stackotter/swift-css-parser";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		553C7DFD2C0B9286002C8C0B /* XCRemoteSwiftPackageReference "SwiftFetch" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftSimpers/SwiftFetch";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		553C7DF82C0B8E0A002C8C0B /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 553C7DF72C0B8E0A002C8C0B /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		553C7DFB2C0B8E4E002C8C0B /* SwiftCSSParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 553C7DFA2C0B8E4E002C8C0B /* XCRemoteSwiftPackageReference "swift-css-parser" */;
+			productName = SwiftCSSParser;
+		};
+		553C7DFE2C0B9286002C8C0B /* SwiftFetch */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 553C7DFD2C0B9286002C8C0B /* XCRemoteSwiftPackageReference "SwiftFetch" */;
+			productName = SwiftFetch;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 553C7DDB2C0ADEFE002C8C0B /* Project object */;
 }

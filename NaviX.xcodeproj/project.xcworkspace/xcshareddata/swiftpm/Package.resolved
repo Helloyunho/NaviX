@@ -1,0 +1,33 @@
+{
+  "originHash" : "572f3b3e41c97e79b67a6ef42164144abb27420b00cf38c3a5454aa730df7933",
+  "pins" : [
+    {
+      "identity" : "swift-css-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stackotter/swift-css-parser",
+      "state" : {
+        "branch" : "main",
+        "revision" : "2fab1e835b78ff82de4a8f6f9119be3b52231b08"
+      }
+    },
+    {
+      "identity" : "swiftfetch",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftSimpers/SwiftFetch",
+      "state" : {
+        "branch" : "main",
+        "revision" : "cbd561a6a086f6c631486822b5374a75a392fa5f"
+      }
+    },
+    {
+      "identity" : "swiftsoup",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scinfu/SwiftSoup",
+      "state" : {
+        "revision" : "028487d4a8a291b2fe1b4392b5425b6172056148",
+        "version" : "2.7.2"
+      }
+    }
+  ],
+  "version" : 3
+}
