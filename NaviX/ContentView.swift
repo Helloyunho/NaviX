@@ -11,15 +11,21 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @State var tabs: [Tab] = [Tab()]
+    @State var tabIndex = 0
+    @State var addressBarContent = ""
 
     var body: some View {
         NavigationSplitView {
             List {
-                ForEach(items) { item in
+                ForEach(tabs.indices, id: \.self) { idx in
+                    let tab = tabs[idx]
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        Text(tab.body).onAppear {
+                            tabIndex = idx
+                        }
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text(tab.title)
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -33,14 +39,16 @@ struct ContentView: View {
                     EditButton()
                 }
 #endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
+//                ToolbarItem(placement: .principal) {
+//                    TextField("Type URL...", text: $addressBarContent).textFieldStyle(.roundedBorder).frame(idealWidth: 240)
+//                }
             }
+            ToolbarHooker(toolbar: AddressToolbar(identifier: NSToolbar.Identifier("MainToolbar"), addressBarView: NSHostingView(rootView: TextField("Type URL...", text: $addressBarContent).textFieldStyle(.roundedBorder).frame(idealWidth: 240))))
         } detail: {
             Text("Select an item")
+        }
+        .onChange(of: tabs[tabIndex]) {
+            addressBarContent = tabs[tabIndex].url.absoluteString
         }
     }
 
