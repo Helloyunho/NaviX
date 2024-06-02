@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		553C7DE72C0ADEFE002C8C0B /* NaviXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7DE62C0ADEFE002C8C0B /* NaviXApp.swift */; };
 		553C7DE92C0ADEFE002C8C0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7DE82C0ADEFE002C8C0B /* ContentView.swift */; };
-		553C7DEB2C0ADEFE002C8C0B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7DEA2C0ADEFE002C8C0B /* Item.swift */; };
 		553C7DED2C0ADF01002C8C0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553C7DEC2C0ADF01002C8C0B /* Assets.xcassets */; };
 		553C7DF12C0ADF01002C8C0B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553C7DF02C0ADF01002C8C0B /* Preview Assets.xcassets */; };
 		553C7DF92C0B8E0A002C8C0B /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7DF82C0B8E0A002C8C0B /* SwiftSoup */; };
@@ -18,13 +17,18 @@
 		553C7E042C0B955E002C8C0B /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E032C0B955E002C8C0B /* Tab.swift */; };
 		553C7E072C0BA05E002C8C0B /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7E062C0BA05E002C8C0B /* SwiftUIX */; };
 		553C7E0A2C0BA425002C8C0B /* AddressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E092C0BA425002C8C0B /* AddressBar.swift */; };
+		553C7E0C2C0C9EA8002C8C0B /* WindowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E0B2C0C9EA8002C8C0B /* WindowModel.swift */; };
+		553C7E0F2C0CA57E002C8C0B /* WindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E0E2C0CA57E002C8C0B /* WindowView.swift */; };
+		553C7E122C0CB208002C8C0B /* UserError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E112C0CB208002C8C0B /* UserError.swift */; };
+		553C7E142C0CB38B002C8C0B /* AddressError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E132C0CB38B002C8C0B /* AddressError.swift */; };
+		553C7E172C0CB9D4002C8C0B /* DNSPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E162C0CB9D4002C8C0B /* DNSPayload.swift */; };
+		553C7E1A2C0CBAA8002C8C0B /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E192C0CBAA8002C8C0B /* Request.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		553C7DE32C0ADEFE002C8C0B /* NaviX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaviX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		553C7DE62C0ADEFE002C8C0B /* NaviXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaviXApp.swift; sourceTree = "<group>"; };
 		553C7DE82C0ADEFE002C8C0B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		553C7DEA2C0ADEFE002C8C0B /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		553C7DEC2C0ADF01002C8C0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		553C7DEE2C0ADF01002C8C0B /* NaviX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NaviX.entitlements; sourceTree = "<group>"; };
 		553C7DF02C0ADF01002C8C0B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -32,6 +36,12 @@
 		553C7E012C0B947A002C8C0B /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		553C7E032C0B955E002C8C0B /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		553C7E092C0BA425002C8C0B /* AddressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressBar.swift; sourceTree = "<group>"; };
+		553C7E0B2C0C9EA8002C8C0B /* WindowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowModel.swift; sourceTree = "<group>"; };
+		553C7E0E2C0CA57E002C8C0B /* WindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowView.swift; sourceTree = "<group>"; };
+		553C7E112C0CB208002C8C0B /* UserError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserError.swift; sourceTree = "<group>"; };
+		553C7E132C0CB38B002C8C0B /* AddressError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressError.swift; sourceTree = "<group>"; };
+		553C7E162C0CB9D4002C8C0B /* DNSPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNSPayload.swift; sourceTree = "<group>"; };
+		553C7E192C0CBAA8002C8C0B /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,14 +80,17 @@
 		553C7DE52C0ADEFE002C8C0B /* NaviX */ = {
 			isa = PBXGroup;
 			children = (
+				553C7E1B2C0CCFA0002C8C0B /* Views */,
+				553C7E182C0CBA87002C8C0B /* Utils */,
+				553C7E102C0CB1E9002C8C0B /* Errors */,
 				553C7E082C0BA40E002C8C0B /* Components */,
 				553C7E022C0B9547002C8C0B /* Models */,
 				553C7DE62C0ADEFE002C8C0B /* NaviXApp.swift */,
 				553C7DE82C0ADEFE002C8C0B /* ContentView.swift */,
-				553C7DEA2C0ADEFE002C8C0B /* Item.swift */,
 				553C7DEC2C0ADF01002C8C0B /* Assets.xcassets */,
 				553C7DEE2C0ADF01002C8C0B /* NaviX.entitlements */,
 				553C7DEF2C0ADF01002C8C0B /* Preview Content */,
+				553C7E0E2C0CA57E002C8C0B /* WindowView.swift */,
 			);
 			path = NaviX;
 			sourceTree = "<group>";
@@ -93,7 +106,9 @@
 		553C7E022C0B9547002C8C0B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				553C7E152C0CB9CB002C8C0B /* Payloads */,
 				553C7E032C0B955E002C8C0B /* Tab.swift */,
+				553C7E0B2C0C9EA8002C8C0B /* WindowModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -104,6 +119,38 @@
 				553C7E092C0BA425002C8C0B /* AddressBar.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		553C7E102C0CB1E9002C8C0B /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E112C0CB208002C8C0B /* UserError.swift */,
+				553C7E132C0CB38B002C8C0B /* AddressError.swift */,
+			);
+			path = Errors;
+			sourceTree = "<group>";
+		};
+		553C7E152C0CB9CB002C8C0B /* Payloads */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E162C0CB9D4002C8C0B /* DNSPayload.swift */,
+			);
+			path = Payloads;
+			sourceTree = "<group>";
+		};
+		553C7E182C0CBA87002C8C0B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E192C0CBAA8002C8C0B /* Request.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		553C7E1B2C0CCFA0002C8C0B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,10 +235,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				553C7E0F2C0CA57E002C8C0B /* WindowView.swift in Sources */,
 				553C7DE92C0ADEFE002C8C0B /* ContentView.swift in Sources */,
-				553C7DEB2C0ADEFE002C8C0B /* Item.swift in Sources */,
+				553C7E0C2C0C9EA8002C8C0B /* WindowModel.swift in Sources */,
 				553C7E0A2C0BA425002C8C0B /* AddressBar.swift in Sources */,
 				553C7E042C0B955E002C8C0B /* Tab.swift in Sources */,
+				553C7E142C0CB38B002C8C0B /* AddressError.swift in Sources */,
+				553C7E172C0CB9D4002C8C0B /* DNSPayload.swift in Sources */,
+				553C7E1A2C0CBAA8002C8C0B /* Request.swift in Sources */,
+				553C7E122C0CB208002C8C0B /* UserError.swift in Sources */,
 				553C7DE72C0ADEFE002C8C0B /* NaviXApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,7 +388,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
@@ -374,7 +426,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;

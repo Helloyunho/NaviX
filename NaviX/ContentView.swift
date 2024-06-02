@@ -9,16 +9,14 @@ import SwiftData
 import SwiftUI
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-    @State var tabs: [Tab] = [Tab()]
-    @State var tabIndex = 0
+    @EnvironmentObject private var windowModel: WindowModel
     @State var addressBarContent = ""
+    
 
     var body: some View {
         NavigationSplitView {
-            List(tabs.indices, id: \.self, selection: $tabIndex) { idx in
-                let tab = tabs[idx]
+            List(windowModel.tabs.indices, id: \.self, selection: $windowModel.currentTabIndex) { idx in
+                let tab = windowModel.tabs[idx]
                 Text(tab.title)
             }
 #if os(macOS)
@@ -38,48 +36,73 @@ struct ContentView: View {
                             AddressToolbar(
                                 identifier: NSToolbar.Identifier("MainToolbar"),
                                 addressBarView: NSHostingView(
-                                    rootView: TextField("Type URL...", text: $addressBarContent)
-                                        .textFieldStyle(.roundedBorder)
-                                        .onSubmit {
-                                            tabs[tabIndex].changeURL(url: URL(string: addressBarContent)!)
+                                    rootView: HStack {
+                                        if windowModel.tab.loading {
+                                            ProgressView().progressViewStyle(.circular).frame(maxWidth: .infinity)
                                         }
-                                        .frame(idealWidth: 240)
-                                )
-                            ) {
-                                tabs.append(Tab())
-                            }
+                                        TextField("Type URL...", text: $addressBarContent)
+                                            .textFieldStyle(.roundedBorder)
+                                            .onSubmit {
+                                                Task {
+                                                    windowModel.tab.loading = true
+                                                    await $windowModel.tab.changeURL(url: URL(string: addressBarContent)!)
+                                                    windowModel.tab.loading = false
+                                                }
+                                            }
+                                            .frame(idealWidth: 240)
+                                    }
+                                ),
+                                enableBackwardButton: $windowModel.backwardEnabled,
+                                enableForwardButton: $windowModel.forwardEnabled,
+                                addTabPressed: {
+                                    windowModel.tabs.append(Tab())
+                                },
+                                backwardPressed: {
+                                    Task {
+                                        windowModel.tab.loading = true
+                                        await $windowModel.tab.back()
+                                        windowModel.tab.loading = false
+                                    }
+                                },
+                                forwardPressed: {
+                                    Task {
+                                        windowModel.tab.loading = true
+                                        await $windowModel.tab.forward()
+                                        windowModel.tab.loading = false
+                                    }
+                                }
+                            )
             )
         } detail: {
-            Text(tabs[tabIndex].body)
-        }
-        .onChange(of: tabIndex) {
-            addressBarContent = tabs[tabIndex].url.absoluteString
-        }
-        .onChange(of: tabs[tabIndex].url) {
-            addressBarContent = tabs[tabIndex].url.absoluteString
-        }
-        .onChange(of: addressBarContent) {
-            print(addressBarContent)
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
+            ScrollView {
+                Text(windowModel.tab.body)
             }
         }
+        .onChange(of: windowModel.currentTabIndex) {
+            matchAddressBarContent()
+        }
+        .onChange(of: windowModel.tab.url) {
+            matchAddressBarContent()
+        }
+        .onChange(of: windowModel.tab.historyIndex) {
+            windowModel.forwardEnabled = windowModel.tab.historyIndex < windowModel.tab.history.count - 1
+            windowModel.backwardEnabled = windowModel.tab.historyIndex > 0
+        }
+        .onAppear {
+            matchAddressBarContent()
+            Task {
+                await $windowModel.tab.load()
+            }
+        }
+        .frame(minWidth: 600)
+    }
+    
+    func matchAddressBarContent() {
+        addressBarContent = windowModel.tab.url.absoluteString
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .environmentObject(WindowModel())
 }

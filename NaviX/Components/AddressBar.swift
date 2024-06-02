@@ -14,16 +14,27 @@ import AppKit
 extension NSToolbarItem.Identifier {
     static let addressBar = NSToolbarItem.Identifier("AddressBar")
     static let addTab = NSToolbarItem.Identifier("AddTab")
+    static let forward = NSToolbarItem.Identifier("Forward")
+    static let backward = NSToolbarItem.Identifier("Backward")
 }
 
 class AddressToolbar: NSToolbar, NSToolbarDelegate, NSToolbarItemValidation {
     var addressBarView: NSView!
-    var addTabPressed: (() -> Void)!
+    var enableBackwardButton: Binding<Bool>!
+    var enableForwardButton: Binding<Bool>!
     
-    init(identifier: NSToolbar.Identifier, addressBarView: NSView, addTabPressed: @escaping () -> Void) {
+    var addTabPressed: (() -> Void)!
+    var backwardPressed: (() -> Void)!
+    var forwardPressed: (() -> Void)!
+    
+    init(identifier: NSToolbar.Identifier, addressBarView: NSView, enableBackwardButton: Binding<Bool>, enableForwardButton: Binding<Bool>, addTabPressed: @escaping () -> Void, backwardPressed: @escaping () -> Void, forwardPressed: @escaping () -> Void) {
         super.init(identifier: identifier)
         self.addressBarView = addressBarView
+        self.enableForwardButton = enableForwardButton
+        self.enableBackwardButton = enableBackwardButton
         self.addTabPressed = addTabPressed
+        self.backwardPressed = backwardPressed
+        self.forwardPressed = forwardPressed
         self.delegate = self
         self.allowsUserCustomization = true
         self.displayMode = .default
@@ -42,25 +53,50 @@ class AddressToolbar: NSToolbar, NSToolbarDelegate, NSToolbarItemValidation {
             toolbarItem.action = #selector(addTabAction(_:))
             toolbarItem.target = self
             toolbarItem.isBordered = true
+        } else if itemIdentifier == .forward {
+            toolbarItem.label = "Forward"
+            toolbarItem.image = NSImage(systemSymbolName: "chevron.right", accessibilityDescription: "Forward")
+            toolbarItem.action = #selector(forwardAction(_:))
+            toolbarItem.target = self
+            toolbarItem.isBordered = true
+        } else if itemIdentifier == .backward {
+            toolbarItem.label = "Backward"
+            toolbarItem.image = NSImage(systemSymbolName: "chevron.left", accessibilityDescription: "Backward")
+            toolbarItem.action = #selector(backwardAction(_:))
+            toolbarItem.target = self
+            toolbarItem.isBordered = true
         }
 
         return toolbarItem
     }
 
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.toggleSidebar, .flexibleSpace, .addTab, .sidebarTrackingSeparator, .flexibleSpace, .addressBar, .flexibleSpace]
+        return [.toggleSidebar, .flexibleSpace, .addTab, .sidebarTrackingSeparator, .backward, .forward, .flexibleSpace, .addressBar, .flexibleSpace]
     }
 
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.toggleSidebar, .flexibleSpace, .addTab, .sidebarTrackingSeparator, .flexibleSpace, .addressBar, .flexibleSpace]
+        return [.toggleSidebar, .flexibleSpace, .addTab, .sidebarTrackingSeparator, .backward, .forward, .flexibleSpace, .addressBar, .flexibleSpace]
     }
     
     func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
+        if item.itemIdentifier == .forward {
+            return enableForwardButton.wrappedValue
+        } else if item.itemIdentifier == .backward {
+            return enableBackwardButton.wrappedValue
+        }
         return true
     }
     
     @objc func addTabAction(_ sender: Any) {
         self.addTabPressed()
+    }
+    
+    @objc func backwardAction(_ sender: Any) {
+        self.backwardPressed()
+    }
+    
+    @objc func forwardAction(_ sender: Any) {
+        self.forwardPressed()
     }
 }
 
