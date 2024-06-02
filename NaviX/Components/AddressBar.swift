@@ -11,35 +11,56 @@ import SwiftUI
 #if os(macOS)
 import AppKit
 
-class AddressToolbar: NSToolbar, NSToolbarDelegate {
+extension NSToolbarItem.Identifier {
+    static let addressBar = NSToolbarItem.Identifier("AddressBar")
+    static let addTab = NSToolbarItem.Identifier("AddTab")
+}
+
+class AddressToolbar: NSToolbar, NSToolbarDelegate, NSToolbarItemValidation {
     var addressBarView: NSView!
+    var addTabPressed: (() -> Void)!
     
-    init(identifier: NSToolbar.Identifier, addressBarView: NSView) {
+    init(identifier: NSToolbar.Identifier, addressBarView: NSView, addTabPressed: @escaping () -> Void) {
         super.init(identifier: identifier)
         self.addressBarView = addressBarView
+        self.addTabPressed = addTabPressed
         self.delegate = self
         self.allowsUserCustomization = true
         self.displayMode = .default
-        self.centeredItemIdentifier = NSToolbarItem.Identifier("AddressBar")
+        self.centeredItemIdentifier = .addressBar
     }
 
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
 
-        if itemIdentifier.rawValue == "AddressBar" {
+        if itemIdentifier == .addressBar {
             toolbarItem.label = "Address Bar"
             toolbarItem.view = addressBarView
+        } else if itemIdentifier == .addTab {
+            toolbarItem.label = "Add Tab"
+            toolbarItem.image = NSImage(systemSymbolName: "plus", accessibilityDescription: "Add Tab")
+            toolbarItem.action = #selector(addTabAction(_:))
+            toolbarItem.target = self
+            toolbarItem.isBordered = true
         }
 
         return toolbarItem
     }
 
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.toggleSidebar, .sidebarTrackingSeparator, .flexibleSpace, NSToolbarItem.Identifier("AddressBar"), .flexibleSpace]
+        return [.toggleSidebar, .flexibleSpace, .addTab, .sidebarTrackingSeparator, .flexibleSpace, .addressBar, .flexibleSpace]
     }
 
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [.toggleSidebar, .sidebarTrackingSeparator, .flexibleSpace, NSToolbarItem.Identifier("AddressBar"), .flexibleSpace]
+        return [.toggleSidebar, .flexibleSpace, .addTab, .sidebarTrackingSeparator, .flexibleSpace, .addressBar, .flexibleSpace]
+    }
+    
+    func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
+        return true
+    }
+    
+    @objc func addTabAction(_ sender: Any) {
+        self.addTabPressed()
     }
 }
 

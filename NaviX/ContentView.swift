@@ -5,8 +5,8 @@
 //  Created by Helloyunho on 6/1/24.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
@@ -17,18 +17,9 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
-            List {
-                ForEach(tabs.indices, id: \.self) { idx in
-                    let tab = tabs[idx]
-                    NavigationLink {
-                        Text(tab.body).onAppear {
-                            tabIndex = idx
-                        }
-                    } label: {
-                        Text(tab.title)
-                    }
-                }
-                .onDelete(perform: deleteItems)
+            List(tabs.indices, id: \.self, selection: $tabIndex) { idx in
+                let tab = tabs[idx]
+                Text(tab.title)
             }
 #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
@@ -43,12 +34,32 @@ struct ContentView: View {
 //                    TextField("Type URL...", text: $addressBarContent).textFieldStyle(.roundedBorder).frame(idealWidth: 240)
 //                }
             }
-            ToolbarHooker(toolbar: AddressToolbar(identifier: NSToolbar.Identifier("MainToolbar"), addressBarView: NSHostingView(rootView: TextField("Type URL...", text: $addressBarContent).textFieldStyle(.roundedBorder).frame(idealWidth: 240))))
+            ToolbarHooker(toolbar:
+                            AddressToolbar(
+                                identifier: NSToolbar.Identifier("MainToolbar"),
+                                addressBarView: NSHostingView(
+                                    rootView: TextField("Type URL...", text: $addressBarContent)
+                                        .textFieldStyle(.roundedBorder)
+                                        .onSubmit {
+                                            tabs[tabIndex].changeURL(url: URL(string: addressBarContent)!)
+                                        }
+                                        .frame(idealWidth: 240)
+                                )
+                            ) {
+                                tabs.append(Tab())
+                            }
+            )
         } detail: {
-            Text("Select an item")
+            Text(tabs[tabIndex].body)
         }
-        .onChange(of: tabs[tabIndex]) {
+        .onChange(of: tabIndex) {
             addressBarContent = tabs[tabIndex].url.absoluteString
+        }
+        .onChange(of: tabs[tabIndex].url) {
+            addressBarContent = tabs[tabIndex].url.absoluteString
+        }
+        .onChange(of: addressBarContent) {
+            print(addressBarContent)
         }
     }
 
