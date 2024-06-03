@@ -30,18 +30,20 @@ extension Binding where Value == Tab {
 }
 
 struct Tab: Equatable {
+    let id = UUID()
     var history: [URL] = [URL(string: "https://github.com/face-hh/dingle-frontend/blob/main/index.html")!]
     var historyIndex = 0
     var url: URL {
         history[historyIndex]
     }
-    var title = "Dingle"
+    var title = ""
     var body = ""
     var loading = false
     var error: Error? = nil
+    var favicon: Image? = nil
 
     static func == (lhs: Tab, rhs: Tab) -> Bool {
-        lhs.history == rhs.history && lhs.historyIndex == rhs.historyIndex && lhs.title == rhs.title && lhs.body == rhs.body && lhs.loading == rhs.loading
+        lhs.id == rhs.id
     }
 
     mutating func back() async {

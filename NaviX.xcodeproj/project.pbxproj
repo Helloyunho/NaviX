@@ -23,6 +23,16 @@
 		553C7E142C0CB38B002C8C0B /* AddressError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E132C0CB38B002C8C0B /* AddressError.swift */; };
 		553C7E172C0CB9D4002C8C0B /* DNSPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E162C0CB9D4002C8C0B /* DNSPayload.swift */; };
 		553C7E1A2C0CBAA8002C8C0B /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E192C0CBAA8002C8C0B /* Request.swift */; };
+		553C7E1D2C0CD185002C8C0B /* BrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E1C2C0CD185002C8C0B /* BrowserView.swift */; };
+		553C7E1F2C0CD5C3002C8C0B /* HTMLTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E1E2C0CD5C3002C8C0B /* HTMLTag.swift */; };
+		553C7E272C0CDC37002C8C0B /* TagProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E262C0CDC37002C8C0B /* TagProtocol.swift */; };
+		553C7E292C0CDC46002C8C0B /* TitleTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E282C0CDC46002C8C0B /* TitleTag.swift */; };
+		553C7E2B2C0CDD05002C8C0B /* LinkTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E2A2C0CDD05002C8C0B /* LinkTag.swift */; };
+		553C7E2D2C0CDEA6002C8C0B /* ScriptTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E2C2C0CDEA6002C8C0B /* ScriptTag.swift */; };
+		553C7E2F2C0DE956002C8C0B /* HeadTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E2E2C0DE956002C8C0B /* HeadTag.swift */; };
+		553C7E322C0DEA42002C8C0B /* HTMLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E312C0DEA42002C8C0B /* HTMLUtils.swift */; };
+		553C7E342C0DEBF1002C8C0B /* BodyTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E332C0DEBF1002C8C0B /* BodyTag.swift */; };
+		553C7E372C0DEF0B002C8C0B /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E362C0DEF0B002C8C0B /* ParseError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +52,16 @@
 		553C7E132C0CB38B002C8C0B /* AddressError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressError.swift; sourceTree = "<group>"; };
 		553C7E162C0CB9D4002C8C0B /* DNSPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DNSPayload.swift; sourceTree = "<group>"; };
 		553C7E192C0CBAA8002C8C0B /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		553C7E1C2C0CD185002C8C0B /* BrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserView.swift; sourceTree = "<group>"; };
+		553C7E1E2C0CD5C3002C8C0B /* HTMLTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLTag.swift; sourceTree = "<group>"; };
+		553C7E262C0CDC37002C8C0B /* TagProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagProtocol.swift; sourceTree = "<group>"; };
+		553C7E282C0CDC46002C8C0B /* TitleTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTag.swift; sourceTree = "<group>"; };
+		553C7E2A2C0CDD05002C8C0B /* LinkTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTag.swift; sourceTree = "<group>"; };
+		553C7E2C2C0CDEA6002C8C0B /* ScriptTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptTag.swift; sourceTree = "<group>"; };
+		553C7E2E2C0DE956002C8C0B /* HeadTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadTag.swift; sourceTree = "<group>"; };
+		553C7E312C0DEA42002C8C0B /* HTMLUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLUtils.swift; sourceTree = "<group>"; };
+		553C7E332C0DEBF1002C8C0B /* BodyTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTag.swift; sourceTree = "<group>"; };
+		553C7E362C0DEF0B002C8C0B /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +100,7 @@
 		553C7DE52C0ADEFE002C8C0B /* NaviX */ = {
 			isa = PBXGroup;
 			children = (
+				553C7E202C0CD603002C8C0B /* HTML */,
 				553C7E1B2C0CCFA0002C8C0B /* Views */,
 				553C7E182C0CBA87002C8C0B /* Utils */,
 				553C7E102C0CB1E9002C8C0B /* Errors */,
@@ -149,8 +170,49 @@
 		553C7E1B2C0CCFA0002C8C0B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				553C7E1C2C0CD185002C8C0B /* BrowserView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		553C7E202C0CD603002C8C0B /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E352C0DEF00002C8C0B /* Errors */,
+				553C7E302C0DEA37002C8C0B /* Utils */,
+				553C7E212C0CD611002C8C0B /* Tags */,
+				553C7E1E2C0CD5C3002C8C0B /* HTMLTag.swift */,
+			);
+			path = HTML;
+			sourceTree = "<group>";
+		};
+		553C7E212C0CD611002C8C0B /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E332C0DEBF1002C8C0B /* BodyTag.swift */,
+				553C7E262C0CDC37002C8C0B /* TagProtocol.swift */,
+				553C7E282C0CDC46002C8C0B /* TitleTag.swift */,
+				553C7E2A2C0CDD05002C8C0B /* LinkTag.swift */,
+				553C7E2C2C0CDEA6002C8C0B /* ScriptTag.swift */,
+				553C7E2E2C0DE956002C8C0B /* HeadTag.swift */,
+			);
+			path = Tags;
+			sourceTree = "<group>";
+		};
+		553C7E302C0DEA37002C8C0B /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E312C0DEA42002C8C0B /* HTMLUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		553C7E352C0DEF00002C8C0B /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E362C0DEF0B002C8C0B /* ParseError.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,14 +298,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				553C7E0F2C0CA57E002C8C0B /* WindowView.swift in Sources */,
+				553C7E2B2C0CDD05002C8C0B /* LinkTag.swift in Sources */,
 				553C7DE92C0ADEFE002C8C0B /* ContentView.swift in Sources */,
 				553C7E0C2C0C9EA8002C8C0B /* WindowModel.swift in Sources */,
+				553C7E372C0DEF0B002C8C0B /* ParseError.swift in Sources */,
+				553C7E322C0DEA42002C8C0B /* HTMLUtils.swift in Sources */,
 				553C7E0A2C0BA425002C8C0B /* AddressBar.swift in Sources */,
+				553C7E1D2C0CD185002C8C0B /* BrowserView.swift in Sources */,
+				553C7E2F2C0DE956002C8C0B /* HeadTag.swift in Sources */,
+				553C7E292C0CDC46002C8C0B /* TitleTag.swift in Sources */,
 				553C7E042C0B955E002C8C0B /* Tab.swift in Sources */,
 				553C7E142C0CB38B002C8C0B /* AddressError.swift in Sources */,
 				553C7E172C0CB9D4002C8C0B /* DNSPayload.swift in Sources */,
 				553C7E1A2C0CBAA8002C8C0B /* Request.swift in Sources */,
+				553C7E342C0DEBF1002C8C0B /* BodyTag.swift in Sources */,
+				553C7E2D2C0CDEA6002C8C0B /* ScriptTag.swift in Sources */,
+				553C7E1F2C0CD5C3002C8C0B /* HTMLTag.swift in Sources */,
 				553C7E122C0CB208002C8C0B /* UserError.swift in Sources */,
+				553C7E272C0CDC37002C8C0B /* TagProtocol.swift in Sources */,
 				553C7DE72C0ADEFE002C8C0B /* NaviXApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

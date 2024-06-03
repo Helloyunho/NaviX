@@ -107,12 +107,11 @@ extension Request {
             return FileResponse(status: status, url: url)
         case "bus", "buss":
             let fetchedURL = try await getDNSResolvedURL(url)
-            let resp = try await SwiftFetch.fetch(fetchedURL)
-            return FetchResponse(resp: resp)
+            return try await Request.fetch(fetchedURL)
         case "http", "https":
             var url = url
             if url.host == "github.com" {
-                url.append(queryItems: [.init(name: "raw", value: "true")])
+                url = URL(string: "https://raw.githubusercontent.com/\(url.pathComponents[1])/\(url.pathComponents[2])/main/\(url.pathComponents.count > 3 ? url.pathComponents.last! : "index.html")")!
             }
             let resp = try await SwiftFetch.fetch(url)
             return FetchResponse(resp: resp)

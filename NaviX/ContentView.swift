@@ -17,7 +17,20 @@ struct ContentView: View {
         NavigationSplitView {
             List(windowModel.tabs.indices, id: \.self, selection: $windowModel.currentTabIndex) { idx in
                 let tab = windowModel.tabs[idx]
-                Text(tab.title)
+                HStack {
+                    if tab.loading {
+                        ProgressView().progressViewStyle(.circular).controlSize(.mini)
+                    }
+                    Label(title: {
+                        Text(tab.title)
+                    }, icon: {
+                        if let favicon = tab.favicon {
+                            favicon.resizable()
+                        } else {
+                            Image(systemName: "note")
+                        }
+                    })
+                }
             }
 #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
@@ -74,9 +87,7 @@ struct ContentView: View {
                             )
             )
         } detail: {
-            ScrollView {
-                Text(windowModel.tab.body)
-            }
+            BrowserView()
         }
         .onChange(of: windowModel.currentTabIndex) {
             matchAddressBarContent()
@@ -103,6 +114,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
-        .environmentObject(WindowModel())
+    WindowView()
 }
