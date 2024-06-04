@@ -19,6 +19,7 @@ class WindowModel: ObservableObject {
             self.tabs[self.currentTabIndex] = value
         }
     }
+
     @Published var forwardEnabled = false
     @Published var backwardEnabled = false
 }

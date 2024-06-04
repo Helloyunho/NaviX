@@ -12,7 +12,7 @@ class Request {
     protocol Response {
         var status: Int { get }
         var statusText: String { get }
-        var headers: [String:String] { get }
+        var headers: [String: String] { get }
         var ok: Bool { get }
 
         func data() async throws -> Data
@@ -28,7 +28,7 @@ class Request {
         var headers: [String: String] = [
             "Content-Type": "text/plain"
         ]
-        var ok: Bool { self.status >= 200 && self.status <= 299 }
+        var ok: Bool { status >= 200 && status <= 299 }
         
         func data() async throws -> Data {
             try Data(contentsOf: url)
@@ -39,13 +39,13 @@ class Request {
         }
         
         func json() async throws -> Any {
-            try JSONSerialization.jsonObject(with: try await self.data())
+            try JSONSerialization.jsonObject(with: await data())
         }
         
-        func json<T>(_ type: T.Type) async throws -> T where T : Decodable {
+        func json<T>(_ type: T.Type) async throws -> T where T: Decodable {
             let decoder = JSONDecoder()
             
-            return try decoder.decode(type, from: try await self.data())
+            return try decoder.decode(type, from: await data())
         }
     }
     
@@ -68,7 +68,7 @@ class Request {
             try await resp.json()
         }
         
-        func json<T>(_ type: T.Type) async throws -> T where T : Decodable {
+        func json<T>(_ type: T.Type) async throws -> T where T: Decodable {
             try await resp.json(type)
         }
     }

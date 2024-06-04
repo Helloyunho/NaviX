@@ -9,7 +9,9 @@ import Foundation
 import SwiftSoup
 
 struct LinkTag: HeadTagProtocol {
-    var id = UUID()
+    let html: HTMLGetter
+    let tagName = "link"
+    let id = UUID()
 
     var attr: [String: String] = [:] {
         didSet {
@@ -26,16 +28,16 @@ struct LinkTag: HeadTagProtocol {
         }
     }
 
-    var children: String? = nil {
+    var children: String = "" {
         didSet {
             NotificationCenter.default.post(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
 
-    static func parse(_ link: Element) throws -> LinkTag {
+    static func parse(_ link: Element, html: @escaping HTMLGetter) throws -> LinkTag {
         try HTMLUtils.checkTag(link, assert: "link")
         let (attr, children) = Self.parseDefaultProps(link)
 
-        return LinkTag(attr: attr, children: children)
+        return LinkTag(html: html, attr: attr, children: children)
     }
 }

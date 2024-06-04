@@ -11,7 +11,6 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject private var windowModel: WindowModel
     @State var addressBarContent = ""
-    
 
     var body: some View {
         NavigationSplitView {
@@ -46,45 +45,45 @@ struct ContentView: View {
 //                }
             }
             ToolbarHooker(toolbar:
-                            AddressToolbar(
-                                identifier: NSToolbar.Identifier("MainToolbar"),
-                                addressBarView: NSHostingView(
-                                    rootView: HStack {
-                                        if windowModel.tab.loading {
-                                            ProgressView().progressViewStyle(.circular).frame(maxWidth: .infinity)
-                                        }
-                                        TextField("Type URL...", text: $addressBarContent)
-                                            .textFieldStyle(.roundedBorder)
-                                            .onSubmit {
-                                                Task {
-                                                    windowModel.tab.loading = true
-                                                    await $windowModel.tab.changeURL(url: URL(string: addressBarContent)!)
-                                                    windowModel.tab.loading = false
-                                                }
-                                            }
-                                            .frame(idealWidth: 240)
-                                    }
-                                ),
-                                enableBackwardButton: $windowModel.backwardEnabled,
-                                enableForwardButton: $windowModel.forwardEnabled,
-                                addTabPressed: {
-                                    windowModel.tabs.append(Tab())
-                                },
-                                backwardPressed: {
+                AddressToolbar(
+                    identifier: NSToolbar.Identifier("MainToolbar"),
+                    addressBarView: NSHostingView(
+                        rootView: HStack {
+                            if windowModel.tab.loading {
+                                ProgressView().progressViewStyle(.circular).frame(maxWidth: .infinity)
+                            }
+                            TextField("Type URL...", text: $addressBarContent)
+                                .textFieldStyle(.roundedBorder)
+                                .onSubmit {
                                     Task {
                                         windowModel.tab.loading = true
-                                        await $windowModel.tab.back()
-                                        windowModel.tab.loading = false
-                                    }
-                                },
-                                forwardPressed: {
-                                    Task {
-                                        windowModel.tab.loading = true
-                                        await $windowModel.tab.forward()
+                                        await $windowModel.tab.changeURL(url: URL(string: addressBarContent)!)
                                         windowModel.tab.loading = false
                                     }
                                 }
-                            )
+                                .frame(idealWidth: 240)
+                        }
+                    ),
+                    enableBackwardButton: $windowModel.backwardEnabled,
+                    enableForwardButton: $windowModel.forwardEnabled,
+                    addTabPressed: {
+                        windowModel.tabs.append(Tab())
+                    },
+                    backwardPressed: {
+                        Task {
+                            windowModel.tab.loading = true
+                            await $windowModel.tab.back()
+                            windowModel.tab.loading = false
+                        }
+                    },
+                    forwardPressed: {
+                        Task {
+                            windowModel.tab.loading = true
+                            await $windowModel.tab.forward()
+                            windowModel.tab.loading = false
+                        }
+                    }
+                )
             )
         } detail: {
             BrowserView()
@@ -107,7 +106,7 @@ struct ContentView: View {
         }
         .frame(minWidth: 600)
     }
-    
+
     func matchAddressBarContent() {
         addressBarContent = windowModel.tab.url.absoluteString
     }

@@ -14,38 +14,60 @@ extension NSNotification.Name {
     static let childrenUpdated = NSNotification.Name("ChildrenUpdated")
 }
 
-protocol Content {}
+protocol Content: Identifiable, Hashable {
+    var id: UUID { get }
+}
 
-protocol TagProtocol: Equatable, Identifiable {
+typealias HTMLGetter = () -> HTMLTag
+
+protocol TagProtocol: Equatable, Identifiable, Hashable {
+    var id: UUID { get }
+    var tagName: String { get }
     var attr: [String: String] { get set }
+    var html: HTMLGetter { get }
     /**
      NOTE: This function should first check if the tag name matches with desired tag.
      */
-    static func parse(_: Element) throws -> Self
+    static func parse(_: Element, html: @escaping HTMLGetter) throws -> Self
 }
 
-extension String: Content {}
+extension TagProtocol {
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.id == rhs.id
+    }
 
-protocol HeadTagProtocol: TagProtocol {
-    var children: String? { get set }
-}
-
-extension HeadTagProtocol {
-    static func parseDefaultProps(_ elem: Element) -> ([String: String], String?) {
-        let attr = HTMLUtils.convertAttr(elem.getAttributes())
-        let children = try? elem.text()
-
-        return (attr, children)
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(tagName)
+        hasher.combine(id)
+        hasher.combine(attr)
     }
 }
 
-protocol BodyTagProtocol: Content, TagProtocol {
-    var children: [Content]? { get set }
-    @ViewBuilder func toSwiftUI() -> any View
+extension String: Content {
+    public var id: UUID {
+        UUID() // TODO: WE REALLY NEED A BETTER WAY TO GENERATE ID
+    }
+}
+
+protocol HeadTagProtocol: TagProtocol {
+    var children: String { get set }
+}
+
+extension HeadTagProtocol {
+    static func parseDefaultProps(_ elem: Element) -> ([String: String], String) {
+        let attr = HTMLUtils.convertAttr(elem.getAttributes())
+        let children = try? elem.text()
+
+        return (attr, children ?? "")
+    }
+}
+
+protocol BodyTagProtocol: Content, TagProtocol, View {
+    var children: [any Content] { get set }
 }
 
 extension BodyTagProtocol {
-    static func parseDefaultProps(_ elem: Element) -> ([String: String], [Content]?) {
+    static func parseDefaultProps(_ elem: Element) -> ([String: String], [any Content]) {
         let attr = HTMLUtils.convertAttr(elem.getAttributes())
         let children = HTMLUtils.parseBodyTags(elem)
 

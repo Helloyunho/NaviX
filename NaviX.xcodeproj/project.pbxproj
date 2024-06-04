@@ -12,7 +12,6 @@
 		553C7DED2C0ADF01002C8C0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553C7DEC2C0ADF01002C8C0B /* Assets.xcassets */; };
 		553C7DF12C0ADF01002C8C0B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553C7DF02C0ADF01002C8C0B /* Preview Assets.xcassets */; };
 		553C7DF92C0B8E0A002C8C0B /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7DF82C0B8E0A002C8C0B /* SwiftSoup */; };
-		553C7DFC2C0B8E4E002C8C0B /* SwiftCSSParser in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7DFB2C0B8E4E002C8C0B /* SwiftCSSParser */; };
 		553C7DFF2C0B9286002C8C0B /* SwiftFetch in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7DFE2C0B9286002C8C0B /* SwiftFetch */; };
 		553C7E042C0B955E002C8C0B /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E032C0B955E002C8C0B /* Tab.swift */; };
 		553C7E072C0BA05E002C8C0B /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7E062C0BA05E002C8C0B /* SwiftUIX */; };
@@ -33,6 +32,14 @@
 		553C7E322C0DEA42002C8C0B /* HTMLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E312C0DEA42002C8C0B /* HTMLUtils.swift */; };
 		553C7E342C0DEBF1002C8C0B /* BodyTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E332C0DEBF1002C8C0B /* BodyTag.swift */; };
 		553C7E372C0DEF0B002C8C0B /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E362C0DEF0B002C8C0B /* ParseError.swift */; };
+		553C7E392C0EF24E002C8C0B /* DivTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E382C0EF24E002C8C0B /* DivTag.swift */; };
+		553C7E3C2C0F1A7E002C8C0B /* CSSStylesheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E3B2C0F1A7E002C8C0B /* CSSStylesheet.swift */; };
+		553C7E3E2C0F1BE3002C8C0B /* CSSToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E3D2C0F1BE3002C8C0B /* CSSToken.swift */; };
+		553C7E402C0F1CE9002C8C0B /* CSSPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E3F2C0F1CE9002C8C0B /* CSSPosition.swift */; };
+		553C7E422C0F2598002C8C0B /* CSSError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E412C0F2598002C8C0B /* CSSError.swift */; };
+		553C7E442C0F5FD4002C8C0B /* CSSRuleSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E432C0F5FD4002C8C0B /* CSSRuleSet.swift */; };
+		553C7E462C0F6D46002C8C0B /* CSSSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E452C0F6D46002C8C0B /* CSSSelector.swift */; };
+		553C7E482C0F8837002C8C0B /* CSSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E472C0F8837002C8C0B /* CSSColors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +69,14 @@
 		553C7E312C0DEA42002C8C0B /* HTMLUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLUtils.swift; sourceTree = "<group>"; };
 		553C7E332C0DEBF1002C8C0B /* BodyTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTag.swift; sourceTree = "<group>"; };
 		553C7E362C0DEF0B002C8C0B /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
+		553C7E382C0EF24E002C8C0B /* DivTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DivTag.swift; sourceTree = "<group>"; };
+		553C7E3B2C0F1A7E002C8C0B /* CSSStylesheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSStylesheet.swift; sourceTree = "<group>"; };
+		553C7E3D2C0F1BE3002C8C0B /* CSSToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSToken.swift; sourceTree = "<group>"; };
+		553C7E3F2C0F1CE9002C8C0B /* CSSPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSPosition.swift; sourceTree = "<group>"; };
+		553C7E412C0F2598002C8C0B /* CSSError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSError.swift; sourceTree = "<group>"; };
+		553C7E432C0F5FD4002C8C0B /* CSSRuleSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSRuleSet.swift; sourceTree = "<group>"; };
+		553C7E452C0F6D46002C8C0B /* CSSSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSSelector.swift; sourceTree = "<group>"; };
+		553C7E472C0F8837002C8C0B /* CSSColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSColors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +86,6 @@
 			files = (
 				553C7DFF2C0B9286002C8C0B /* SwiftFetch in Frameworks */,
 				553C7DF92C0B8E0A002C8C0B /* SwiftSoup in Frameworks */,
-				553C7DFC2C0B8E4E002C8C0B /* SwiftCSSParser in Frameworks */,
 				553C7E072C0BA05E002C8C0B /* SwiftUIX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -100,6 +114,7 @@
 		553C7DE52C0ADEFE002C8C0B /* NaviX */ = {
 			isa = PBXGroup;
 			children = (
+				553C7E3A2C0F1A71002C8C0B /* CSS */,
 				553C7E202C0CD603002C8C0B /* HTML */,
 				553C7E1B2C0CCFA0002C8C0B /* Views */,
 				553C7E182C0CBA87002C8C0B /* Utils */,
@@ -195,6 +210,7 @@
 				553C7E2A2C0CDD05002C8C0B /* LinkTag.swift */,
 				553C7E2C2C0CDEA6002C8C0B /* ScriptTag.swift */,
 				553C7E2E2C0DE956002C8C0B /* HeadTag.swift */,
+				553C7E382C0EF24E002C8C0B /* DivTag.swift */,
 			);
 			path = Tags;
 			sourceTree = "<group>";
@@ -215,6 +231,20 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		553C7E3A2C0F1A71002C8C0B /* CSS */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E472C0F8837002C8C0B /* CSSColors.swift */,
+				553C7E3B2C0F1A7E002C8C0B /* CSSStylesheet.swift */,
+				553C7E3D2C0F1BE3002C8C0B /* CSSToken.swift */,
+				553C7E3F2C0F1CE9002C8C0B /* CSSPosition.swift */,
+				553C7E412C0F2598002C8C0B /* CSSError.swift */,
+				553C7E432C0F5FD4002C8C0B /* CSSRuleSet.swift */,
+				553C7E452C0F6D46002C8C0B /* CSSSelector.swift */,
+			);
+			path = CSS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -233,7 +263,6 @@
 			name = NaviX;
 			packageProductDependencies = (
 				553C7DF82C0B8E0A002C8C0B /* SwiftSoup */,
-				553C7DFB2C0B8E4E002C8C0B /* SwiftCSSParser */,
 				553C7DFE2C0B9286002C8C0B /* SwiftFetch */,
 				553C7E062C0BA05E002C8C0B /* SwiftUIX */,
 			);
@@ -267,7 +296,6 @@
 			mainGroup = 553C7DDA2C0ADEFE002C8C0B;
 			packageReferences = (
 				553C7DF72C0B8E0A002C8C0B /* XCRemoteSwiftPackageReference "SwiftSoup" */,
-				553C7DFA2C0B8E4E002C8C0B /* XCRemoteSwiftPackageReference "swift-css-parser" */,
 				553C7DFD2C0B9286002C8C0B /* XCRemoteSwiftPackageReference "SwiftFetch" */,
 				553C7E052C0BA05E002C8C0B /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 			);
@@ -299,20 +327,28 @@
 			files = (
 				553C7E0F2C0CA57E002C8C0B /* WindowView.swift in Sources */,
 				553C7E2B2C0CDD05002C8C0B /* LinkTag.swift in Sources */,
+				553C7E402C0F1CE9002C8C0B /* CSSPosition.swift in Sources */,
 				553C7DE92C0ADEFE002C8C0B /* ContentView.swift in Sources */,
 				553C7E0C2C0C9EA8002C8C0B /* WindowModel.swift in Sources */,
 				553C7E372C0DEF0B002C8C0B /* ParseError.swift in Sources */,
+				553C7E442C0F5FD4002C8C0B /* CSSRuleSet.swift in Sources */,
 				553C7E322C0DEA42002C8C0B /* HTMLUtils.swift in Sources */,
 				553C7E0A2C0BA425002C8C0B /* AddressBar.swift in Sources */,
 				553C7E1D2C0CD185002C8C0B /* BrowserView.swift in Sources */,
 				553C7E2F2C0DE956002C8C0B /* HeadTag.swift in Sources */,
 				553C7E292C0CDC46002C8C0B /* TitleTag.swift in Sources */,
 				553C7E042C0B955E002C8C0B /* Tab.swift in Sources */,
+				553C7E422C0F2598002C8C0B /* CSSError.swift in Sources */,
 				553C7E142C0CB38B002C8C0B /* AddressError.swift in Sources */,
 				553C7E172C0CB9D4002C8C0B /* DNSPayload.swift in Sources */,
 				553C7E1A2C0CBAA8002C8C0B /* Request.swift in Sources */,
+				553C7E482C0F8837002C8C0B /* CSSColors.swift in Sources */,
+				553C7E3C2C0F1A7E002C8C0B /* CSSStylesheet.swift in Sources */,
+				553C7E392C0EF24E002C8C0B /* DivTag.swift in Sources */,
+				553C7E462C0F6D46002C8C0B /* CSSSelector.swift in Sources */,
 				553C7E342C0DEBF1002C8C0B /* BodyTag.swift in Sources */,
 				553C7E2D2C0CDEA6002C8C0B /* ScriptTag.swift in Sources */,
+				553C7E3E2C0F1BE3002C8C0B /* CSSToken.swift in Sources */,
 				553C7E1F2C0CD5C3002C8C0B /* HTMLTag.swift in Sources */,
 				553C7E122C0CB208002C8C0B /* UserError.swift in Sources */,
 				553C7E272C0CDC37002C8C0B /* TagProtocol.swift in Sources */,
@@ -545,14 +581,6 @@
 				minimumVersion = 2.7.2;
 			};
 		};
-		553C7DFA2C0B8E4E002C8C0B /* XCRemoteSwiftPackageReference "swift-css-parser" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stackotter/swift-css-parser";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		553C7DFD2C0B9286002C8C0B /* XCRemoteSwiftPackageReference "SwiftFetch" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftSimpers/SwiftFetch";
@@ -576,11 +604,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 553C7DF72C0B8E0A002C8C0B /* XCRemoteSwiftPackageReference "SwiftSoup" */;
 			productName = SwiftSoup;
-		};
-		553C7DFB2C0B8E4E002C8C0B /* SwiftCSSParser */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 553C7DFA2C0B8E4E002C8C0B /* XCRemoteSwiftPackageReference "swift-css-parser" */;
-			productName = SwiftCSSParser;
 		};
 		553C7DFE2C0B9286002C8C0B /* SwiftFetch */ = {
 			isa = XCSwiftPackageProductDependency;

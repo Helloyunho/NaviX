@@ -6,24 +6,23 @@
 //
 
 import Foundation
-import SwiftUI
 import SwiftFetch
+import SwiftUI
 
 @MainActor
 extension Binding where Value == Tab {
-
     func back() async {
         await wrappedValue.back()
     }
-    
+
     func forward() async {
         await wrappedValue.forward()
     }
-    
+
     func changeURL(url: URL) async {
         await wrappedValue.changeURL(url: url)
     }
-    
+
     func load() async {
         await wrappedValue.load()
     }
@@ -36,6 +35,7 @@ struct Tab: Equatable {
     var url: URL {
         history[historyIndex]
     }
+
     var title = ""
     var body = ""
     var loading = false
@@ -64,7 +64,7 @@ struct Tab: Equatable {
         historyIndex += 1
         await load()
     }
-    
+
     mutating func load() async {
         do {
             let resp = try await Request.fetch(url)

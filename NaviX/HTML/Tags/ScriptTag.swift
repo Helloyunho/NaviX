@@ -9,7 +9,9 @@ import Foundation
 import SwiftSoup
 
 struct ScriptTag: HeadTagProtocol {
-    var id = UUID()
+    let html: HTMLGetter
+    let tagName = "script"
+    let id = UUID()
 
     var attr: [String: String] = [:] {
         didSet {
@@ -26,16 +28,16 @@ struct ScriptTag: HeadTagProtocol {
         }
     }
 
-    var children: String? = nil {
+    var children: String = "" {
         didSet {
             NotificationCenter.default.post(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
 
-    static func parse(_ script: Element) throws -> ScriptTag {
+    static func parse(_ script: Element, html: @escaping HTMLGetter) throws -> ScriptTag {
         try HTMLUtils.checkTag(script, assert: "script")
         let (attr, children) = Self.parseDefaultProps(script)
 
-        return ScriptTag(attr: attr, children: children)
+        return ScriptTag(html: html, attr: attr, children: children)
     }
 }

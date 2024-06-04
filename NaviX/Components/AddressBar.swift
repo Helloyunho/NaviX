@@ -88,29 +88,26 @@ class AddressToolbar: NSToolbar, NSToolbarDelegate, NSToolbarItemValidation {
     }
     
     @objc func addTabAction(_ sender: Any) {
-        self.addTabPressed()
+        addTabPressed()
     }
     
     @objc func backwardAction(_ sender: Any) {
-        self.backwardPressed()
+        backwardPressed()
     }
     
     @objc func forwardAction(_ sender: Any) {
-        self.forwardPressed()
+        forwardPressed()
     }
 }
 
 struct ToolbarHooker: NSViewControllerRepresentable {
-    
     let toolbar: NSToolbar
     
     func makeNSViewController(context: Context) -> DummyViewController {
         return DummyViewController(toolbar: toolbar)
     }
     
-    func updateNSViewController(_ nsViewController: DummyViewController, context: Context) {
-        
-    }
+    func updateNSViewController(_ nsViewController: DummyViewController, context: Context) {}
     
     typealias NSViewControllerType = DummyViewController
     
@@ -122,13 +119,14 @@ struct ToolbarHooker: NSViewControllerRepresentable {
             self.toolbar = toolbar
         }
         
+        @available(*, unavailable)
         required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
         
         override func viewDidAppear() {
-            if let window = self.view.window {
-                window.toolbar = self.toolbar
+            if let window = view.window {
+                window.toolbar = toolbar
                 window.titleVisibility = .hidden
                 window.toolbarStyle = .unified
             }

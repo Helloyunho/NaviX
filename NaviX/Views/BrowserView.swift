@@ -5,8 +5,8 @@
 //  Created by Helloyunho on 6/3/24.
 //
 
-import SwiftUI
 import SwiftSoup
+import SwiftUI
 
 struct BrowserView: View {
     @EnvironmentObject var windowModel: WindowModel
@@ -49,11 +49,11 @@ struct BrowserView: View {
             windowModel.tab.error = error
         }
     }
-    
+
     func processTitleTag(_ tag: TitleTag) {
-        windowModel.tab.title = tag.children ?? ""
+        windowModel.tab.title = tag.children
     }
-    
+
     func processInitialHead() {
         if let headChildren = tree?.head.children {
             for tag in headChildren {

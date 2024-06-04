@@ -9,11 +9,9 @@ import Foundation
 import SwiftSoup
 
 struct HeadTag: TagProtocol {
-    var id = UUID()
-
-    static func == (lhs: HeadTag, rhs: HeadTag) -> Bool {
-        lhs.id == rhs.id
-    }
+    let html: HTMLGetter
+    let tagName = "head"
+    let id = UUID()
 
     var attr: [String: String] = [:] {
         didSet {
@@ -27,11 +25,11 @@ struct HeadTag: TagProtocol {
         }
     }
 
-    static func parse(_ head: Element) throws -> HeadTag {
+    static func parse(_ head: Element, html: @escaping HTMLGetter) throws -> HeadTag {
         try HTMLUtils.checkTag(head, assert: "head")
         let attr = HTMLUtils.convertAttr(head.getAttributes())
         let children = HTMLUtils.parseHeadTags(head)
 
-        return HeadTag(attr: attr, children: children)
+        return HeadTag(html: html, attr: attr, children: children)
     }
 }

@@ -1,0 +1,63 @@
+//
+//  CSSSelector.swift
+//  NaviX
+//
+//  Created by Helloyunho on 6/5/24.
+//
+
+import Foundation
+
+struct CSSSelector: Hashable {
+    var tag = ""
+    var `class` = ""
+    var children = [CSSSelector]()
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(tag)
+        hasher.combine(self.class)
+        hasher.combine(children)
+    }
+    
+    func check(for tag: any TagProtocol, html: HTMLTag? = nil) -> Bool {
+        // for now html is not required
+        tag.tagName == self.tag.lowercased() || tag.attr["class"]?.split(separator: " ").contains(where: { String($0) == self.class }) ?? false
+    }
+    
+    private static func parseSingular(tokens: [CSSToken], idx: inout Int) throws -> CSSSelector {
+        var result = CSSSelector()
+        var token: CSSToken {
+            tokens[idx]
+        }
+        try CSSStylesheet.checkToken(token, type: .identifier)
+        result.tag = token.value
+        result.class = token.value // for now
+        idx += 1
+        
+        return result
+    }
+    
+    static func parse(tokens: [CSSToken]) throws -> CSSSelector {
+        var idx = 0
+        return try Self.parse(tokens: tokens, idx: &idx)
+    }
+    
+    static func parse(tokens: [CSSToken], idx: inout Int) throws -> CSSSelector {
+        var result = CSSSelector()
+        var token: CSSToken {
+            tokens[idx]
+        }
+        
+        let oneSelector = try parseSingular(tokens: tokens, idx: &idx)
+        if token.type == .comma {
+            result.children.append(oneSelector)
+            while token.type == .comma {
+                idx += 1
+                try result.children.append(parseSingular(tokens: tokens, idx: &idx))
+            }
+        } else {
+            result = oneSelector
+        }
+        
+        return result
+    }
+}
