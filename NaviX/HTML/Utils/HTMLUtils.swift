@@ -25,17 +25,17 @@ class HTMLUtils {
         guard elem.tagName().lowercased() == expected else { throw ParseError.invalidTag }
     }
     
-    static func parseHeadTags(_ elem: Element) -> [any HeadTagProtocol] {
+    static func parseHeadTags(_ elem: Element, html: @escaping HTMLGetter) -> [any HeadTagProtocol] {
         var children = [any HeadTagProtocol]()
         for child in elem.children() {
             do {
                 switch child.tagName().lowercased() {
                 case "title":
-                    try children.append(TitleTag.parse(child))
+                    try children.append(TitleTag.parse(child, html: html))
                 case "script":
-                    try children.append(ScriptTag.parse(child))
+                    try children.append(ScriptTag.parse(child, html: html))
                 case "link":
-                    try children.append(LinkTag.parse(child))
+                    try children.append(LinkTag.parse(child, html: html))
                 default:
                     break
                 }
@@ -47,7 +47,7 @@ class HTMLUtils {
         return children
     }
     
-    static func parseBodyTags(_ elem: Element) -> [any Content] {
+    static func parseBodyTags(_ elem: Element, html: @escaping HTMLGetter) -> [any Content] {
         var children = [any Content]()
         for child in elem.childNodesCopy() {
             if let str = child as? TextNode {

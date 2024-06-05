@@ -41,7 +41,7 @@ struct DivTag: BodyTagProtocol {
 
     static func parse(_ div: Element, html: @escaping HTMLGetter) throws -> DivTag {
         try HTMLUtils.checkTag(div, assert: "div")
-        let (attr, children) = Self.parseDefaultProps(div)
+        let (attr, children) = Self.parseDefaultProps(div, html: html)
 
         return DivTag(html: html, attr: attr, children: children)
     }

@@ -32,7 +32,7 @@ struct CSSStylesheet {
     }
 
     static func checkToken(_ token: CSSToken, type: CSSTokenType) throws {
-        guard token.type == type else { throw CSSError.unexpectedToken(token.start, type) }
+        guard token.type == type else { throw CSSError.unexpectedToken(token.start, type, token.type) }
     }
 
     static func parse(_ css: String) throws -> CSSStylesheet {
@@ -45,8 +45,10 @@ struct CSSStylesheet {
         while idx < tokens.count {
             let selector = try CSSSelector.parse(tokens: tokens, idx: &idx)
             try checkToken(token, type: .lbracket)
+            idx += 1
             let ruleset = try CSSRuleSet.parse(tokens: tokens, idx: &idx)
             try checkToken(token, type: .rbracket)
+            idx += 1
             rulesets[selector] = ruleset
         }
 

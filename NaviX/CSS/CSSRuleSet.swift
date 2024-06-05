@@ -10,43 +10,43 @@ import SwiftUI
 
 struct CSSRuleSet {
     var properties = [String: [String]]()
-    
+
     var color: Color? {
         if let color = properties["color"] {
             return cssColorToSwiftUI(color.first!)
         }
         return nil
     }
-    
+
     var width: Int? {
         if let width = properties["width"] {
             return cssUnitToInt(width.first!)
         }
         return nil
     }
-    
+
     var height: Int? {
         if let height = properties["height"] {
             return cssUnitToInt(height.first!)
         }
         return nil
     }
-    
-    internal func cssUnitToInt(_ unit: String) -> Int? {
+
+    func cssUnitToInt(_ unit: String) -> Int? {
         if unit.hasSuffix("px") || unit.hasSuffix("pt") {
             return Int(unit.prefix(upTo: unit.index(unit.endIndex, offsetBy: -2)))
         }
         return Int(unit)
     }
-    
-    internal enum Side: String {
+
+    enum Side: String {
         case top
         case right
         case bottom
         case left
     }
-    
-    internal func oneSideUnitToString(_ prefix: String, side: Side, suffix: String? = nil) -> String? {
+
+    func oneSideUnitToString(_ prefix: String, side: Side, suffix: String? = nil) -> String? {
         if let oneUnit = properties["\(prefix)-\(side.rawValue)\(suffix != nil ? "-suffix" : "")"] {
             return oneUnit.first!
         } else if let fourUnitsProp = properties["\(prefix)\(suffix != nil ? "-suffix" : "")"], let fourUnits = cssSideUnitsToString(fourUnitsProp) {
@@ -63,11 +63,11 @@ struct CSSRuleSet {
         }
         return nil
     }
-    
+
     /**
      - Returns: (top, right, bottom, left)
      */
-    internal func cssSideUnitsToString(_ units: [String]) -> (String, String, String, String)? {
+    func cssSideUnitsToString(_ units: [String]) -> (String, String, String, String)? {
         if units.count == 1 {
             let value = units.first!
             return (value, value, value, value)
@@ -89,8 +89,8 @@ struct CSSRuleSet {
         }
         return nil
     }
-    
-    internal func oneSideUnitToInt(_ prefix: String, side: Side, suffix: String? = nil) -> Int? {
+
+    func oneSideUnitToInt(_ prefix: String, side: Side, suffix: String? = nil) -> Int? {
         if let oneUnit = properties["\(prefix)-\(side.rawValue)\(suffix != nil ? "-suffix" : "")"] {
             return cssUnitToInt(oneUnit.first!)
         } else if let fourUnitsProp = properties["\(prefix)\(suffix != nil ? "-suffix" : "")"], let fourUnits = cssSideUnitsToInt(fourUnitsProp) {
@@ -107,11 +107,11 @@ struct CSSRuleSet {
         }
         return nil
     }
-    
+
     /**
      - Returns: (top, right, bottom, left)
      */
-    internal func cssSideUnitsToInt(_ units: [String]) -> (Int, Int, Int, Int)? {
+    func cssSideUnitsToInt(_ units: [String]) -> (Int, Int, Int, Int)? {
         if units.count == 1 {
             let value = cssUnitToInt(units.first!)
             if let value {
@@ -142,7 +142,7 @@ struct CSSRuleSet {
         return nil
     }
 
-    internal func cssColorToSwiftUI(_ color: String) -> Color {
+    func cssColorToSwiftUI(_ color: String) -> Color {
         if color.starts(with: "#") {
             var hex = color
             hex.removeFirst()
@@ -191,13 +191,13 @@ struct CSSRuleSet {
         var token: CSSToken {
             tokens[idx]
         }
-        while idx < tokens.count || token.type != .rbracket {
+        while idx < tokens.count && token.type != .rbracket {
             try CSSStylesheet.checkToken(token, type: .identifier)
             key = token.value
             idx += 1
-            try CSSStylesheet.checkToken(token, type: .comma)
+            try CSSStylesheet.checkToken(token, type: .colon)
             idx += 1
-            while idx < tokens.count || token.type != .semi {
+            while idx < tokens.count && token.type != .semi {
                 if token.type == .comma {
                     idx += 1
                 }

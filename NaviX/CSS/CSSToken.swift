@@ -42,6 +42,12 @@ struct CSSToken {
     }
     
     static func tokenize(_ css: String) throws -> [CSSToken] {
+        let css = css.replacingOccurrences(of: "\r\n", with: "\n")
+        tokenState = CSSTokenState()
+        value = ""
+        position = CSSPosition(line: 1, col: 1)
+        tokens = []
+        idx = 0
         while idx < css.count {
             let char = css[idx]
             if tokenState.type == .commentMultiline {
@@ -62,6 +68,8 @@ struct CSSToken {
             } else if tokenState.type == .comment {
                 if char == "\n" {
                     tokens.append(tokenState.end(endPos: position)!)
+                    position.line += 1
+                    position.col = 1
                 } else {
                     tokenState.value += char
                 }

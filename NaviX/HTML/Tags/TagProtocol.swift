@@ -67,9 +67,9 @@ protocol BodyTagProtocol: Content, TagProtocol, View {
 }
 
 extension BodyTagProtocol {
-    static func parseDefaultProps(_ elem: Element) -> ([String: String], [any Content]) {
+    static func parseDefaultProps(_ elem: Element, html: @escaping HTMLGetter) -> ([String: String], [any Content]) {
         let attr = HTMLUtils.convertAttr(elem.getAttributes())
-        let children = HTMLUtils.parseBodyTags(elem)
+        let children = HTMLUtils.parseBodyTags(elem, html: html)
 
         return (attr, children)
     }

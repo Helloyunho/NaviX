@@ -8,6 +8,11 @@
 import Foundation
 import SwiftFetch
 import SwiftUI
+import SwiftSoup
+
+extension NSNotification.Name {
+    static let bodyChanged = NSNotification.Name("BodyChanged")
+}
 
 @MainActor
 extension Binding where Value == Tab {
@@ -38,6 +43,7 @@ struct Tab: Equatable {
 
     var title = ""
     var body = ""
+    var tree: HTMLTag? = nil
     var loading = false
     var error: Error? = nil
     var favicon: Image? = nil
@@ -68,8 +74,16 @@ struct Tab: Equatable {
     mutating func load() async {
         do {
             let resp = try await Request.fetch(url)
+            title = ""
+            favicon = nil
             body = try await resp.text()!
             error = nil
+            if let htmlTree = try? SwiftSoup.parse(body) {
+                let tree = try HTMLTag.parse(htmlTree)
+                self.tree = tree
+            } else {
+                tree = nil
+            }
         } catch {
             self.error = error
         }

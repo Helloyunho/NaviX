@@ -56,7 +56,7 @@ struct BodyTag: TagProtocol, View {
     static func parse(_ body: Element, html: @escaping HTMLGetter) throws -> BodyTag {
         try HTMLUtils.checkTag(body, assert: "body")
         let attr = HTMLUtils.convertAttr(body.getAttributes())
-        let children = HTMLUtils.parseBodyTags(body)
+        let children = HTMLUtils.parseBodyTags(body, html: html)
         return BodyTag(html: html, attr: attr, children: children)
     }
 }

@@ -24,7 +24,7 @@ struct ContentView: View {
                         Text(tab.title)
                     }, icon: {
                         if let favicon = tab.favicon {
-                            favicon.resizable()
+                            favicon.resizable().aspectRatio(1, contentMode: .fit)
                         } else {
                             Image(systemName: "note")
                         }

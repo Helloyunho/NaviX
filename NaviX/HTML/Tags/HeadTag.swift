@@ -28,7 +28,7 @@ struct HeadTag: TagProtocol {
     static func parse(_ head: Element, html: @escaping HTMLGetter) throws -> HeadTag {
         try HTMLUtils.checkTag(head, assert: "head")
         let attr = HTMLUtils.convertAttr(head.getAttributes())
-        let children = HTMLUtils.parseHeadTags(head)
+        let children = HTMLUtils.parseHeadTags(head, html: html)
 
         return HeadTag(html: html, attr: attr, children: children)
     }

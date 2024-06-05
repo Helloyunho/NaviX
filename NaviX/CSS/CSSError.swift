@@ -9,6 +9,6 @@ import Foundation
 
 enum CSSError: Error {
     case unexpectedEOF
-    case unexpectedToken(CSSPosition, CSSTokenType)
+    case unexpectedToken(CSSPosition, CSSTokenType, CSSTokenType)
     case tokenEndWithoutStart
 }
