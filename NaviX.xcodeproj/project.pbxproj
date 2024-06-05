@@ -40,6 +40,11 @@
 		553C7E442C0F5FD4002C8C0B /* CSSRuleSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E432C0F5FD4002C8C0B /* CSSRuleSet.swift */; };
 		553C7E462C0F6D46002C8C0B /* CSSSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E452C0F6D46002C8C0B /* CSSSelector.swift */; };
 		553C7E482C0F8837002C8C0B /* CSSColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E472C0F8837002C8C0B /* CSSColors.swift */; };
+		553C7E4B2C104078002C8C0B /* CSSRuleSet+Border.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E4A2C104078002C8C0B /* CSSRuleSet+Border.swift */; };
+		553C7E4D2C1040EA002C8C0B /* CSSRuleSet+Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E4C2C1040EA002C8C0B /* CSSRuleSet+Padding.swift */; };
+		553C7E4F2C104CC1002C8C0B /* CSSRuleSet+Flex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E4E2C104CC1002C8C0B /* CSSRuleSet+Flex.swift */; };
+		553C7E512C1056A2002C8C0B /* CSSRuleSet+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E502C1056A2002C8C0B /* CSSRuleSet+Font.swift */; };
+		553C7E532C105DE6002C8C0B /* CSSRuleSet+Margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E522C105DE6002C8C0B /* CSSRuleSet+Margin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +82,11 @@
 		553C7E432C0F5FD4002C8C0B /* CSSRuleSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSRuleSet.swift; sourceTree = "<group>"; };
 		553C7E452C0F6D46002C8C0B /* CSSSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSSelector.swift; sourceTree = "<group>"; };
 		553C7E472C0F8837002C8C0B /* CSSColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSColors.swift; sourceTree = "<group>"; };
+		553C7E4A2C104078002C8C0B /* CSSRuleSet+Border.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Border.swift"; sourceTree = "<group>"; };
+		553C7E4C2C1040EA002C8C0B /* CSSRuleSet+Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Padding.swift"; sourceTree = "<group>"; };
+		553C7E4E2C104CC1002C8C0B /* CSSRuleSet+Flex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Flex.swift"; sourceTree = "<group>"; };
+		553C7E502C1056A2002C8C0B /* CSSRuleSet+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Font.swift"; sourceTree = "<group>"; };
+		553C7E522C105DE6002C8C0B /* CSSRuleSet+Margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Margin.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +244,7 @@
 		553C7E3A2C0F1A71002C8C0B /* CSS */ = {
 			isa = PBXGroup;
 			children = (
+				553C7E492C104064002C8C0B /* Extensions */,
 				553C7E472C0F8837002C8C0B /* CSSColors.swift */,
 				553C7E3B2C0F1A7E002C8C0B /* CSSStylesheet.swift */,
 				553C7E3D2C0F1BE3002C8C0B /* CSSToken.swift */,
@@ -243,6 +254,18 @@
 				553C7E452C0F6D46002C8C0B /* CSSSelector.swift */,
 			);
 			path = CSS;
+			sourceTree = "<group>";
+		};
+		553C7E492C104064002C8C0B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E4A2C104078002C8C0B /* CSSRuleSet+Border.swift */,
+				553C7E4C2C1040EA002C8C0B /* CSSRuleSet+Padding.swift */,
+				553C7E4E2C104CC1002C8C0B /* CSSRuleSet+Flex.swift */,
+				553C7E502C1056A2002C8C0B /* CSSRuleSet+Font.swift */,
+				553C7E522C105DE6002C8C0B /* CSSRuleSet+Margin.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,8 +358,10 @@
 				553C7E322C0DEA42002C8C0B /* HTMLUtils.swift in Sources */,
 				553C7E0A2C0BA425002C8C0B /* AddressBar.swift in Sources */,
 				553C7E1D2C0CD185002C8C0B /* BrowserView.swift in Sources */,
+				553C7E532C105DE6002C8C0B /* CSSRuleSet+Margin.swift in Sources */,
 				553C7E2F2C0DE956002C8C0B /* HeadTag.swift in Sources */,
 				553C7E292C0CDC46002C8C0B /* TitleTag.swift in Sources */,
+				553C7E4B2C104078002C8C0B /* CSSRuleSet+Border.swift in Sources */,
 				553C7E042C0B955E002C8C0B /* Tab.swift in Sources */,
 				553C7E422C0F2598002C8C0B /* CSSError.swift in Sources */,
 				553C7E142C0CB38B002C8C0B /* AddressError.swift in Sources */,
@@ -350,9 +375,12 @@
 				553C7E2D2C0CDEA6002C8C0B /* ScriptTag.swift in Sources */,
 				553C7E3E2C0F1BE3002C8C0B /* CSSToken.swift in Sources */,
 				553C7E1F2C0CD5C3002C8C0B /* HTMLTag.swift in Sources */,
+				553C7E4D2C1040EA002C8C0B /* CSSRuleSet+Padding.swift in Sources */,
+				553C7E4F2C104CC1002C8C0B /* CSSRuleSet+Flex.swift in Sources */,
 				553C7E122C0CB208002C8C0B /* UserError.swift in Sources */,
 				553C7E272C0CDC37002C8C0B /* TagProtocol.swift in Sources */,
 				553C7DE72C0ADEFE002C8C0B /* NaviXApp.swift in Sources */,
+				553C7E512C1056A2002C8C0B /* CSSRuleSet+Font.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
