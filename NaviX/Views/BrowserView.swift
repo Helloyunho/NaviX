@@ -38,6 +38,7 @@ struct BrowserView: View {
                 }
             }
         })
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     func processLinkTag(_ tag: LinkTag) {

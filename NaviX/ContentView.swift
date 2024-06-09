@@ -11,10 +11,12 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject private var windowModel: WindowModel
     @State var addressBarContent = ""
+    @Environment(\.dismissWindow) var dismissWindow
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationSplitView {
-            List(windowModel.tabs.indices, id: \.self, selection: $windowModel.currentTabIndex) { idx in
+            List($windowModel.tabs.indices, id: \.self, selection: $windowModel.currentTabIndex.toOptional()) { idx in
                 let tab = windowModel.tabs[idx]
                 HStack {
                     if tab.loading {
@@ -30,20 +32,34 @@ struct ContentView: View {
                         }
                     })
                 }
+                .contextMenu {
+                    Button {
+                        if windowModel.tabs.count == 1 {
+                            dismissWindow()
+                        } else if windowModel.currentTabIndex == idx, idx == windowModel.tabs.count - 1 {
+                            windowModel.currentTabIndex -= 1
+                            windowModel.tabs.removeLast()
+                        } else {
+                            windowModel.tabs.remove(at: idx)
+                        }
+                    } label: {
+                        Label("Close", systemImage: "xmark.circle")
+                    }
+                    .keyboardShortcut("w", modifiers: .command)
+                }
+                .id(tab.id)
             }
+#if os(iOS)
+            .toolbar {
+                Button(action: addTabPressed) {
+                    Label("Add Tab", systemImage: "plus")
+                }
+            }
+#endif
 #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
 #endif
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-//                ToolbarItem(placement: .principal) {
-//                    TextField("Type URL...", text: $addressBarContent).textFieldStyle(.roundedBorder).frame(idealWidth: 240)
-//                }
-            }
+#if os(macOS)
             ToolbarHooker(toolbar:
                 AddressToolbar(
                     identifier: NSToolbar.Identifier("MainToolbar"),
@@ -55,38 +71,27 @@ struct ContentView: View {
                             TextField("Type URL...", text: $addressBarContent)
                                 .textFieldStyle(.roundedBorder)
                                 .onSubmit {
-                                    Task {
-                                        windowModel.tab.loading = true
-                                        await $windowModel.tab.changeURL(url: URL(string: addressBarContent)!)
-                                        windowModel.tab.loading = false
-                                    }
+                                    onSubmitURL()
                                 }
                                 .frame(idealWidth: 240)
                         }
                     ),
                     enableBackwardButton: $windowModel.backwardEnabled,
                     enableForwardButton: $windowModel.forwardEnabled,
-                    addTabPressed: {
-                        windowModel.tabs.append(Tab())
-                    },
-                    backwardPressed: {
-                        Task {
-                            windowModel.tab.loading = true
-                            await $windowModel.tab.back()
-                            windowModel.tab.loading = false
-                        }
-                    },
-                    forwardPressed: {
-                        Task {
-                            windowModel.tab.loading = true
-                            await $windowModel.tab.forward()
-                            windowModel.tab.loading = false
-                        }
-                    }
+                    addTabPressed: addTabPressed,
+                    backwardPressed: backwardPressed,
+                    forwardPressed: forwardPressed
                 )
             )
+#endif
         } detail: {
+#if os(macOS)
             BrowserView()
+#endif
+#if os(iOS)
+            ToolbarHooker(container: SearchBarContainer(enableBackwardButton: $windowModel.backwardEnabled, enableForwardButton: $windowModel.forwardEnabled, textBinding: $addressBarContent, onSubmit: onSubmitURL, backwardPressed: backwardPressed, forwardPressed: forwardPressed), swiftUIView: BrowserView())
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+#endif
         }
         .onChange(of: windowModel.currentTabIndex) {
             matchAddressBarContent()
@@ -100,15 +105,63 @@ struct ContentView: View {
         }
         .onAppear {
             matchAddressBarContent()
+            windowModel.tab.loading = true
             Task {
                 await $windowModel.tab.load()
+                await MainActor.run {
+                    windowModel.tab.loading = false
+                }
             }
         }
+#if os(macOS)
         .frame(minWidth: 600)
+#endif
     }
 
     func matchAddressBarContent() {
         addressBarContent = windowModel.tab.url.absoluteString
+    }
+
+    func forwardPressed() {
+        windowModel.tab.loading = true
+        Task {
+            await $windowModel.tab.forward()
+            await MainActor.run {
+                windowModel.tab.loading = false
+            }
+        }
+    }
+
+    func backwardPressed() {
+        windowModel.tab.loading = true
+        Task {
+            await $windowModel.tab.back()
+            await MainActor.run {
+                windowModel.tab.loading = false
+            }
+        }
+    }
+
+    func addTabPressed() {
+        windowModel.tabs.append(Tab())
+        windowModel.currentTabIndex = windowModel.tabs.count - 1
+        windowModel.tab.loading = true
+        Task {
+            await $windowModel.tab.load()
+            await MainActor.run {
+                windowModel.tab.loading = false
+            }
+        }
+    }
+
+    func onSubmitURL() {
+        windowModel.tab.loading = true
+        Task {
+            await $windowModel.tab.changeURL(url: URL(string: addressBarContent)!)
+            await MainActor.run {
+                windowModel.tab.loading = false
+            }
+        }
     }
 }
 

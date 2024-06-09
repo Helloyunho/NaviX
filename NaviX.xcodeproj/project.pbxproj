@@ -45,6 +45,7 @@
 		553C7E4F2C104CC1002C8C0B /* CSSRuleSet+Flex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E4E2C104CC1002C8C0B /* CSSRuleSet+Flex.swift */; };
 		553C7E512C1056A2002C8C0B /* CSSRuleSet+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E502C1056A2002C8C0B /* CSSRuleSet+Font.swift */; };
 		553C7E532C105DE6002C8C0B /* CSSRuleSet+Margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E522C105DE6002C8C0B /* CSSRuleSet+Margin.swift */; };
+		553C7E562C1197F9002C8C0B /* Binding+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E552C1197F9002C8C0B /* Binding+Optional.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		553C7E4E2C104CC1002C8C0B /* CSSRuleSet+Flex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Flex.swift"; sourceTree = "<group>"; };
 		553C7E502C1056A2002C8C0B /* CSSRuleSet+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Font.swift"; sourceTree = "<group>"; };
 		553C7E522C105DE6002C8C0B /* CSSRuleSet+Margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Margin.swift"; sourceTree = "<group>"; };
+		553C7E552C1197F9002C8C0B /* Binding+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Optional.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 		553C7DE52C0ADEFE002C8C0B /* NaviX */ = {
 			isa = PBXGroup;
 			children = (
+				553C7E542C1197EC002C8C0B /* Extensions */,
 				553C7E3A2C0F1A71002C8C0B /* CSS */,
 				553C7E202C0CD603002C8C0B /* HTML */,
 				553C7E1B2C0CCFA0002C8C0B /* Views */,
@@ -268,6 +271,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		553C7E542C1197EC002C8C0B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E552C1197F9002C8C0B /* Binding+Optional.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -353,6 +364,7 @@
 				553C7E402C0F1CE9002C8C0B /* CSSPosition.swift in Sources */,
 				553C7DE92C0ADEFE002C8C0B /* ContentView.swift in Sources */,
 				553C7E0C2C0C9EA8002C8C0B /* WindowModel.swift in Sources */,
+				553C7E562C1197F9002C8C0B /* Binding+Optional.swift in Sources */,
 				553C7E372C0DEF0B002C8C0B /* ParseError.swift in Sources */,
 				553C7E442C0F5FD4002C8C0B /* CSSRuleSet.swift in Sources */,
 				553C7E322C0DEA42002C8C0B /* HTMLUtils.swift in Sources */,

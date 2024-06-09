@@ -109,8 +109,6 @@ struct ToolbarHooker: NSViewControllerRepresentable {
     
     func updateNSViewController(_ nsViewController: DummyViewController, context: Context) {}
     
-    typealias NSViewControllerType = DummyViewController
-    
     class DummyViewController: NSViewController {
         var toolbar: NSToolbar!
         
@@ -130,6 +128,132 @@ struct ToolbarHooker: NSViewControllerRepresentable {
                 window.titleVisibility = .hidden
                 window.toolbarStyle = .unified
             }
+        }
+    }
+}
+#endif
+#if os(iOS)
+import UIKit
+
+class SearchBarContainer {
+    var enableBackwardButton: Binding<Bool>!
+    var enableForwardButton: Binding<Bool>!
+    var textBinding: Binding<String>!
+    
+    var onSubmit: (() -> Void)!
+    var backwardPressed: (() -> Void)!
+    var forwardPressed: (() -> Void)!
+    
+    init(enableBackwardButton: Binding<Bool>, enableForwardButton: Binding<Bool>, textBinding: Binding<String>, onSubmit: @escaping () -> Void, backwardPressed: @escaping () -> Void, forwardPressed: @escaping () -> Void) {
+        self.enableForwardButton = enableForwardButton
+        self.enableBackwardButton = enableBackwardButton
+        self.textBinding = textBinding
+        self.onSubmit = onSubmit
+        self.backwardPressed = backwardPressed
+        self.forwardPressed = forwardPressed
+    }
+    
+    @objc func backwardAction(_ sender: Any) {
+        backwardPressed()
+    }
+    
+    @objc func forwardAction(_ sender: Any) {
+        forwardPressed()
+    }
+}
+
+struct ToolbarHooker<V: View>: UIViewControllerRepresentable {
+    let container: SearchBarContainer
+    let swiftUIView: V
+    
+    func makeUIViewController(context: Context) -> DummyViewController<V> {
+        return DummyViewController(rootView: swiftUIView, container: container)
+    }
+    
+    func updateUIViewController(_ uiViewController: DummyViewController<V>, context: Context) {}
+    
+    class DummyViewController<V_: View>: UIHostingController<V_>, UISearchBarDelegate {
+        var container: SearchBarContainer!
+        var searchController: UISearchController!
+        var backwardButton: UIBarButtonItem!
+        var forwardButton: UIBarButtonItem!
+
+        init(rootView: V_, container: SearchBarContainer) {
+            super.init(rootView: rootView)
+            self.container = container
+        }
+
+        @available(*, unavailable)
+        required init?(coder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            if let navigationController {
+                let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+                backwardButton = UIBarButtonItem(title: "Back", image: UIImage(systemName: "chevron.left"), target: container, action: #selector(container.backwardAction(_:)))
+                forwardButton = UIBarButtonItem(title: "Forward", image: UIImage(systemName: "chevron.right"), target: container, action: #selector(container.forwardAction(_:)))
+                toolbarItems = [
+                    backwardButton,
+                    forwardButton,
+                    flexibleSpace,
+                    UIBarButtonItem(title: "Tabs", image: UIImage(systemName: "square.grid.2x2"), target: self, action: #selector(goBackToTabListPressed))
+                ]
+                navigationController.isToolbarHidden = false
+                let bar = navigationController.navigationBar
+                searchController = UISearchController(searchResultsController: nil)
+                searchController.searchBar.placeholder = "Type URL"
+                searchController.searchBar.delegate = self
+                searchController.searchBar.text = container.textBinding.wrappedValue
+                searchController.searchBar.autocorrectionType = .no
+                searchController.searchBar.autocapitalizationType = .none
+                searchController.hidesNavigationBarDuringPresentation = false
+                searchController.searchBar.translatesAutoresizingMaskIntoConstraints = false
+
+                bar.topItem?.titleView = UIView(frame: CGRect(x: 0, y: 0, width: bar.frame.width, height: 44))
+                bar.topItem?.titleView?.addSubview(searchController.searchBar)
+
+                NSLayoutConstraint.activate([
+                    searchController.searchBar.leadingAnchor.constraint(equalTo: bar.topItem!.titleView!.leadingAnchor),
+                    searchController.searchBar.trailingAnchor.constraint(equalTo: bar.topItem!.titleView!.trailingAnchor),
+                    searchController.searchBar.topAnchor.constraint(equalTo: bar.topItem!.titleView!.topAnchor),
+                    searchController.searchBar.bottomAnchor.constraint(equalTo: bar.topItem!.titleView!.bottomAnchor)
+                ])
+                
+                bar.topItem?.largeTitleDisplayMode = .never
+                bar.topItem?.hidesBackButton = true
+                bar.topItem?.hidesSearchBarWhenScrolling = false
+            }
+        }
+        
+        @objc func goBackToTabListPressed() {
+            if let navigationController {
+                navigationController.popViewController(animated: true)
+            }
+        }
+        
+        func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonClicked))
+        }
+        
+        @objc func cancelButtonClicked() {
+            searchController.isActive = false
+            navigationItem.rightBarButtonItem = nil
+        }
+
+        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+            searchController.searchBar.text = container.textBinding.wrappedValue
+        }
+
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            cancelButtonClicked()
+            container.onSubmit()
+        }
+        
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            container.textBinding.wrappedValue = searchText
+            container.textBinding.update()
         }
     }
 }

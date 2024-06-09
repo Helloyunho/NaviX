@@ -11,7 +11,7 @@ import SwiftUI
 import SwiftSoup
 
 extension NSNotification.Name {
-    static let bodyChanged = NSNotification.Name("BodyChanged")
+    static let historyUpdated = NSNotification.Name("historyUpdated")
 }
 
 @MainActor
@@ -33,7 +33,7 @@ extension Binding where Value == Tab {
     }
 }
 
-struct Tab: Equatable {
+struct Tab: Equatable, Hashable {
     let id = UUID()
     var history: [URL] = [URL(string: "https://github.com/face-hh/dingle-frontend/blob/main/index.html")!]
     var historyIndex = 0
@@ -51,41 +51,66 @@ struct Tab: Equatable {
     static func == (lhs: Tab, rhs: Tab) -> Bool {
         lhs.id == rhs.id
     }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(history)
+        hasher.combine(historyIndex)
+        hasher.combine(title)
+        hasher.combine(body)
+        hasher.combine(tree)
+        hasher.combine(loading)
+    }
 
     mutating func back() async {
         guard historyIndex > 0 else { return }
-        historyIndex -= 1
+        DispatchQueue.main.sync {
+            historyIndex -= 1
+        }
         await load()
     }
 
     mutating func forward() async {
         guard historyIndex < history.count - 1 else { return }
-        historyIndex += 1
+        DispatchQueue.main.sync {
+            historyIndex += 1
+        }
         await load()
     }
 
     mutating func changeURL(url: URL) async {
-        history.removeSubrange(historyIndex + 1 ..< history.count)
-        history.append(url)
-        historyIndex += 1
+        DispatchQueue.main.sync {
+            history.removeSubrange(historyIndex + 1 ..< history.count)
+            history.append(url)
+            historyIndex += 1
+        }
         await load()
     }
 
     mutating func load() async {
         do {
             let resp = try await Request.fetch(url)
-            title = ""
-            favicon = nil
-            body = try await resp.text()!
-            error = nil
+            let body = try await resp.text()!
+            DispatchQueue.main.sync {
+                title = ""
+                favicon = nil
+                self.body = body
+                error = nil
+            }
             if let htmlTree = try? SwiftSoup.parse(body) {
                 let tree = try HTMLTag.parse(htmlTree)
-                self.tree = tree
+                DispatchQueue.main.sync {
+                    self.tree = tree
+                }
             } else {
-                tree = nil
+                DispatchQueue.main.sync {
+                    tree = nil
+                }
             }
         } catch {
-            self.error = error
+            DispatchQueue.main.sync {
+                self.error = error
+            }
         }
     }
 }
