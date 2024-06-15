@@ -14,7 +14,6 @@
 		553C7DF92C0B8E0A002C8C0B /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7DF82C0B8E0A002C8C0B /* SwiftSoup */; };
 		553C7DFF2C0B9286002C8C0B /* SwiftFetch in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7DFE2C0B9286002C8C0B /* SwiftFetch */; };
 		553C7E042C0B955E002C8C0B /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E032C0B955E002C8C0B /* Tab.swift */; };
-		553C7E072C0BA05E002C8C0B /* SwiftUIX in Frameworks */ = {isa = PBXBuildFile; productRef = 553C7E062C0BA05E002C8C0B /* SwiftUIX */; };
 		553C7E0A2C0BA425002C8C0B /* AddressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E092C0BA425002C8C0B /* AddressBar.swift */; };
 		553C7E0C2C0C9EA8002C8C0B /* WindowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E0B2C0C9EA8002C8C0B /* WindowModel.swift */; };
 		553C7E0F2C0CA57E002C8C0B /* WindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E0E2C0CA57E002C8C0B /* WindowView.swift */; };
@@ -98,7 +97,6 @@
 			files = (
 				553C7DFF2C0B9286002C8C0B /* SwiftFetch in Frameworks */,
 				553C7DF92C0B8E0A002C8C0B /* SwiftSoup in Frameworks */,
-				553C7E072C0BA05E002C8C0B /* SwiftUIX in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +296,6 @@
 			packageProductDependencies = (
 				553C7DF82C0B8E0A002C8C0B /* SwiftSoup */,
 				553C7DFE2C0B9286002C8C0B /* SwiftFetch */,
-				553C7E062C0BA05E002C8C0B /* SwiftUIX */,
 			);
 			productName = NaviX;
 			productReference = 553C7DE32C0ADEFE002C8C0B /* NaviX.app */;
@@ -312,7 +309,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1540;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					553C7DE22C0ADEFE002C8C0B = {
 						CreatedOnToolsVersion = 15.4;
@@ -331,7 +328,6 @@
 			packageReferences = (
 				553C7DF72C0B8E0A002C8C0B /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				553C7DFD2C0B9286002C8C0B /* XCRemoteSwiftPackageReference "SwiftFetch" */,
-				553C7E052C0BA05E002C8C0B /* XCRemoteSwiftPackageReference "SwiftUIX" */,
 			);
 			productRefGroup = 553C7DE42C0ADEFE002C8C0B /* Products */;
 			projectDirPath = "";
@@ -433,6 +429,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -457,6 +454,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -494,6 +493,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -510,6 +510,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -521,6 +523,7 @@
 				CODE_SIGN_ENTITLEMENTS = NaviX/NaviX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"NaviX/Preview Content\"";
 				DEVELOPMENT_TEAM = 32Z9KZZ4PU;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -546,7 +549,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -559,6 +562,7 @@
 				CODE_SIGN_ENTITLEMENTS = NaviX/NaviX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"NaviX/Preview Content\"";
 				DEVELOPMENT_TEAM = 32Z9KZZ4PU;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -584,7 +588,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -629,14 +633,6 @@
 				kind = branch;
 			};
 		};
-		553C7E052C0BA05E002C8C0B /* XCRemoteSwiftPackageReference "SwiftUIX" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SwiftUIX/SwiftUIX";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -649,11 +645,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 553C7DFD2C0B9286002C8C0B /* XCRemoteSwiftPackageReference "SwiftFetch" */;
 			productName = SwiftFetch;
-		};
-		553C7E062C0BA05E002C8C0B /* SwiftUIX */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 553C7E052C0BA05E002C8C0B /* XCRemoteSwiftPackageReference "SwiftUIX" */;
-			productName = SwiftUIX;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

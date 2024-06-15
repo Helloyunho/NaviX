@@ -10,7 +10,7 @@ import SwiftSoup
 import SwiftUI
 
 struct HTMLTag: TagProtocol {
-    var html: () -> Self {
+    var html: HTMLGetter {
         {
             self
         }
@@ -49,11 +49,11 @@ struct HTMLTag: TagProtocol {
         var htmlTag = HTMLTag(attr: attr, head: nil, body: nil)
 
         let headElem = try html.getElementsByTag("head")[0]
-        let head = try HeadTag.parse(headElem, html: { htmlTag })
+        let head = try HeadTag.parse(headElem, html: htmlTag.html)
         htmlTag.head = head
 
         let bodyElem = try html.getElementsByTag("body")[0]
-        let body = try BodyTag.parse(bodyElem, html: { htmlTag })
+        let body = try BodyTag.parse(bodyElem, html: htmlTag.html)
         htmlTag.body = body
         return htmlTag
     }

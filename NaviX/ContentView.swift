@@ -16,7 +16,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
-            List($windowModel.tabs.indices, id: \.self, selection: $windowModel.currentTabIndex.toOptional()) { idx in
+            List($windowModel.tabs.indices, id: \.self, selection: $windowModel.currentTabIndexOptional) { idx in
                 let tab = windowModel.tabs[idx]
                 HStack {
                     if tab.loading {

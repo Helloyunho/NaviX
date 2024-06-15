@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import SwiftFetch
+@preconcurrency import SwiftFetch
 
 class Request {
-    protocol Response {
+    protocol Response: Sendable {
         var status: Int { get }
         var statusText: String { get }
         var headers: [String: String] { get }

@@ -19,18 +19,25 @@ enum CSSTokenType {
 }
 
 struct CSSToken {
-    var type: CSSTokenType
-    var value: String
-    var start: CSSPosition
-    var end: CSSPosition
+    let type: CSSTokenType
+    let value: String
+    let start: CSSPosition
+    let end: CSSPosition
     
-    private static var tokenState = CSSTokenState()
-    private static var value = ""
-    private static var position = CSSPosition(line: 1, col: 1)
-    private static var tokens: [CSSToken] = []
-    private static var idx = 0
+    static func tokenize(_ css: String) throws -> [CSSToken] {
+        let tokenizer = CSSTokenizer()
+        return try tokenizer.tokenize(css)
+    }
+}
+
+class CSSTokenizer {
+    private var tokenState = CSSTokenState()
+    private var value = ""
+    private var position = CSSPosition(line: 1, col: 1)
+    private var tokens: [CSSToken] = []
+    private var idx = 0
     
-    private static func generateOneToken(_ char: String, type tokenType: CSSTokenType) {
+    private func generateOneToken(_ char: String, type tokenType: CSSTokenType) {
         if let token = tokenState.end(endPos: position) {
             tokens.append(token)
         }
@@ -41,7 +48,7 @@ struct CSSToken {
         position.col -= 1
     }
     
-    static func tokenize(_ css: String) throws -> [CSSToken] {
+    func tokenize(_ css: String) throws -> [CSSToken] {
         let css = css.replacingOccurrences(of: "\r\n", with: "\n")
         tokenState = CSSTokenState()
         value = ""

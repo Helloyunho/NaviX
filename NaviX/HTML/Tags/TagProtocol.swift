@@ -14,13 +14,13 @@ extension NSNotification.Name {
     static let childrenUpdated = NSNotification.Name("ChildrenUpdated")
 }
 
-protocol Content: Identifiable, Hashable {
+protocol Content: Identifiable, Hashable, Sendable {
     var id: UUID { get }
 }
 
-typealias HTMLGetter = () -> HTMLTag
+typealias HTMLGetter = @Sendable () -> HTMLTag
 
-protocol TagProtocol: Equatable, Identifiable, Hashable {
+protocol TagProtocol: Equatable, Identifiable, Hashable, Sendable {
     var id: UUID { get }
     var tagName: String { get }
     var attr: [String: String] { get set }
@@ -43,6 +43,7 @@ extension TagProtocol {
     }
 }
 
+extension String: @retroactive Identifiable {}
 extension String: Content {
     public var id: UUID {
         UUID() // TODO: WE REALLY NEED A BETTER WAY TO GENERATE ID
@@ -62,8 +63,10 @@ extension HeadTagProtocol {
     }
 }
 
-protocol BodyTagProtocol: Content, TagProtocol, View {
+protocol BodyTagProtocol: Content, TagProtocol {
     var children: [any Content] { get set }
+    associatedtype Body : View
+    @ViewBuilder var body: Body { get }
 }
 
 extension BodyTagProtocol {

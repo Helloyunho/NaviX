@@ -33,7 +33,7 @@ struct DivTag: BodyTagProtocol {
                     Text(child)
                         .textSelection(.enabled)
                 } else if let child = child as? (any BodyTagProtocol) {
-                    AnyView(child)
+                    AnyView(child.body)
                 }
             }
         }

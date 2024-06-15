@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct CSSSelector: Hashable {
-    var tag = ""
-    var `class` = ""
-    var children = [CSSSelector]()
+struct CSSSelector: Hashable, Sendable {
+    let tag: String
+    let `class`: String
+    let children: [CSSSelector]
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(tag)
@@ -24,16 +24,17 @@ struct CSSSelector: Hashable {
     }
     
     private static func parseSingular(tokens: [CSSToken], idx: inout Int) throws -> CSSSelector {
-        var result = CSSSelector()
+        var tag = ""
+        var c = ""
         var token: CSSToken {
             tokens[idx]
         }
         try CSSStylesheet.checkToken(token, type: .identifier)
-        result.tag = token.value
-        result.class = token.value // for now
+        tag = token.value
+        c = token.value // for now
         idx += 1
         
-        return result
+        return CSSSelector(tag: tag, class: c, children: [])
     }
     
     static func parse(tokens: [CSSToken]) throws -> CSSSelector {
@@ -42,18 +43,19 @@ struct CSSSelector: Hashable {
     }
     
     static func parse(tokens: [CSSToken], idx: inout Int) throws -> CSSSelector {
-        var result = CSSSelector()
+        var result: CSSSelector
         var token: CSSToken {
             tokens[idx]
         }
         
         let oneSelector = try parseSingular(tokens: tokens, idx: &idx)
         if token.type == .comma {
-            result.children.append(oneSelector)
+            var children = [oneSelector]
             while token.type == .comma {
                 idx += 1
-                try result.children.append(parseSingular(tokens: tokens, idx: &idx))
+                try children.append(parseSingular(tokens: tokens, idx: &idx))
             }
+            result = CSSSelector(tag: "", class: "", children: children)
         } else {
             result = oneSelector
         }

@@ -9,7 +9,7 @@ import Foundation
 import SwiftSoup
 import SwiftUI
 
-struct BodyTag: TagProtocol, View {
+struct BodyTag: TagProtocol {
     let html: HTMLGetter
     let tagName = "body"
     let id = UUID()
@@ -39,14 +39,14 @@ struct BodyTag: TagProtocol, View {
         }
     }
 
-    var body: some View {
+    @ViewBuilder var body: some View {
         VStack(spacing: 10) {
             ForEach(children, id: \.id) { child in
                 if let child = child as? String {
                     Text(child)
                         .textSelection(.enabled)
                 } else if let child = child as? (any BodyTagProtocol) {
-                    AnyView(child)
+                    AnyView(child.body)
                 }
             }
         }

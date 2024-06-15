@@ -196,11 +196,15 @@ struct ToolbarHooker<V: View>: UIViewControllerRepresentable {
                 forwardButton = UIBarButtonItem(title: "Forward", image: UIImage(systemName: "chevron.right"), target: container, action: #selector(container.forwardAction(_:)))
                 toolbarItems = [
                     backwardButton,
+                    flexibleSpace,
                     forwardButton,
+                    flexibleSpace,
+                    flexibleSpace,
                     flexibleSpace,
                     UIBarButtonItem(title: "Tabs", image: UIImage(systemName: "square.grid.2x2"), target: self, action: #selector(goBackToTabListPressed))
                 ]
                 navigationController.isToolbarHidden = false
+                navigationController.toolbar.setItems(toolbarItems, animated: false)
                 let bar = navigationController.navigationBar
                 searchController = UISearchController(searchResultsController: nil)
                 searchController.searchBar.placeholder = "Type URL"
@@ -234,12 +238,7 @@ struct ToolbarHooker<V: View>: UIViewControllerRepresentable {
         }
         
         func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonClicked))
-        }
-        
-        @objc func cancelButtonClicked() {
-            searchController.isActive = false
-            navigationItem.rightBarButtonItem = nil
+            searchBar.setShowsCancelButton(true, animated: true)
         }
 
         func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
@@ -247,8 +246,12 @@ struct ToolbarHooker<V: View>: UIViewControllerRepresentable {
         }
 
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-            cancelButtonClicked()
+            searchBar.setShowsCancelButton(false, animated: true)
             container.onSubmit()
+        }
+        
+        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.setShowsCancelButton(false, animated: true)
         }
         
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

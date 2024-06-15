@@ -27,15 +27,13 @@ struct BrowserView: View {
             processInitialHead()
         }
         .onReceive(NotificationCenter.default.publisher(for: .attrUpdated), perform: { notification in
-            DispatchQueue.global(qos: .userInteractive).async {
-                if let script = notification.object as? ScriptTag {
-                    // TODO: update matching script execution
-                } else if let link = notification.object as? LinkTag {
-                    // TODO: update matching link execution
-                    processLinkTag(link)
-                } else if let title = notification.object as? TitleTag {
-                    processTitleTag(title)
-                }
+            if let script = notification.object as? ScriptTag {
+                // TODO: update matching script execution
+            } else if let link = notification.object as? LinkTag {
+                // TODO: update matching link execution
+                processLinkTag(link)
+            } else if let title = notification.object as? TitleTag {
+                processTitleTag(title)
             }
         })
         .frame(maxWidth: .infinity, maxHeight: .infinity)
