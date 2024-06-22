@@ -67,4 +67,8 @@ extension CSSRuleSet {
         
         return result
     }
+    
+    var wrap: Bool {
+        return properties["wrap"]?.first == "wrap"
+    }
 }

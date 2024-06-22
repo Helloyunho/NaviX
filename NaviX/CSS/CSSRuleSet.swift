@@ -31,6 +31,13 @@ struct CSSRuleSet {
         }
         return nil
     }
+    
+    var opacity: Double? {
+        if let opacity = properties["opacity"] {
+            return Double(opacity.first!)
+        }
+        return nil
+    }
 
     func cssUnitToInt(_ unit: String) -> Int? {
         if unit.hasSuffix("px") || unit.hasSuffix("pt") {

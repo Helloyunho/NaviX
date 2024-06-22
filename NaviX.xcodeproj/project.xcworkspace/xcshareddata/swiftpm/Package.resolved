@@ -1,5 +1,5 @@
 {
-  "originHash" : "bb28aca8efbfce2987997de5be7644e6dcf5e62d0200b336d815479dc4d82332",
+  "originHash" : "a22f71b613c0b480dd6e45750fb58450b4e065dd02567e75a457fa7552fd43eb",
   "pins" : [
     {
       "identity" : "swiftfetch",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "028487d4a8a291b2fe1b4392b5425b6172056148",
         "version" : "2.7.2"
+      }
+    },
+    {
+      "identity" : "wrappingstacks",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Helloyunho/WrappingStacks",
+      "state" : {
+        "revision" : "741072faaef1bc5a611acd1dd1c714bb73da608b",
+        "version" : "0.3.0"
       }
     }
   ],

@@ -50,7 +50,10 @@ struct BodyTag: TagProtocol {
                 }
             }
         }
-        .padding(6)
+        .padding([.top], CGFloat(self.style.paddingTop ?? 6))
+        .padding([.leading], CGFloat(self.style.paddingLeft ?? 6))
+        .padding([.bottom], CGFloat(self.style.paddingBottom ?? 6))
+        .padding([.trailing], CGFloat(self.style.paddingRight ?? 6))
     }
 
     static func parse(_ body: Element, html: @escaping HTMLGetter) throws -> BodyTag {

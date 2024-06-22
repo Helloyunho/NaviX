@@ -45,6 +45,8 @@
 		553C7E512C1056A2002C8C0B /* CSSRuleSet+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E502C1056A2002C8C0B /* CSSRuleSet+Font.swift */; };
 		553C7E532C105DE6002C8C0B /* CSSRuleSet+Margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E522C105DE6002C8C0B /* CSSRuleSet+Margin.swift */; };
 		553C7E562C1197F9002C8C0B /* Binding+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E552C1197F9002C8C0B /* Binding+Optional.swift */; };
+		558C34AA2C270DEF006E61A6 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558C34A92C270DEF006E61A6 /* ContainerView.swift */; };
+		558C34CC2C27407B006E61A6 /* WrappingStack in Frameworks */ = {isa = PBXBuildFile; productRef = 558C34CB2C27407B006E61A6 /* WrappingStack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,6 +90,7 @@
 		553C7E502C1056A2002C8C0B /* CSSRuleSet+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Font.swift"; sourceTree = "<group>"; };
 		553C7E522C105DE6002C8C0B /* CSSRuleSet+Margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Margin.swift"; sourceTree = "<group>"; };
 		553C7E552C1197F9002C8C0B /* Binding+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Optional.swift"; sourceTree = "<group>"; };
+		558C34A92C270DEF006E61A6 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				558C34CC2C27407B006E61A6 /* WrappingStack in Frameworks */,
 				553C7DFF2C0B9286002C8C0B /* SwiftFetch in Frameworks */,
 				553C7DF92C0B8E0A002C8C0B /* SwiftSoup in Frameworks */,
 			);
@@ -164,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				553C7E092C0BA425002C8C0B /* AddressBar.swift */,
+				558C34A92C270DEF006E61A6 /* ContainerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 			packageProductDependencies = (
 				553C7DF82C0B8E0A002C8C0B /* SwiftSoup */,
 				553C7DFE2C0B9286002C8C0B /* SwiftFetch */,
+				558C34CB2C27407B006E61A6 /* WrappingStack */,
 			);
 			productName = NaviX;
 			productReference = 553C7DE32C0ADEFE002C8C0B /* NaviX.app */;
@@ -328,6 +334,7 @@
 			packageReferences = (
 				553C7DF72C0B8E0A002C8C0B /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				553C7DFD2C0B9286002C8C0B /* XCRemoteSwiftPackageReference "SwiftFetch" */,
+				558C34CA2C27407B006E61A6 /* XCRemoteSwiftPackageReference "WrappingStacks" */,
 			);
 			productRefGroup = 553C7DE42C0ADEFE002C8C0B /* Products */;
 			projectDirPath = "";
@@ -360,6 +367,7 @@
 				553C7E402C0F1CE9002C8C0B /* CSSPosition.swift in Sources */,
 				553C7DE92C0ADEFE002C8C0B /* ContentView.swift in Sources */,
 				553C7E0C2C0C9EA8002C8C0B /* WindowModel.swift in Sources */,
+				558C34AA2C270DEF006E61A6 /* ContainerView.swift in Sources */,
 				553C7E562C1197F9002C8C0B /* Binding+Optional.swift in Sources */,
 				553C7E372C0DEF0B002C8C0B /* ParseError.swift in Sources */,
 				553C7E442C0F5FD4002C8C0B /* CSSRuleSet.swift in Sources */,
@@ -633,6 +641,14 @@
 				kind = branch;
 			};
 		};
+		558C34CA2C27407B006E61A6 /* XCRemoteSwiftPackageReference "WrappingStacks" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Helloyunho/WrappingStacks";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -645,6 +661,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 553C7DFD2C0B9286002C8C0B /* XCRemoteSwiftPackageReference "SwiftFetch" */;
 			productName = SwiftFetch;
+		};
+		558C34CB2C27407B006E61A6 /* WrappingStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 558C34CA2C27407B006E61A6 /* XCRemoteSwiftPackageReference "WrappingStacks" */;
+			productName = WrappingStack;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
