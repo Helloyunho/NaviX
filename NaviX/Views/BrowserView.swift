@@ -12,7 +12,7 @@ struct BrowserView: View {
     @EnvironmentObject var windowModel: WindowModel
 
     var body: some View {
-        ScrollView {
+        ScrollView([.horizontal, .vertical]) {
             if let error = windowModel.tab.error {
                 Text(error.localizedDescription)
                     .onAppear {
