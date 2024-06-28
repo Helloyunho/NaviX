@@ -53,7 +53,7 @@ struct BodyTag: TagProtocol, View {
                     }
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .frame(alignment: .topLeading)
             .modifier(CSSRuleSet.CSSPaddingModifier(ruleSet: style))
             .modifier(CSSRuleSet.CSSBackgroundColorModifier(ruleSet: style))
             .modifier(CSSRuleSet.CSSBorderModifier(ruleSet: style))

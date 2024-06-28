@@ -12,20 +12,23 @@ struct BrowserView: View {
     @EnvironmentObject var windowModel: WindowModel
 
     var body: some View {
-        ScrollView([.horizontal, .vertical]) {
-            if let error = windowModel.tab.error {
-                Text(error.localizedDescription)
-                    .onAppear {
-                        print(error)
-                    }
-            } else if windowModel.tab.tree == nil {
-                Text(windowModel.tab.body)
-                    .textSelection(.enabled)
-            } else if let body = windowModel.tab.tree!.body {
-                body
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+        GeometryReader { reader in
+            ScrollView([.horizontal, .vertical]) {
+                if let error = windowModel.tab.error {
+                    Text(error.localizedDescription)
+                        .onAppear {
+                            print(error)
+                        }
+                } else if windowModel.tab.tree == nil {
+                    Text(windowModel.tab.body)
+                        .textSelection(.enabled)
+                } else if let body = windowModel.tab.tree!.body {
+                    body
+                        .frame(minWidth: reader.size.width, maxWidth: .infinity, minHeight: reader.size.height, maxHeight: .infinity)
+                }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .onChange(of: windowModel.tab.tree) {
             processInitialHead()
         }
@@ -39,7 +42,6 @@ struct BrowserView: View {
                 processTitleTag(title)
             }
         })
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 
     func processLinkTag(_ tag: LinkTag) {
