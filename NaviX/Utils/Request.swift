@@ -111,7 +111,9 @@ extension Request {
         case "http", "https":
             var url = url
             if url.host == "github.com" {
-                url = URL(string: "https://raw.githubusercontent.com/\(url.pathComponents[1])/\(url.pathComponents[2])/main/\(url.pathComponents.count > 3 ? url.pathComponents.last! : "index.html")")!
+                let branch = url.pathComponents.contains("tree") ? url.pathComponents[4] : "main"
+                let paths = url.pathComponents.contains("tree") ? url.pathComponents[5...] : url.pathComponents[3...]
+                url = URL(string: "https://raw.githubusercontent.com/\(url.pathComponents[1])/\(url.pathComponents[2])/\(branch)/\(paths.joined(separator: "/"))")!
             }
             let resp = try await SwiftFetch.fetch(url)
             return FetchResponse(resp: resp)

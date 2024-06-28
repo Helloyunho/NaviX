@@ -35,7 +35,7 @@ extension Binding where Value == Tab {
 
 struct Tab: Equatable, Hashable {
     let id = UUID()
-    var history: [URL] = [URL(string: "https://github.com/face-hh/dingle-frontend/blob/main/index.html")!]
+    var history: [URL] = [URL(string: "buss://dingle.it")!]
     var historyIndex = 0
     var url: URL {
         history[historyIndex]
@@ -89,6 +89,10 @@ struct Tab: Equatable, Hashable {
 
     mutating func load() async {
         do {
+            var url = url
+            if !url.lastPathComponent.contains(".") {
+                url.appendPathComponent("index.html")
+            }
             let resp = try await Request.fetch(url)
             let body = try await resp.text()!
             DispatchQueue.main.sync {

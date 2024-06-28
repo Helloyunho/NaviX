@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension CSSRuleSet {
     enum Direction: String {
@@ -25,6 +26,28 @@ extension CSSRuleSet {
         case start
         case center
         case end
+        
+        func toVerticalAlignment() -> VerticalAlignment {
+            switch self {
+            case .fill, .start:
+                return .top
+            case .center:
+                return .center
+            case .end:
+                return .bottom
+            }
+        }
+        
+        func toHorizontalAlignment() -> HorizontalAlignment {
+            switch self {
+            case .fill, .start:
+                return .leading
+            case .center:
+                return .center
+            case .end:
+                return .trailing
+            }
+        }
     }
     
     var alignItems: Alignment? {

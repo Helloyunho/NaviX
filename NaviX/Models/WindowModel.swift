@@ -10,11 +10,17 @@ import SwiftUI
 
 class WindowModel: ObservableObject {
     @Published var tabs: [Tab] = [Tab()]
-    @Published var currentTabIndex = 0
+    @Published var currentTabIndex = 0 {
+        didSet {
+            if currentTabIndex != currentTabIndexOptional {
+                currentTabIndexOptional = currentTabIndex
+            }
+        }
+    }
     @Published var currentTabIndexOptional: Int? = 0 {
-        didSet(value) {
-            if let value {
-                currentTabIndex = value
+        didSet {
+            if let currentTabIndexOptional, currentTabIndexOptional != currentTabIndex {
+                currentTabIndex = currentTabIndexOptional
             }
         }
     }

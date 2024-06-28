@@ -40,6 +40,9 @@ struct ContentView: View {
                             windowModel.currentTabIndex -= 1
                             windowModel.tabs.removeLast()
                         } else {
+                            if windowModel.currentTabIndex == windowModel.tabs.count - 1 {
+                                windowModel.currentTabIndex -= 1
+                            }
                             windowModel.tabs.remove(at: idx)
                         }
                     } label: {
@@ -87,6 +90,7 @@ struct ContentView: View {
         } detail: {
 #if os(macOS)
             BrowserView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
 #endif
 #if os(iOS)
             ToolbarHooker(container: SearchBarContainer(enableBackwardButton: $windowModel.backwardEnabled, enableForwardButton: $windowModel.forwardEnabled, textBinding: $addressBarContent, onSubmit: onSubmitURL, backwardPressed: backwardPressed, forwardPressed: forwardPressed), swiftUIView: BrowserView())

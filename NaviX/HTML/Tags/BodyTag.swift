@@ -9,7 +9,7 @@ import Foundation
 import SwiftSoup
 import SwiftUI
 
-struct BodyTag: TagProtocol {
+struct BodyTag: TagProtocol, View {
     let html: HTMLGetter
     let tagName = "body"
     let id = UUID()
@@ -38,25 +38,38 @@ struct BodyTag: TagProtocol {
             NotificationCenter.default.post(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
+    
+    @State private var reRender = false
 
-    @ViewBuilder var body: some View {
-        VStack(spacing: 10) {
-            ForEach(children, id: \.id) { child in
-                if let child = child as? String {
-                    Text(child)
-                        .textSelection(.enabled)
-                } else if let child = child as? (any BodyTagProtocol) {
-                    AnyView(child.body)
+    @ViewBuilder @MainActor @preconcurrency var body: some View {
+        Group {
+            VStack(spacing: 10) {
+                ForEach(children, id: \.id) { child in
+                    if let child = child as? String {
+                        Text(child)
+                            .textSelection(.enabled)
+                    } else if let child = child as? (any BodyTagProtocol) {
+                        AnyView(child.body)
+                    }
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .modifier(CSSRuleSet.CSSPaddingModifier(ruleSet: style))
+            .modifier(CSSRuleSet.CSSBackgroundColorModifier(ruleSet: style))
+            .modifier(CSSRuleSet.CSSBorderModifier(ruleSet: style))
+            .modifier(CSSRuleSet.CSSMarginModifier(ruleSet: style))
+            .modifier(CSSRuleSet.CSSOpacityModifier(ruleSet: style))
         }
-        .padding([.top], CGFloat(self.style.paddingTop ?? 6))
-        .padding([.leading], CGFloat(self.style.paddingLeft ?? 6))
-        .padding([.bottom], CGFloat(self.style.paddingBottom ?? 6))
-        .padding([.trailing], CGFloat(self.style.paddingRight ?? 6))
+        .id(reRender)
+        .onReceive(NotificationCenter.default.publisher(for: .stylesheetsUpdated)) { _ in
+            // TODO: re-render only if the stylesheet is related to this tag
+            DispatchQueue.main.async {
+                reRender.toggle()
+            }
+        }
     }
 
-    static func parse(_ body: Element, html: @escaping HTMLGetter) throws -> BodyTag {
+    nonisolated static func parse(_ body: Element, html: @escaping HTMLGetter) throws -> BodyTag {
         try HTMLUtils.checkTag(body, assert: "body")
         let attr = HTMLUtils.convertAttr(body.getAttributes())
         let children = HTMLUtils.parseBodyTags(body, html: html)

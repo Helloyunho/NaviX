@@ -12,6 +12,8 @@ import SwiftUI
 extension NSNotification.Name {
     static let attrUpdated = NSNotification.Name("AttrUpdated")
     static let childrenUpdated = NSNotification.Name("ChildrenUpdated")
+    static let onClick = NSNotification.Name("OnClick")
+    static let stylesheetsUpdated = NSNotification.Name("StylesheetsUpdated")
 }
 
 protocol Content: Identifiable, Hashable, Sendable {
@@ -65,8 +67,9 @@ extension HeadTagProtocol {
 
 protocol BodyTagProtocol: Content, TagProtocol {
     var children: [any Content] { get set }
+    var style: CSSRuleSet { get }
     associatedtype Body : View
-    @ViewBuilder var body: Body { get }
+    @ViewBuilder @MainActor @preconcurrency var body: Body { get }
 }
 
 extension BodyTagProtocol {

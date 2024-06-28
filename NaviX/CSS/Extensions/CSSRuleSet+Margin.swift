@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension CSSRuleSet {
     var marginTop: Int? {
@@ -22,6 +23,23 @@ extension CSSRuleSet {
 
     var marginLeft: Int? {
         oneSideUnitToInt("margin", side: .left)
+    }
+    
+    struct CSSMarginModifier: ViewModifier {
+        let margin: (Int?, Int?, Int?, Int?)
+        
+        init(_ margin: (Int?, Int?, Int?, Int?)) {
+            self.margin = margin
+        }
+        
+        init(ruleSet: CSSRuleSet) {
+            self.init(ruleSet.margin)
+        }
+        
+        func body(content: Self.Content) -> some View {
+            let (top, right, bottom, left) = margin
+            return content.padding(EdgeInsets(top: CGFloat(top ?? 0), leading: CGFloat(left ?? 0), bottom: CGFloat(bottom ?? 0), trailing: CGFloat(right ?? 0)))
+        }
     }
 
     /**

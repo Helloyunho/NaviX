@@ -40,6 +40,7 @@ class HTMLUtils {
                     break
                 }
             } catch {
+                print(error)
                 // TODO: Log errors to warnings
             }
         }
@@ -55,10 +56,33 @@ class HTMLUtils {
             } else if let child = child as? Element {
                 do {
                     switch child.tagName().lowercased() {
+                    case "div":
+                        try children.append(DivTag.parse(child, html: html))
+                    case "h1":
+                        try children.append(H1Tag.parse(child, html: html))
+                    case "h2":
+                        try children.append(H2Tag.parse(child, html: html))
+                    case "h3":
+                        try children.append(H3Tag.parse(child, html: html))
+                    case "h4":
+                        try children.append(H4Tag.parse(child, html: html))
+                    case "h5":
+                        try children.append(H5Tag.parse(child, html: html))
+                    case "h6":
+                        try children.append(H6Tag.parse(child, html: html))
+                    case "p":
+                        try children.append(PTag.parse(child, html: html))
+                    case "hr":
+                        try children.append(HrTag.parse(child, html: html))
+                    case "a":
+                        try children.append(ATag.parse(child, html: html))
+                    case "img":
+                        try children.append(ImgTag.parse(child, html: html))
                     default:
                         break
                     }
                 } catch {
+                    print(error)
                     // TODO: Log errors to warnings
                 }
             }

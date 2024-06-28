@@ -9,7 +9,7 @@ import Foundation
 import SwiftSoup
 import SwiftUI
 
-struct HTMLTag: TagProtocol {
+class HTMLTag: @unchecked Sendable, Equatable, Identifiable, Hashable {
     var html: HTMLGetter {
         {
             self
@@ -18,6 +18,16 @@ struct HTMLTag: TagProtocol {
 
     let tagName = "html"
     let id = UUID()
+    
+    static func == (lhs: HTMLTag, rhs: HTMLTag) -> Bool {
+        lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(tagName)
+        hasher.combine(id)
+        hasher.combine(attr)
+    }
 
     var attr: [String: String] = [:] {
         didSet {
@@ -25,7 +35,11 @@ struct HTMLTag: TagProtocol {
         }
     }
 
-    var stylesheets = [CSSStylesheet]()
+    var stylesheets = [CSSStylesheet]() {
+        didSet {
+            NotificationCenter.default.post(name: .stylesheetsUpdated, object: self, userInfo: ["oldValue": oldValue])
+        }
+    }
 
     var head: HeadTag? {
         didSet {
@@ -46,7 +60,8 @@ struct HTMLTag: TagProtocol {
     static func parse(_ html: Element) throws -> HTMLTag {
         let attr = HTMLUtils.convertAttr(html.getAttributes())
 
-        var htmlTag = HTMLTag(attr: attr, head: nil, body: nil)
+        var htmlTag = HTMLTag()
+        htmlTag.attr = attr
 
         let headElem = try html.getElementsByTag("head")[0]
         let head = try HeadTag.parse(headElem, html: htmlTag.html)

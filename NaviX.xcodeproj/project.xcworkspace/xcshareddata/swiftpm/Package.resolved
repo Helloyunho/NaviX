@@ -1,6 +1,15 @@
 {
-  "originHash" : "a22f71b613c0b480dd6e45750fb58450b4e065dd02567e75a457fa7552fd43eb",
+  "originHash" : "127a9198611a50abe9c14f27c0e48ebf88f562af6d99c47db7952ac1d9d4bd5c",
   "pins" : [
+    {
+      "identity" : "kroma",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kaishin/Kroma",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b67827e4b746eef1bb0b42adc241ca245b195edd"
+      }
+    },
     {
       "identity" : "swiftfetch",
       "kind" : "remoteSourceControl",

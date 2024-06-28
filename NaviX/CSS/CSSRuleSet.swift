@@ -17,12 +17,52 @@ struct CSSRuleSet {
         }
         return nil
     }
+    
+    struct CSSColorModifier: ViewModifier {
+        let _color: Color?
+        
+        init(_ color: Color?) {
+            self._color = color
+        }
+        
+        init(ruleSet: CSSRuleSet) {
+            self.init(ruleSet.color)
+        }
+        
+        func body(content: Self.Content) -> some View {
+            if let _color {
+                content.foregroundColor(_color)
+            } else {
+                content
+            }
+        }
+    }
 
     var width: Int? {
         if let width = properties["width"] {
             return cssUnitToInt(width.first!)
         }
         return nil
+    }
+    
+    struct CSSWidthModifier: ViewModifier {
+        let _width: Int?
+        
+        init(_ width: Int?) {
+            self._width = width
+        }
+        
+        init(ruleSet: CSSRuleSet) {
+            self.init(ruleSet.width)
+        }
+        
+        func body(content: Self.Content) -> some View {
+            if let _width {
+                content.frame(width: CGFloat(_width))
+            } else {
+                content
+            }
+        }
     }
 
     var height: Int? {
@@ -32,11 +72,51 @@ struct CSSRuleSet {
         return nil
     }
     
+    struct CSSHeightModifier: ViewModifier {
+        let _height: Int?
+        
+        init(_ height: Int?) {
+            self._height = height
+        }
+        
+        init(ruleSet: CSSRuleSet) {
+            self.init(ruleSet.height)
+        }
+        
+        func body(content: Self.Content) -> some View {
+            if let _height {
+                content.frame(height: CGFloat(_height))
+            } else {
+                content
+            }
+        }
+    }
+    
     var opacity: Double? {
         if let opacity = properties["opacity"] {
             return Double(opacity.first!)
         }
         return nil
+    }
+    
+    struct CSSOpacityModifier: ViewModifier {
+        let _opacity: Double?
+        
+        init(_ opacity: Double?) {
+            self._opacity = opacity
+        }
+        
+        init(ruleSet: CSSRuleSet) {
+            self.init(ruleSet.opacity)
+        }
+        
+        func body(content: Self.Content) -> some View {
+            if let _opacity {
+                content.opacity(_opacity)
+            } else {
+                content
+            }
+        }
     }
 
     func cssUnitToInt(_ unit: String) -> Int? {
@@ -214,8 +294,25 @@ struct CSSRuleSet {
             }
             idx += 1
             properties[key] = value
+            value = []
         }
 
         return CSSRuleSet(properties: properties)
+    }
+}
+
+extension View {
+    func applyCommonCSS(ruleSet: CSSRuleSet, tag: any BodyTagProtocol) -> some View {
+        Group {
+            self
+                .modifier(CSSRuleSet.CSSPaddingModifier(ruleSet: ruleSet))
+                .modifier(CSSRuleSet.CSSBackgroundColorModifier(ruleSet: ruleSet))
+                .modifier(CSSRuleSet.CSSBorderModifier(ruleSet: ruleSet))
+                .onTapGesture {
+                    NotificationCenter.default.post(name: .onClick, object: tag, userInfo: nil)
+                }
+        }
+            .modifier(CSSRuleSet.CSSMarginModifier(ruleSet: ruleSet))
+            .modifier(CSSRuleSet.CSSOpacityModifier(ruleSet: ruleSet))
     }
 }

@@ -47,6 +47,18 @@
 		553C7E562C1197F9002C8C0B /* Binding+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E552C1197F9002C8C0B /* Binding+Optional.swift */; };
 		558C34AA2C270DEF006E61A6 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558C34A92C270DEF006E61A6 /* ContainerView.swift */; };
 		558C34CC2C27407B006E61A6 /* WrappingStack in Frameworks */ = {isa = PBXBuildFile; productRef = 558C34CB2C27407B006E61A6 /* WrappingStack */; };
+		55ADA3D22C2EE0DB0093A33B /* Kroma in Frameworks */ = {isa = PBXBuildFile; productRef = 55ADA3D12C2EE0DB0093A33B /* Kroma */; };
+		55ADA3D62C2F03F30093A33B /* CSSRuleSet+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3D52C2F03F30093A33B /* CSSRuleSet+Background.swift */; };
+		55ADA3D92C2F0C990093A33B /* H1Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3D82C2F0C990093A33B /* H1Tag.swift */; };
+		55ADA3DB2C2F0FCB0093A33B /* H2Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3DA2C2F0FCB0093A33B /* H2Tag.swift */; };
+		55ADA3DD2C2F0FE40093A33B /* H3Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3DC2C2F0FE40093A33B /* H3Tag.swift */; };
+		55ADA3DF2C2F100E0093A33B /* H4Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3DE2C2F100E0093A33B /* H4Tag.swift */; };
+		55ADA3E12C2F10130093A33B /* H5Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3E02C2F10130093A33B /* H5Tag.swift */; };
+		55ADA3E32C2F10150093A33B /* H6Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3E22C2F10150093A33B /* H6Tag.swift */; };
+		55ADA3E52C2F10170093A33B /* PTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3E42C2F10170093A33B /* PTag.swift */; };
+		55ADA3E72C2F12D70093A33B /* HrTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3E62C2F12D70093A33B /* HrTag.swift */; };
+		55ADA3E92C2F14D30093A33B /* ATag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3E82C2F14D30093A33B /* ATag.swift */; };
+		55ADA3EB2C2F272B0093A33B /* ImgTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3EA2C2F272B0093A33B /* ImgTag.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +103,17 @@
 		553C7E522C105DE6002C8C0B /* CSSRuleSet+Margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Margin.swift"; sourceTree = "<group>"; };
 		553C7E552C1197F9002C8C0B /* Binding+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Optional.swift"; sourceTree = "<group>"; };
 		558C34A92C270DEF006E61A6 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		55ADA3D52C2F03F30093A33B /* CSSRuleSet+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Background.swift"; sourceTree = "<group>"; };
+		55ADA3D82C2F0C990093A33B /* H1Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H1Tag.swift; sourceTree = "<group>"; };
+		55ADA3DA2C2F0FCB0093A33B /* H2Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H2Tag.swift; sourceTree = "<group>"; };
+		55ADA3DC2C2F0FE40093A33B /* H3Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H3Tag.swift; sourceTree = "<group>"; };
+		55ADA3DE2C2F100E0093A33B /* H4Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H4Tag.swift; sourceTree = "<group>"; };
+		55ADA3E02C2F10130093A33B /* H5Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H5Tag.swift; sourceTree = "<group>"; };
+		55ADA3E22C2F10150093A33B /* H6Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H6Tag.swift; sourceTree = "<group>"; };
+		55ADA3E42C2F10170093A33B /* PTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PTag.swift; sourceTree = "<group>"; };
+		55ADA3E62C2F12D70093A33B /* HrTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HrTag.swift; sourceTree = "<group>"; };
+		55ADA3E82C2F14D30093A33B /* ATag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATag.swift; sourceTree = "<group>"; };
+		55ADA3EA2C2F272B0093A33B /* ImgTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgTag.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +124,7 @@
 				558C34CC2C27407B006E61A6 /* WrappingStack in Frameworks */,
 				553C7DFF2C0B9286002C8C0B /* SwiftFetch in Frameworks */,
 				553C7DF92C0B8E0A002C8C0B /* SwiftSoup in Frameworks */,
+				55ADA3D22C2EE0DB0093A33B /* Kroma in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +244,10 @@
 		553C7E212C0CD611002C8C0B /* Tags */ = {
 			isa = PBXGroup;
 			children = (
+				55ADA3E82C2F14D30093A33B /* ATag.swift */,
+				55ADA3E62C2F12D70093A33B /* HrTag.swift */,
+				55ADA3EA2C2F272B0093A33B /* ImgTag.swift */,
+				55ADA3D72C2F0C660093A33B /* Texts */,
 				553C7E332C0DEBF1002C8C0B /* BodyTag.swift */,
 				553C7E262C0CDC37002C8C0B /* TagProtocol.swift */,
 				553C7E282C0CDC46002C8C0B /* TitleTag.swift */,
@@ -266,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				553C7E4A2C104078002C8C0B /* CSSRuleSet+Border.swift */,
+				55ADA3D52C2F03F30093A33B /* CSSRuleSet+Background.swift */,
 				553C7E4C2C1040EA002C8C0B /* CSSRuleSet+Padding.swift */,
 				553C7E4E2C104CC1002C8C0B /* CSSRuleSet+Flex.swift */,
 				553C7E502C1056A2002C8C0B /* CSSRuleSet+Font.swift */,
@@ -280,6 +309,20 @@
 				553C7E552C1197F9002C8C0B /* Binding+Optional.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		55ADA3D72C2F0C660093A33B /* Texts */ = {
+			isa = PBXGroup;
+			children = (
+				55ADA3D82C2F0C990093A33B /* H1Tag.swift */,
+				55ADA3DA2C2F0FCB0093A33B /* H2Tag.swift */,
+				55ADA3DC2C2F0FE40093A33B /* H3Tag.swift */,
+				55ADA3DE2C2F100E0093A33B /* H4Tag.swift */,
+				55ADA3E02C2F10130093A33B /* H5Tag.swift */,
+				55ADA3E22C2F10150093A33B /* H6Tag.swift */,
+				55ADA3E42C2F10170093A33B /* PTag.swift */,
+			);
+			path = Texts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,6 +345,7 @@
 				553C7DF82C0B8E0A002C8C0B /* SwiftSoup */,
 				553C7DFE2C0B9286002C8C0B /* SwiftFetch */,
 				558C34CB2C27407B006E61A6 /* WrappingStack */,
+				55ADA3D12C2EE0DB0093A33B /* Kroma */,
 			);
 			productName = NaviX;
 			productReference = 553C7DE32C0ADEFE002C8C0B /* NaviX.app */;
@@ -335,6 +379,7 @@
 				553C7DF72C0B8E0A002C8C0B /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				553C7DFD2C0B9286002C8C0B /* XCRemoteSwiftPackageReference "SwiftFetch" */,
 				558C34CA2C27407B006E61A6 /* XCRemoteSwiftPackageReference "WrappingStacks" */,
+				55ADA3D02C2EE0DB0093A33B /* XCRemoteSwiftPackageReference "Kroma" */,
 			);
 			productRefGroup = 553C7DE42C0ADEFE002C8C0B /* Products */;
 			projectDirPath = "";
@@ -367,7 +412,9 @@
 				553C7E402C0F1CE9002C8C0B /* CSSPosition.swift in Sources */,
 				553C7DE92C0ADEFE002C8C0B /* ContentView.swift in Sources */,
 				553C7E0C2C0C9EA8002C8C0B /* WindowModel.swift in Sources */,
+				55ADA3E72C2F12D70093A33B /* HrTag.swift in Sources */,
 				558C34AA2C270DEF006E61A6 /* ContainerView.swift in Sources */,
+				55ADA3E52C2F10170093A33B /* PTag.swift in Sources */,
 				553C7E562C1197F9002C8C0B /* Binding+Optional.swift in Sources */,
 				553C7E372C0DEF0B002C8C0B /* ParseError.swift in Sources */,
 				553C7E442C0F5FD4002C8C0B /* CSSRuleSet.swift in Sources */,
@@ -379,10 +426,18 @@
 				553C7E292C0CDC46002C8C0B /* TitleTag.swift in Sources */,
 				553C7E4B2C104078002C8C0B /* CSSRuleSet+Border.swift in Sources */,
 				553C7E042C0B955E002C8C0B /* Tab.swift in Sources */,
+				55ADA3DD2C2F0FE40093A33B /* H3Tag.swift in Sources */,
 				553C7E422C0F2598002C8C0B /* CSSError.swift in Sources */,
+				55ADA3E92C2F14D30093A33B /* ATag.swift in Sources */,
 				553C7E142C0CB38B002C8C0B /* AddressError.swift in Sources */,
+				55ADA3E12C2F10130093A33B /* H5Tag.swift in Sources */,
+				55ADA3DB2C2F0FCB0093A33B /* H2Tag.swift in Sources */,
+				55ADA3D92C2F0C990093A33B /* H1Tag.swift in Sources */,
 				553C7E172C0CB9D4002C8C0B /* DNSPayload.swift in Sources */,
+				55ADA3D62C2F03F30093A33B /* CSSRuleSet+Background.swift in Sources */,
+				55ADA3E32C2F10150093A33B /* H6Tag.swift in Sources */,
 				553C7E1A2C0CBAA8002C8C0B /* Request.swift in Sources */,
+				55ADA3DF2C2F100E0093A33B /* H4Tag.swift in Sources */,
 				553C7E482C0F8837002C8C0B /* CSSColors.swift in Sources */,
 				553C7E3C2C0F1A7E002C8C0B /* CSSStylesheet.swift in Sources */,
 				553C7E392C0EF24E002C8C0B /* DivTag.swift in Sources */,
@@ -394,6 +449,7 @@
 				553C7E4D2C1040EA002C8C0B /* CSSRuleSet+Padding.swift in Sources */,
 				553C7E4F2C104CC1002C8C0B /* CSSRuleSet+Flex.swift in Sources */,
 				553C7E122C0CB208002C8C0B /* UserError.swift in Sources */,
+				55ADA3EB2C2F272B0093A33B /* ImgTag.swift in Sources */,
 				553C7E272C0CDC37002C8C0B /* TagProtocol.swift in Sources */,
 				553C7DE72C0ADEFE002C8C0B /* NaviXApp.swift in Sources */,
 				553C7E512C1056A2002C8C0B /* CSSRuleSet+Font.swift in Sources */,
@@ -649,6 +705,14 @@
 				minimumVersion = 0.3.0;
 			};
 		};
+		55ADA3D02C2EE0DB0093A33B /* XCRemoteSwiftPackageReference "Kroma" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kaishin/Kroma";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -666,6 +730,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 558C34CA2C27407B006E61A6 /* XCRemoteSwiftPackageReference "WrappingStacks" */;
 			productName = WrappingStack;
+		};
+		55ADA3D12C2EE0DB0093A33B /* Kroma */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 55ADA3D02C2EE0DB0093A33B /* XCRemoteSwiftPackageReference "Kroma" */;
+			productName = Kroma;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

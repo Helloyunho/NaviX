@@ -21,6 +21,9 @@ struct BrowserView: View {
             } else if windowModel.tab.tree == nil {
                 Text(windowModel.tab.body)
                     .textSelection(.enabled)
+            } else if let body = windowModel.tab.tree!.body {
+                body
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .onChange(of: windowModel.tab.tree) {
