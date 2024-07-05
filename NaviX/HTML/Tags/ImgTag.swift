@@ -59,7 +59,7 @@ struct ImgTag: BodyTagProtocol {
 
     static func parse(_ elem: Element, html: @escaping HTMLGetter) throws -> ImgTag {
         try HTMLUtils.checkTag(elem, assert: "img")
-        let (attr, children) = Self.parseDefaultProps(elem, html: html)
+        let (attr, _) = Self.parseDefaultProps(elem, html: html)
 
         return ImgTag(html: html, attr: attr)
     }

@@ -51,7 +51,7 @@ class HTMLUtils {
     static func parseBodyTags(_ elem: Element, html: @escaping HTMLGetter) -> [any Content] {
         var children = [any Content]()
         for child in elem.childNodesCopy() {
-            if let str = child as? TextNode {
+            if let str = child as? TextNode, !str.text().trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 children.append(str.text())
             } else if let child = child as? Element {
                 do {
@@ -78,6 +78,18 @@ class HTMLUtils {
                         try children.append(ATag.parse(child, html: html))
                     case "img":
                         try children.append(ImgTag.parse(child, html: html))
+                    case "ol":
+                        try children.append(OlTag.parse(child, html: html))
+                    case "ul":
+                        try children.append(UlTag.parse(child, html: html))
+                    case "li":
+                        try children.append(LiTag.parse(child, html: html))
+                    case "input":
+                        try children.append(InputTag.parse(child, html: html))
+                    case "textarea":
+                        try children.append(TextareaTag.parse(child, html: html))
+                    case "button":
+                        try children.append(ButtonTag.parse(child, html: html))
                     default:
                         break
                     }

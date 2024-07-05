@@ -56,6 +56,7 @@ struct H4Tag: BodyTagProtocol {
         Text(_children.joined(separator: " "))
             .textSelection(.enabled)
             .modifier(CSSRuleSet.CSSFontModifier(ruleSet: style, defaultFontSize: 18, defaultFontWeight: .bold))
+            .modifier(CSSRuleSet.CSSColorModifier(ruleSet: style))
             .applyCommonCSS(ruleSet: style, tag: self)
     }
 

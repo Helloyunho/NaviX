@@ -1,5 +1,5 @@
 //
-//  H3Tag.swift
+//  TextareaTag.swift
 //  NaviX
 //
 //  Created by Helloyunho on 6/4/24.
@@ -9,9 +9,9 @@ import Foundation
 import SwiftSoup
 import SwiftUI
 
-struct H3Tag: BodyTagProtocol {
+struct TextareaTag: InputTagProtocol {
     let html: HTMLGetter
-    let tagName = "h3"
+    let tagName = "textarea"
     let id = UUID()
 
     var attr: [String: String] = [:] {
@@ -19,6 +19,8 @@ struct H3Tag: BodyTagProtocol {
             NotificationCenter.default.post(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
+    
+    @State var content = ""
     
     private var _children = [String]()
 
@@ -29,21 +31,13 @@ struct H3Tag: BodyTagProtocol {
         set {
             let oldValue = _children
             _children = newValue.filter { $0 is String }.map { $0 as! String }
+            content = _children.joined(separator: "\n")
             NotificationCenter.default.post(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
     
     var style: CSSRuleSet {
-        let html = self.html()
-        var result = CSSRuleSet()
-        for stylesheet in html.stylesheets {
-            result += stylesheet.findRuleset(for: self, html: html).reduce(result, +)
-        }
-        if let css = attr["style"], let ruleset = try? CSSRuleSet.parse(css) {
-            result += ruleset
-        }
-
-        return result
+        CSSRuleSet()
     }
     
     init(html: @escaping HTMLGetter, attr: [String : String], children: [any Content] = [any Content]()) {
@@ -53,17 +47,19 @@ struct H3Tag: BodyTagProtocol {
     }
 
     var body: some View {
-        Text(_children.joined(separator: " "))
-            .textSelection(.enabled)
-            .modifier(CSSRuleSet.CSSFontModifier(ruleSet: style, defaultFontSize: 20, defaultFontWeight: .bold))
-            .modifier(CSSRuleSet.CSSColorModifier(ruleSet: style))
+        TextEditor(text: $content)
+            .modifier(CSSRuleSet.CSSWidthModifier(ruleSet: style))
+            .modifier(CSSRuleSet.CSSHeightModifier(ruleSet: style))
             .applyCommonCSS(ruleSet: style, tag: self)
+            .onAppear {
+                content = _children.joined(separator: "\n")
+            }
     }
 
-    static func parse(_ elem: Element, html: @escaping HTMLGetter) throws -> H3Tag {
-        try HTMLUtils.checkTag(elem, assert: "h3")
+    static func parse(_ elem: Element, html: @escaping HTMLGetter) throws -> TextareaTag {
+        try HTMLUtils.checkTag(elem, assert: "textarea")
         let (attr, children) = Self.parseDefaultProps(elem, html: html)
 
-        return H3Tag(html: html, attr: attr, children: children)
+        return TextareaTag(html: html, attr: attr, children: children)
     }
 }

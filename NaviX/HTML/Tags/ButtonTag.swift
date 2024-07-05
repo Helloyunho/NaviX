@@ -1,5 +1,5 @@
 //
-//  H3Tag.swift
+//  ButtonTag.swift
 //  NaviX
 //
 //  Created by Helloyunho on 6/4/24.
@@ -9,9 +9,9 @@ import Foundation
 import SwiftSoup
 import SwiftUI
 
-struct H3Tag: BodyTagProtocol {
+struct ButtonTag: BodyTagProtocol {
     let html: HTMLGetter
-    let tagName = "h3"
+    let tagName = "button"
     let id = UUID()
 
     var attr: [String: String] = [:] {
@@ -51,19 +51,34 @@ struct H3Tag: BodyTagProtocol {
         self.attr = attr
         self.children = children
     }
-
-    var body: some View {
-        Text(_children.joined(separator: " "))
-            .textSelection(.enabled)
-            .modifier(CSSRuleSet.CSSFontModifier(ruleSet: style, defaultFontSize: 20, defaultFontWeight: .bold))
-            .modifier(CSSRuleSet.CSSColorModifier(ruleSet: style))
-            .applyCommonCSS(ruleSet: style, tag: self)
+    
+    struct CSSButtonStyle: ButtonStyle {
+        let style: CSSRuleSet
+        
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+                .modifier(CSSRuleSet.CSSPaddingModifier(ruleSet: style))
+                .modifier(CSSRuleSet.CSSBackgroundColorModifier(ruleSet: style))
+                .modifier(CSSRuleSet.CSSBorderModifier(ruleSet: style))
+        }
     }
 
-    static func parse(_ elem: Element, html: @escaping HTMLGetter) throws -> H3Tag {
-        try HTMLUtils.checkTag(elem, assert: "h3")
+    var body: some View {
+        Button {
+            NotificationCenter.default.post(name: .onClick, object: self)
+        } label: {
+            Text(_children.joined(separator: " "))
+                .modifier(CSSRuleSet.CSSFontModifier(ruleSet: style))
+        }
+        .buttonStyle(CSSButtonStyle(style: style))
+        .modifier(CSSRuleSet.CSSMarginModifier(ruleSet: style))
+        .modifier(CSSRuleSet.CSSOpacityModifier(ruleSet: style))
+    }
+
+    static func parse(_ elem: Element, html: @escaping HTMLGetter) throws -> ButtonTag {
+        try HTMLUtils.checkTag(elem, assert: "button")
         let (attr, children) = Self.parseDefaultProps(elem, html: html)
 
-        return H3Tag(html: html, attr: attr, children: children)
+        return ButtonTag(html: html, attr: attr, children: children)
     }
 }

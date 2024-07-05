@@ -1,5 +1,5 @@
 //
-//  H3Tag.swift
+//  LiTag.swift
 //  NaviX
 //
 //  Created by Helloyunho on 6/4/24.
@@ -9,9 +9,9 @@ import Foundation
 import SwiftSoup
 import SwiftUI
 
-struct H3Tag: BodyTagProtocol {
+struct LiTag: BodyTagProtocol {
     let html: HTMLGetter
-    let tagName = "h3"
+    let tagName = "li"
     let id = UUID()
 
     var attr: [String: String] = [:] {
@@ -55,15 +55,15 @@ struct H3Tag: BodyTagProtocol {
     var body: some View {
         Text(_children.joined(separator: " "))
             .textSelection(.enabled)
-            .modifier(CSSRuleSet.CSSFontModifier(ruleSet: style, defaultFontSize: 20, defaultFontWeight: .bold))
+            .modifier(CSSRuleSet.CSSFontModifier(ruleSet: style))
             .modifier(CSSRuleSet.CSSColorModifier(ruleSet: style))
             .applyCommonCSS(ruleSet: style, tag: self)
     }
 
-    static func parse(_ elem: Element, html: @escaping HTMLGetter) throws -> H3Tag {
-        try HTMLUtils.checkTag(elem, assert: "h3")
+    static func parse(_ elem: Element, html: @escaping HTMLGetter) throws -> LiTag {
+        try HTMLUtils.checkTag(elem, assert: "li")
         let (attr, children) = Self.parseDefaultProps(elem, html: html)
 
-        return H3Tag(html: html, attr: attr, children: children)
+        return LiTag(html: html, attr: attr, children: children)
     }
 }

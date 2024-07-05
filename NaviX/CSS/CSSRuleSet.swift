@@ -239,7 +239,7 @@ struct CSSRuleSet {
                 } else if hex.count == 6 {
                     return Color(red: Double((hexInt >> 16) & 0xFF) / 255, green: Double((hexInt >> 8) & 0xFF) / 255, blue: Double(hexInt & 0xFF) / 255, opacity: 1.0)
                 } else if hex.count == 3 {
-                    return Color(red: Double((hexInt >> 8) & 0xF) / 255, green: Double((hexInt >> 4) & 0xF) / 255, blue: Double(hexInt & 0xF) / 255, opacity: 1.0)
+                    return Color(red: Double((hexInt >> 8) & 0xF) * 11 / 255, green: Double((hexInt >> 4) & 0xF) * 11 / 255, blue: Double(hexInt & 0xF) * 11 / 255, opacity: 1.0)
                 }
             }
         } else if let color = CSSColors[color] {

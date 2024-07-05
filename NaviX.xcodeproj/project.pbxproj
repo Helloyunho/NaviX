@@ -47,6 +47,12 @@
 		553C7E562C1197F9002C8C0B /* Binding+Optional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7E552C1197F9002C8C0B /* Binding+Optional.swift */; };
 		558C34AA2C270DEF006E61A6 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558C34A92C270DEF006E61A6 /* ContainerView.swift */; };
 		558C34CC2C27407B006E61A6 /* WrappingStack in Frameworks */ = {isa = PBXBuildFile; productRef = 558C34CB2C27407B006E61A6 /* WrappingStack */; };
+		55A9E0F22C386CEB00EE72CD /* LiTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A9E0F12C386CEB00EE72CD /* LiTag.swift */; };
+		55A9E0F42C386D4E00EE72CD /* OlTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A9E0F32C386D4E00EE72CD /* OlTag.swift */; };
+		55A9E0F62C386E5C00EE72CD /* UlTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A9E0F52C386E5C00EE72CD /* UlTag.swift */; };
+		55A9E0F82C38703000EE72CD /* InputTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A9E0F72C38703000EE72CD /* InputTag.swift */; };
+		55A9E0FA2C38716000EE72CD /* TextareaTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A9E0F92C38716000EE72CD /* TextareaTag.swift */; };
+		55A9E0FC2C38762300EE72CD /* ButtonTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A9E0FB2C38762300EE72CD /* ButtonTag.swift */; };
 		55ADA3D22C2EE0DB0093A33B /* Kroma in Frameworks */ = {isa = PBXBuildFile; productRef = 55ADA3D12C2EE0DB0093A33B /* Kroma */; };
 		55ADA3D62C2F03F30093A33B /* CSSRuleSet+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3D52C2F03F30093A33B /* CSSRuleSet+Background.swift */; };
 		55ADA3D92C2F0C990093A33B /* H1Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55ADA3D82C2F0C990093A33B /* H1Tag.swift */; };
@@ -103,6 +109,13 @@
 		553C7E522C105DE6002C8C0B /* CSSRuleSet+Margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Margin.swift"; sourceTree = "<group>"; };
 		553C7E552C1197F9002C8C0B /* Binding+Optional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Optional.swift"; sourceTree = "<group>"; };
 		558C34A92C270DEF006E61A6 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		55A9E0F12C386CEB00EE72CD /* LiTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiTag.swift; sourceTree = "<group>"; };
+		55A9E0F32C386D4E00EE72CD /* OlTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OlTag.swift; sourceTree = "<group>"; };
+		55A9E0F52C386E5C00EE72CD /* UlTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UlTag.swift; sourceTree = "<group>"; };
+		55A9E0F72C38703000EE72CD /* InputTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTag.swift; sourceTree = "<group>"; };
+		55A9E0F92C38716000EE72CD /* TextareaTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextareaTag.swift; sourceTree = "<group>"; };
+		55A9E0FB2C38762300EE72CD /* ButtonTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTag.swift; sourceTree = "<group>"; };
+		55A9E0FD2C387AFD00EE72CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		55ADA3D52C2F03F30093A33B /* CSSRuleSet+Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CSSRuleSet+Background.swift"; sourceTree = "<group>"; };
 		55ADA3D82C2F0C990093A33B /* H1Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H1Tag.swift; sourceTree = "<group>"; };
 		55ADA3DA2C2F0FCB0093A33B /* H2Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H2Tag.swift; sourceTree = "<group>"; };
@@ -152,6 +165,7 @@
 		553C7DE52C0ADEFE002C8C0B /* NaviX */ = {
 			isa = PBXGroup;
 			children = (
+				55A9E0FD2C387AFD00EE72CD /* Info.plist */,
 				553C7E542C1197EC002C8C0B /* Extensions */,
 				553C7E3A2C0F1A71002C8C0B /* CSS */,
 				553C7E202C0CD603002C8C0B /* HTML */,
@@ -244,8 +258,11 @@
 		553C7E212C0CD611002C8C0B /* Tags */ = {
 			isa = PBXGroup;
 			children = (
+				55A9E0FB2C38762300EE72CD /* ButtonTag.swift */,
 				55ADA3E82C2F14D30093A33B /* ATag.swift */,
 				55ADA3E62C2F12D70093A33B /* HrTag.swift */,
+				55A9E0F72C38703000EE72CD /* InputTag.swift */,
+				55A9E0F92C38716000EE72CD /* TextareaTag.swift */,
 				55ADA3EA2C2F272B0093A33B /* ImgTag.swift */,
 				55ADA3D72C2F0C660093A33B /* Texts */,
 				553C7E332C0DEBF1002C8C0B /* BodyTag.swift */,
@@ -255,6 +272,8 @@
 				553C7E2C2C0CDEA6002C8C0B /* ScriptTag.swift */,
 				553C7E2E2C0DE956002C8C0B /* HeadTag.swift */,
 				553C7E382C0EF24E002C8C0B /* DivTag.swift */,
+				55A9E0F32C386D4E00EE72CD /* OlTag.swift */,
+				55A9E0F52C386E5C00EE72CD /* UlTag.swift */,
 			);
 			path = Tags;
 			sourceTree = "<group>";
@@ -321,6 +340,7 @@
 				55ADA3E02C2F10130093A33B /* H5Tag.swift */,
 				55ADA3E22C2F10150093A33B /* H6Tag.swift */,
 				55ADA3E42C2F10170093A33B /* PTag.swift */,
+				55A9E0F12C386CEB00EE72CD /* LiTag.swift */,
 			);
 			path = Texts;
 			sourceTree = "<group>";
@@ -411,11 +431,16 @@
 				553C7E2B2C0CDD05002C8C0B /* LinkTag.swift in Sources */,
 				553C7E402C0F1CE9002C8C0B /* CSSPosition.swift in Sources */,
 				553C7DE92C0ADEFE002C8C0B /* ContentView.swift in Sources */,
+				55A9E0FA2C38716000EE72CD /* TextareaTag.swift in Sources */,
+				55A9E0FC2C38762300EE72CD /* ButtonTag.swift in Sources */,
 				553C7E0C2C0C9EA8002C8C0B /* WindowModel.swift in Sources */,
 				55ADA3E72C2F12D70093A33B /* HrTag.swift in Sources */,
 				558C34AA2C270DEF006E61A6 /* ContainerView.swift in Sources */,
 				55ADA3E52C2F10170093A33B /* PTag.swift in Sources */,
 				553C7E562C1197F9002C8C0B /* Binding+Optional.swift in Sources */,
+				55A9E0F22C386CEB00EE72CD /* LiTag.swift in Sources */,
+				55A9E0F62C386E5C00EE72CD /* UlTag.swift in Sources */,
+				55A9E0F42C386D4E00EE72CD /* OlTag.swift in Sources */,
 				553C7E372C0DEF0B002C8C0B /* ParseError.swift in Sources */,
 				553C7E442C0F5FD4002C8C0B /* CSSRuleSet.swift in Sources */,
 				553C7E322C0DEA42002C8C0B /* HTMLUtils.swift in Sources */,
@@ -450,6 +475,7 @@
 				553C7E4F2C104CC1002C8C0B /* CSSRuleSet+Flex.swift in Sources */,
 				553C7E122C0CB208002C8C0B /* UserError.swift in Sources */,
 				55ADA3EB2C2F272B0093A33B /* ImgTag.swift in Sources */,
+				55A9E0F82C38703000EE72CD /* InputTag.swift in Sources */,
 				553C7E272C0CDC37002C8C0B /* TagProtocol.swift in Sources */,
 				553C7DE72C0ADEFE002C8C0B /* NaviXApp.swift in Sources */,
 				553C7E512C1056A2002C8C0B /* CSSRuleSet+Font.swift in Sources */,
@@ -593,6 +619,13 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NaviX/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSDesktopFolderUsageDescription = "Allow access to local web files.";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Allow access to local web files.";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "Allow access to local web files.";
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "Allow access to local web files.";
+				INFOPLIST_KEY_NSRemovableVolumesUsageDescription = "Allow access to local web files.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -632,6 +665,13 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NaviX/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSDesktopFolderUsageDescription = "Allow access to local web files.";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Allow access to local web files.";
+				INFOPLIST_KEY_NSDownloadsFolderUsageDescription = "Allow access to local web files.";
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "Allow access to local web files.";
+				INFOPLIST_KEY_NSRemovableVolumesUsageDescription = "Allow access to local web files.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

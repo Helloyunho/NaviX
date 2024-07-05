@@ -60,7 +60,7 @@ class HTMLTag: @unchecked Sendable, Equatable, Identifiable, Hashable {
     static func parse(_ html: Element) throws -> HTMLTag {
         let attr = HTMLUtils.convertAttr(html.getAttributes())
 
-        var htmlTag = HTMLTag()
+        let htmlTag = HTMLTag()
         htmlTag.attr = attr
 
         let headElem = try html.getElementsByTag("head")[0]

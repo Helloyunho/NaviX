@@ -13,6 +13,7 @@ extension NSNotification.Name {
     static let attrUpdated = NSNotification.Name("AttrUpdated")
     static let childrenUpdated = NSNotification.Name("ChildrenUpdated")
     static let onClick = NSNotification.Name("OnClick")
+    static let onSubmit = NSNotification.Name("OnSubmit")
     static let stylesheetsUpdated = NSNotification.Name("StylesheetsUpdated")
 }
 
@@ -79,4 +80,8 @@ extension BodyTagProtocol {
 
         return (attr, children)
     }
+}
+
+protocol InputTagProtocol: BodyTagProtocol {
+    var content: String { get set }
 }

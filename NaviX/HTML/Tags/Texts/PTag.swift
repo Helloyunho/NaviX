@@ -57,6 +57,7 @@ struct PTag: BodyTagProtocol {
         Text(_children.joined(separator: " "))
             .textSelection(.enabled)
             .modifier(CSSRuleSet.CSSFontModifier(ruleSet: style))
+            .modifier(CSSRuleSet.CSSColorModifier(ruleSet: style))
             .applyCommonCSS(ruleSet: style, tag: self)
     }
 

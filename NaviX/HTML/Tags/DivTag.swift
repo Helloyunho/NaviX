@@ -77,9 +77,9 @@ struct DivTag: BodyTagProtocol {
         .applyCommonCSS(ruleSet: style, tag: self)
     }
 
-    static func parse(_ div: Element, html: @escaping HTMLGetter) throws -> DivTag {
-        try HTMLUtils.checkTag(div, assert: "div")
-        let (attr, children) = Self.parseDefaultProps(div, html: html)
+    static func parse(_ elem: Element, html: @escaping HTMLGetter) throws -> DivTag {
+        try HTMLUtils.checkTag(elem, assert: "div")
+        let (attr, children) = Self.parseDefaultProps(elem, html: html)
 
         return DivTag(html: html, attr: attr, children: children)
     }

@@ -140,10 +140,6 @@ extension CSSRuleSet {
             self.lineHeight = lineHeight
         }
         
-        init(ruleSet: CSSRuleSet) {
-            self.init(fontSize: ruleSet.fontSize, fontFamily: ruleSet.fontFamily, fontWeight: ruleSet.fontWeight, underline: ruleSet.underline, underlineColor: ruleSet.underlineColor, overline: ruleSet.overline, overlineColor: ruleSet.overlineColor, strikethrough: ruleSet.strikethrough, strikethroughColor: ruleSet.strikethroughColor, lineHeight: ruleSet.lineHeight == nil ? nil : CGFloat(ruleSet.lineHeight!))
-        }
-        
         init(ruleSet: CSSRuleSet, defaultFontSize: Int = 11, defaultFontWeight: FontWeight = .normal, defaultUnderline: UnderlineType = .none, defaultUnderlineColor: Color = .black) {
             self.init(fontSize: ruleSet.fontSize ?? defaultFontSize, fontFamily: ruleSet.fontFamily, fontWeight: ruleSet.fontWeight ?? defaultFontWeight, underline: ruleSet.underline ?? defaultUnderline, underlineColor: ruleSet.underlineColor ?? defaultUnderlineColor, overline: ruleSet.overline, overlineColor: ruleSet.overlineColor, strikethrough: ruleSet.strikethrough, strikethroughColor: ruleSet.strikethroughColor, lineHeight: ruleSet.lineHeight == nil ? nil : CGFloat(ruleSet.lineHeight!))
         }
@@ -157,6 +153,7 @@ extension CSSRuleSet {
                         .padding(.vertical, (lineHeight - font.lineHeight) / 2)
                 } else {
                     content
+                        .font(Font(font))
                 }
             }
             .modifier(FontOverlineModifier(overline: overline, color: overlineColor))
