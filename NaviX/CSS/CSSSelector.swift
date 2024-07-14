@@ -18,9 +18,13 @@ struct CSSSelector: Hashable, Sendable {
         hasher.combine(children)
     }
     
-    func check(for tag: any TagProtocol, html: HTMLTag? = nil) -> Bool {
+    func check(for tag: any TagProtocol, html: HTMLTag? = nil) async -> Bool {
         // for now html is not required
-        tag.tagName == self.tag.lowercased() || tag.attr["class"]?.split(separator: " ").contains(where: { String($0) == self.class }) ?? false
+        if let c = await tag.attr["class"] {
+            return c.split(separator: " ").contains(where: { String($0) == self.class })
+        } else {
+            return await tag.tagName == self.tag.lowercased()
+        }
     }
     
     private static func parseSingular(tokens: [CSSToken], idx: inout Int) throws -> CSSSelector {

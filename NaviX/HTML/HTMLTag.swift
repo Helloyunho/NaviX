@@ -10,12 +10,6 @@ import SwiftSoup
 import SwiftUI
 
 class HTMLTag: @unchecked Sendable, Equatable, Identifiable, Hashable {
-    var html: HTMLGetter {
-        {
-            self
-        }
-    }
-
     let tagName = "html"
     let id = UUID()
     
@@ -31,44 +25,44 @@ class HTMLTag: @unchecked Sendable, Equatable, Identifiable, Hashable {
 
     var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.post(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
 
     var stylesheets = [CSSStylesheet]() {
         didSet {
-            NotificationCenter.default.post(name: .stylesheetsUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(name: .stylesheetsUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
 
     var head: HeadTag? {
         didSet {
-            NotificationCenter.default.post(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
+            NotificationCenter.default.postMain(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
 
     var body: BodyTag? {
         didSet {
-            NotificationCenter.default.post(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
+            NotificationCenter.default.postMain(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
 
-    static func parse(_: Element, html _: @escaping HTMLGetter) throws -> HTMLTag {
+    static func parse(_: Element, html _: HTMLTag) throws -> HTMLTag {
         fatalError("HTMLTag(_:html:) shouldn't be called")
     }
 
-    static func parse(_ html: Element) throws -> HTMLTag {
+    @MainActor static func parse(_ html: Element) throws -> HTMLTag {
         let attr = HTMLUtils.convertAttr(html.getAttributes())
 
         let htmlTag = HTMLTag()
         htmlTag.attr = attr
 
         let headElem = try html.getElementsByTag("head")[0]
-        let head = try HeadTag.parse(headElem, html: htmlTag.html)
+        let head = try HeadTag.parse(headElem, html: htmlTag)
         htmlTag.head = head
 
         let bodyElem = try html.getElementsByTag("body")[0]
-        let body = try BodyTag.parse(bodyElem, html: htmlTag.html)
+        let body = try BodyTag.parse(bodyElem, html: htmlTag)
         htmlTag.body = body
         return htmlTag
     }

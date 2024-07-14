@@ -309,7 +309,7 @@ extension View {
                 .modifier(CSSRuleSet.CSSBackgroundColorModifier(ruleSet: ruleSet))
                 .modifier(CSSRuleSet.CSSBorderModifier(ruleSet: ruleSet))
                 .onTapGesture {
-                    NotificationCenter.default.post(name: .onClick, object: tag, userInfo: nil)
+                    NotificationCenter.default.postMain(name: .onClick, object: tag, userInfo: nil)
                 }
         }
             .modifier(CSSRuleSet.CSSMarginModifier(ruleSet: ruleSet))

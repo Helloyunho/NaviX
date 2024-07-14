@@ -102,7 +102,7 @@ struct Tab: Equatable, Hashable {
                 error = nil
             }
             if let htmlTree = try? SwiftSoup.parse(body) {
-                let tree = try HTMLTag.parse(htmlTree)
+                let tree = try await HTMLTag.parse(htmlTree)
                 DispatchQueue.main.sync {
                     self.tree = tree
                 }

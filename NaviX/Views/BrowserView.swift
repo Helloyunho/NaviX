@@ -23,7 +23,7 @@ struct BrowserView: View {
                     Text(windowModel.tab.body)
                         .textSelection(.enabled)
                 } else if let body = windowModel.tab.tree!.body {
-                    body
+                    BodyTagView(tag: body)
                         .frame(minWidth: reader.size.width, maxWidth: .infinity, minHeight: reader.size.height, maxHeight: .infinity)
                 }
             }

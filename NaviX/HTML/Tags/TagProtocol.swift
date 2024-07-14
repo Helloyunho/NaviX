@@ -21,28 +21,25 @@ protocol Content: Identifiable, Hashable, Sendable {
     var id: UUID { get }
 }
 
-typealias HTMLGetter = @Sendable () -> HTMLTag
-
-protocol TagProtocol: Equatable, Identifiable, Hashable, Sendable {
-    var id: UUID { get }
+@MainActor
+protocol TagProtocol: Equatable, Identifiable, Hashable, Sendable, ObservableObject {
+    nonisolated var id: UUID { get }
     var tagName: String { get }
     var attr: [String: String] { get set }
-    var html: HTMLGetter { get }
+    var html: HTMLTag { get }
     /**
      NOTE: This function should first check if the tag name matches with desired tag.
      */
-    static func parse(_: Element, html: @escaping HTMLGetter) throws -> Self
+    static func parse(_: Element, html: HTMLTag) throws -> Self
 }
 
 extension TagProtocol {
-    static func == (lhs: Self, rhs: Self) -> Bool {
+    nonisolated static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.id == rhs.id
     }
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(tagName)
+    nonisolated func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(attr)
     }
 }
 
@@ -68,17 +65,27 @@ extension HeadTagProtocol {
 
 protocol BodyTagProtocol: Content, TagProtocol {
     var children: [any Content] { get set }
-    var style: CSSRuleSet { get }
-    associatedtype Body : View
-    @ViewBuilder @MainActor @preconcurrency var body: Body { get }
+    var style: CSSRuleSet { get set }
 }
 
 extension BodyTagProtocol {
-    static func parseDefaultProps(_ elem: Element, html: @escaping HTMLGetter) -> ([String: String], [any Content]) {
+    static func parseDefaultProps(_ elem: Element, html: HTMLTag) -> ([String: String], [any Content]) {
         let attr = HTMLUtils.convertAttr(elem.getAttributes())
         let children = HTMLUtils.parseBodyTags(elem, html: html)
 
         return (attr, children)
+    }
+    
+    func getStyle() async -> CSSRuleSet {
+        var result = CSSRuleSet()
+        for stylesheet in html.stylesheets {
+            result += await stylesheet.findRuleset(for: self, html: html).reduce(result, +)
+        }
+        if let css = attr["style"], let ruleset = try? CSSRuleSet.parse(css) {
+            result += ruleset
+        }
+
+        return result
     }
 }
 

@@ -14,15 +14,18 @@ extension StringProtocol {
 struct CSSStylesheet {
     var rulesets: [CSSSelector: CSSRuleSet]
 
-    func findRuleset(for tag: any TagProtocol, html: HTMLTag? = nil) -> [CSSRuleSet] {
+    func findRuleset(for tag: any TagProtocol, html: HTMLTag? = nil) async -> [CSSRuleSet] {
         var result = [CSSRuleSet]()
         for (selector, ruleset) in rulesets {
             if selector.children.count != 0 {
-                if selector.children.contains(where: { $0.check(for: tag, html: html) }) {
-                    result.append(ruleset)
+                for child in selector.children {
+                    if await child.check(for: tag, html: html) {
+                        result.append(ruleset)
+                        break
+                    }
                 }
             } else {
-                if selector.check(for: tag, html: html) {
+                if await selector.check(for: tag, html: html) {
                     result.append(ruleset)
                 }
             }

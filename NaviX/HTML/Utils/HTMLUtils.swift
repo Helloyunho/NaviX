@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftSoup
+import SwiftUI
 
 class HTMLUtils {
     static func convertAttr(_ attrs: Attributes?) -> [String: String] {
@@ -25,7 +26,8 @@ class HTMLUtils {
         guard elem.tagName().lowercased() == expected else { throw ParseError.invalidTag }
     }
     
-    static func parseHeadTags(_ elem: Element, html: @escaping HTMLGetter) -> [any HeadTagProtocol] {
+    @MainActor
+    static func parseHeadTags(_ elem: Element, html: HTMLTag) -> [any HeadTagProtocol] {
         var children = [any HeadTagProtocol]()
         for child in elem.children() {
             do {
@@ -48,7 +50,8 @@ class HTMLUtils {
         return children
     }
     
-    static func parseBodyTags(_ elem: Element, html: @escaping HTMLGetter) -> [any Content] {
+    @MainActor
+    static func parseBodyTags(_ elem: Element, html: HTMLTag) -> [any Content] {
         var children = [any Content]()
         for child in elem.childNodesCopy() {
             if let str = child as? TextNode, !str.text().trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -101,5 +104,47 @@ class HTMLUtils {
         }
         
         return children
+    }
+    
+    @MainActor
+    static func getViewFromTags(_ tag: any BodyTagProtocol) -> AnyView {
+        switch tag.tagName {
+        case "div":
+            AnyView(DivTagView(tag: tag as! DivTag))
+        case "h1":
+            AnyView(H1TagView(tag: tag as! H1Tag))
+        case "h2":
+            AnyView(H2TagView(tag: tag as! H2Tag))
+        case "h3":
+            AnyView(H3TagView(tag: tag as! H3Tag))
+        case "h4":
+            AnyView(H4TagView(tag: tag as! H4Tag))
+        case "h5":
+            AnyView(H5TagView(tag: tag as! H5Tag))
+        case "h6":
+            AnyView(H6TagView(tag: tag as! H6Tag))
+        case "p":
+            AnyView(PTagView(tag: tag as! PTag))
+        case "hr":
+            AnyView(HrTagView(tag: tag as! HrTag))
+        case "a":
+            AnyView(ATagView(tag: tag as! ATag))
+        case "img":
+            AnyView(ImgTagView(tag: tag as! ImgTag))
+        case "ol":
+            AnyView(OlTagView(tag: tag as! OlTag))
+        case "ul":
+            AnyView(UlTagView(tag: tag as! UlTag))
+        case "li":
+            AnyView(LiTagView(tag: tag as! LiTag))
+        case "input":
+            AnyView(InputTagView(tag: tag as! InputTag))
+        case "textarea":
+            AnyView(TextareaTagView(tag: tag as! TextareaTag))
+        case "button":
+            AnyView(ButtonTagView(tag: tag as! ButtonTag))
+        default:
+            AnyView(EmptyView())
+        }
     }
 }

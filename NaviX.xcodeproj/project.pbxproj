@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		552D680D2C44105700966BB0 /* NotificationCenter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552D680C2C44105700966BB0 /* NotificationCenter+Extension.swift */; };
+		552D68112C441E8D00966BB0 /* HTMLBodyViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552D68102C441E8D00966BB0 /* HTMLBodyViewModifier.swift */; };
 		553C7DE72C0ADEFE002C8C0B /* NaviXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7DE62C0ADEFE002C8C0B /* NaviXApp.swift */; };
 		553C7DE92C0ADEFE002C8C0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553C7DE82C0ADEFE002C8C0B /* ContentView.swift */; };
 		553C7DED2C0ADF01002C8C0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 553C7DEC2C0ADF01002C8C0B /* Assets.xcassets */; };
@@ -68,6 +70,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		552D680C2C44105700966BB0 /* NotificationCenter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationCenter+Extension.swift"; sourceTree = "<group>"; };
+		552D68102C441E8D00966BB0 /* HTMLBodyViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLBodyViewModifier.swift; sourceTree = "<group>"; };
 		553C7DE32C0ADEFE002C8C0B /* NaviX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NaviX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		553C7DE62C0ADEFE002C8C0B /* NaviXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaviXApp.swift; sourceTree = "<group>"; };
 		553C7DE82C0ADEFE002C8C0B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -144,6 +148,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		552D680E2C44170E00966BB0 /* Head */ = {
+			isa = PBXGroup;
+			children = (
+				553C7E282C0CDC46002C8C0B /* TitleTag.swift */,
+				553C7E2A2C0CDD05002C8C0B /* LinkTag.swift */,
+				553C7E2C2C0CDEA6002C8C0B /* ScriptTag.swift */,
+				553C7E2E2C0DE956002C8C0B /* HeadTag.swift */,
+			);
+			path = Head;
+			sourceTree = "<group>";
+		};
+		552D680F2C44171600966BB0 /* Body */ = {
+			isa = PBXGroup;
+			children = (
+				55A9E0FB2C38762300EE72CD /* ButtonTag.swift */,
+				55ADA3E82C2F14D30093A33B /* ATag.swift */,
+				55ADA3E62C2F12D70093A33B /* HrTag.swift */,
+				55A9E0F72C38703000EE72CD /* InputTag.swift */,
+				55A9E0F92C38716000EE72CD /* TextareaTag.swift */,
+				55ADA3EA2C2F272B0093A33B /* ImgTag.swift */,
+				55ADA3D72C2F0C660093A33B /* Texts */,
+				553C7E332C0DEBF1002C8C0B /* BodyTag.swift */,
+				553C7E382C0EF24E002C8C0B /* DivTag.swift */,
+				55A9E0F32C386D4E00EE72CD /* OlTag.swift */,
+				55A9E0F52C386E5C00EE72CD /* UlTag.swift */,
+			);
+			path = Body;
+			sourceTree = "<group>";
+		};
 		553C7DDA2C0ADEFE002C8C0B = {
 			isa = PBXGroup;
 			children = (
@@ -258,22 +291,9 @@
 		553C7E212C0CD611002C8C0B /* Tags */ = {
 			isa = PBXGroup;
 			children = (
-				55A9E0FB2C38762300EE72CD /* ButtonTag.swift */,
-				55ADA3E82C2F14D30093A33B /* ATag.swift */,
-				55ADA3E62C2F12D70093A33B /* HrTag.swift */,
-				55A9E0F72C38703000EE72CD /* InputTag.swift */,
-				55A9E0F92C38716000EE72CD /* TextareaTag.swift */,
-				55ADA3EA2C2F272B0093A33B /* ImgTag.swift */,
-				55ADA3D72C2F0C660093A33B /* Texts */,
-				553C7E332C0DEBF1002C8C0B /* BodyTag.swift */,
+				552D680F2C44171600966BB0 /* Body */,
+				552D680E2C44170E00966BB0 /* Head */,
 				553C7E262C0CDC37002C8C0B /* TagProtocol.swift */,
-				553C7E282C0CDC46002C8C0B /* TitleTag.swift */,
-				553C7E2A2C0CDD05002C8C0B /* LinkTag.swift */,
-				553C7E2C2C0CDEA6002C8C0B /* ScriptTag.swift */,
-				553C7E2E2C0DE956002C8C0B /* HeadTag.swift */,
-				553C7E382C0EF24E002C8C0B /* DivTag.swift */,
-				55A9E0F32C386D4E00EE72CD /* OlTag.swift */,
-				55A9E0F52C386E5C00EE72CD /* UlTag.swift */,
 			);
 			path = Tags;
 			sourceTree = "<group>";
@@ -281,6 +301,7 @@
 		553C7E302C0DEA37002C8C0B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				552D68102C441E8D00966BB0 /* HTMLBodyViewModifier.swift */,
 				553C7E312C0DEA42002C8C0B /* HTMLUtils.swift */,
 			);
 			path = Utils;
@@ -326,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				553C7E552C1197F9002C8C0B /* Binding+Optional.swift */,
+				552D680C2C44105700966BB0 /* NotificationCenter+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -454,6 +476,8 @@
 				55ADA3DD2C2F0FE40093A33B /* H3Tag.swift in Sources */,
 				553C7E422C0F2598002C8C0B /* CSSError.swift in Sources */,
 				55ADA3E92C2F14D30093A33B /* ATag.swift in Sources */,
+				552D680D2C44105700966BB0 /* NotificationCenter+Extension.swift in Sources */,
+				552D68112C441E8D00966BB0 /* HTMLBodyViewModifier.swift in Sources */,
 				553C7E142C0CB38B002C8C0B /* AddressError.swift in Sources */,
 				55ADA3E12C2F10130093A33B /* H5Tag.swift in Sources */,
 				55ADA3DB2C2F0FCB0093A33B /* H2Tag.swift in Sources */,
