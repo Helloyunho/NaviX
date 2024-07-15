@@ -23,7 +23,7 @@ struct CSSToken {
     let value: String
     let start: CSSPosition
     let end: CSSPosition
-    
+
     static func tokenize(_ css: String) throws -> [CSSToken] {
         let tokenizer = CSSTokenizer()
         return try tokenizer.tokenize(css)
@@ -36,7 +36,7 @@ class CSSTokenizer {
     private var position = CSSPosition(line: 1, col: 1)
     private var tokens: [CSSToken] = []
     private var idx = 0
-    
+
     private func generateOneToken(_ char: String, type tokenType: CSSTokenType) {
         if let token = tokenState.end(endPos: position) {
             tokens.append(token)
@@ -47,7 +47,7 @@ class CSSTokenizer {
         tokens.append(tokenState.end(endPos: position)!)
         position.col -= 1
     }
-    
+
     func tokenize(_ css: String) throws -> [CSSToken] {
         let css = css.replacingOccurrences(of: "\r\n", with: "\n")
         tokenState = CSSTokenState()
@@ -114,11 +114,11 @@ class CSSTokenizer {
             position.col += 1
             idx += 1
         }
-        
+
         if let token = tokenState.end(endPos: position) {
             tokens.append(token)
         }
-        
+
         return tokens
     }
 }
@@ -127,33 +127,33 @@ class CSSTokenState {
     var position = CSSPosition(line: 0, col: 0)
     var type: CSSTokenType?
     var value = ""
-    
+
     func reset() {
         type = nil
         value = ""
         position.line = 0
         position.col = 0
     }
-    
+
     func push(ch: String) {
         value += ch
     }
-    
+
     func pos(_ pos: CSSPosition) {
         position = pos
     }
-    
+
     func start(type: CSSTokenType, startPos: CSSPosition) {
         self.type = type
         pos(startPos)
         value = ""
     }
-    
+
     func token(_ type: CSSTokenType, endPos: CSSPosition) -> CSSToken {
         let token = CSSToken(type: type, value: value, start: position, end: endPos)
         return token
     }
-    
+
     func end(endPos: CSSPosition) -> CSSToken? {
         var result: CSSToken?
         if let type = type {

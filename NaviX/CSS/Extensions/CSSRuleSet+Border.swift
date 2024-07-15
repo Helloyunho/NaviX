@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import SwiftUI
 import Kroma
+import SwiftUI
 
 extension CSSRuleSet {
     var borderColor: Color? {
@@ -16,20 +16,20 @@ extension CSSRuleSet {
         }
         return nil
     }
-    
+
     struct DoubleBorderShape: Shape {
         let width: CGFloat
-        
+
         func path(in rect: CGRect) -> Path {
             let singleWidth = width / 3
             return Path { p in
                 p.addRect(rect)
-                p.addRect(rect.insetBy(dx: singleWidth*2, dy: singleWidth*2))
+                p.addRect(rect.insetBy(dx: singleWidth * 2, dy: singleWidth * 2))
                 p.closeSubpath()
             }
         }
     }
-    
+
     struct DashedBorderShape: Shape {
         let dashLength: CGFloat
         let spaceLength: CGFloat
@@ -40,21 +40,25 @@ extension CSSRuleSet {
                 (CGPoint(x: rect.minX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.minY)),
                 (CGPoint(x: rect.maxX, y: rect.minY), CGPoint(x: rect.maxX, y: rect.maxY)),
                 (CGPoint(x: rect.maxX, y: rect.maxY), CGPoint(x: rect.minX, y: rect.maxY)),
-                (CGPoint(x: rect.minX, y: rect.maxY), CGPoint(x: rect.minX, y: rect.minY))
+                (CGPoint(x: rect.minX, y: rect.maxY), CGPoint(x: rect.minX, y: rect.minY)),
             ]
             sides.forEach { (start, end) in
                 let length = hypot(end.x - start.x, end.y - start.y)
                 let (unitX, unitY) = ((end.x - start.x) / length, (end.y - start.y) / length)
                 var (drawn, point, index) = (CGFloat(0), start, 0)
-                
+
                 while drawn < length {
                     if index % 2 == 0 {
                         path.move(to: point)
-                        let next = CGPoint(x: point.x + unitX * min(dashLength, length - drawn), y: point.y + unitY * min(dashLength, length - drawn))
+                        let next = CGPoint(
+                            x: point.x + unitX * min(dashLength, length - drawn),
+                            y: point.y + unitY * min(dashLength, length - drawn))
                         path.addLine(to: next)
                         point = next
                     } else {
-                        point = CGPoint(x: point.x + unitX * min(spaceLength, length - drawn), y: point.y + unitY * min(spaceLength, length - drawn))
+                        point = CGPoint(
+                            x: point.x + unitX * min(spaceLength, length - drawn),
+                            y: point.y + unitY * min(spaceLength, length - drawn))
                     }
                     if index % 2 == 0 {
                         drawn += dashLength
@@ -68,35 +72,35 @@ extension CSSRuleSet {
             return path
         }
     }
-    
+
     struct TopLeftBorderShape: Shape {
         let width: CGFloat
 
         func path(in rect: CGRect) -> Path {
             return Path { p in
                 p.move(to: CGPoint(x: rect.minX, y: rect.minY))
-                
+
                 //top line
                 p.addLine(to: CGPoint(x: rect.maxX - width, y: rect.minY))
-                
+
                 // Top-right corner
                 p.addLine(to: CGPoint(x: rect.maxX, y: rect.minY))
-                
+
                 // Righ line
                 p.addLine(to: CGPoint(x: rect.maxX - width, y: rect.minY + width))
-                
+
                 // Bottom-right corner
                 p.addLine(to: CGPoint(x: rect.minX + width, y: rect.minY + width))
-                
+
                 // Bottom line
                 p.addLine(to: CGPoint(x: rect.minX + width, y: rect.maxY - width))
-                
+
                 // Bottom-left corner
                 p.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-                
+
                 // Left line
                 //p.addLine(to: CGPoint(x: rect.minX, y: rect.minY + boundedCornerRadius))
-                
+
                 p.closeSubpath()
             }
         }
@@ -108,32 +112,32 @@ extension CSSRuleSet {
         func path(in rect: CGRect) -> Path {
             return Path { p in
                 p.move(to: CGPoint(x: rect.maxX, y: rect.minY))
-                
+
                 // Righ line
-                p.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY ))
-                
+                p.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
+
                 // Bottom line
                 p.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-                
+
                 // Bottom-left corner
                 p.addLine(to: CGPoint(x: rect.minX + width, y: rect.maxY - width))
-                
+
                 //top line
                 p.addLine(to: CGPoint(x: rect.maxX - width, y: rect.maxY - width))
-                
+
                 // Left line
                 p.addLine(to: CGPoint(x: rect.maxX - width, y: rect.minY + width))
-                
+
                 p.closeSubpath()
             }
         }
     }
-    
+
     struct ThreeDBorderOverlay: View {
         let type: BorderStyle
         let width: CGFloat
         let color: Color
-        
+
         var body: some View {
             ZStack {
                 if type == .groove {
@@ -149,7 +153,7 @@ extension CSSRuleSet {
                 }
             }
         }
-        
+
         private func apply3DEffect(color: Color, colorOverlay: Color) -> some View {
             ZStack {
                 TopLeftBorderShape(width: width).fill(color)
@@ -159,24 +163,27 @@ extension CSSRuleSet {
             }
         }
     }
-    
+
     struct CSSBorderModifier: ViewModifier {
         let borderColor: Color
         let borderWidth: CGFloat
         let borderRadius: CGFloat
         let borderStyle: BorderStyle
-        
-        init(borderColor: Color?, borderWidth: Int?, borderRadius: Int?, borderStyle: BorderStyle?) {
+
+        init(borderColor: Color?, borderWidth: Int?, borderRadius: Int?, borderStyle: BorderStyle?)
+        {
             self.borderColor = borderColor ?? .black
             self.borderWidth = CGFloat(borderWidth ?? 0)
             self.borderRadius = CGFloat(borderRadius ?? 0)
             self.borderStyle = borderStyle ?? .none
         }
-        
+
         init(ruleSet: CSSRuleSet) {
-            self.init(borderColor: ruleSet.borderColor, borderWidth: ruleSet.borderWidth.0, borderRadius: ruleSet.borderRadius, borderStyle: ruleSet.borderStyle.0)
+            self.init(
+                borderColor: ruleSet.borderColor, borderWidth: ruleSet.borderWidth.0,
+                borderRadius: ruleSet.borderRadius, borderStyle: ruleSet.borderStyle.0)
         }
-        
+
         func body(content: Self.Content) -> some View {
             if borderWidth == 0 {
                 content
@@ -200,8 +207,10 @@ extension CSSRuleSet {
                 case .dashed:
                     content
                         .overlay(
-                            DashedBorderShape(dashLength: borderWidth*3, spaceLength: borderWidth*2)
-                                .stroke(borderColor, lineWidth: borderWidth)
+                            DashedBorderShape(
+                                dashLength: borderWidth * 3, spaceLength: borderWidth * 2
+                            )
+                            .stroke(borderColor, lineWidth: borderWidth)
                         )
                         .clipShape(
                             RoundedRectangle(cornerRadius: borderRadius)
@@ -223,7 +232,8 @@ extension CSSRuleSet {
                 case .groove, .ridge, .inset, .outset:
                     content
                         .overlay(
-                            ThreeDBorderOverlay(type: borderStyle, width: borderWidth, color: borderColor)
+                            ThreeDBorderOverlay(
+                                type: borderStyle, width: borderWidth, color: borderColor)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: borderRadius))
                 }
@@ -281,35 +291,35 @@ extension CSSRuleSet {
         case inset
         case outset
     }
-    
+
     var borderTopStyle: BorderStyle? {
         if let borderTopStyle = oneSideUnitToString("border", side: .top, suffix: "style") {
             return BorderStyle(rawValue: borderTopStyle)
         }
         return nil
     }
-    
+
     var borderRightStyle: BorderStyle? {
         if let borderRightStyle = oneSideUnitToString("border", side: .right, suffix: "style") {
             return BorderStyle(rawValue: borderRightStyle)
         }
         return nil
     }
-    
+
     var borderBottomStyle: BorderStyle? {
         if let borderBottomStyle = oneSideUnitToString("border", side: .bottom, suffix: "style") {
             return BorderStyle(rawValue: borderBottomStyle)
         }
         return nil
     }
-    
+
     var borderLeftStyle: BorderStyle? {
         if let borderLeftStyle = oneSideUnitToString("border", side: .left, suffix: "style") {
             return BorderStyle(rawValue: borderLeftStyle)
         }
         return nil
     }
-    
+
     var borderStyle: (BorderStyle?, BorderStyle?, BorderStyle?, BorderStyle?) {
         var result: (BorderStyle?, BorderStyle?, BorderStyle?, BorderStyle?) = (nil, nil, nil, nil)
 

@@ -16,10 +16,11 @@ final class HrTag: BodyTagProtocol {
 
     @Published var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
-    
+
     var _children = [String]()
 
     var children: [any Content] {
@@ -28,10 +29,10 @@ final class HrTag: BodyTagProtocol {
         }
         set {}
     }
-    
+
     var style = CSSRuleSet()
-    
-    init(html: HTMLTag, attr: [String : String], children: [any Content] = [any Content]()) {
+
+    init(html: HTMLTag, attr: [String: String], children: [any Content] = [any Content]()) {
         self.html = html
         self.attr = attr
         self.children = children
@@ -47,7 +48,7 @@ final class HrTag: BodyTagProtocol {
 
 struct HrTagView: View {
     @ObservedObject var tag: HrTag
-    
+
     var body: some View {
         Divider()
             .frame(width: 0)

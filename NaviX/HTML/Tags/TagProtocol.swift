@@ -46,7 +46,7 @@ extension TagProtocol {
 extension String: @retroactive Identifiable {}
 extension String: Content {
     public var id: UUID {
-        UUID() // TODO: WE REALLY NEED A BETTER WAY TO GENERATE ID
+        UUID()  // TODO: WE REALLY NEED A BETTER WAY TO GENERATE ID
     }
 }
 
@@ -69,13 +69,15 @@ protocol BodyTagProtocol: Content, TagProtocol {
 }
 
 extension BodyTagProtocol {
-    static func parseDefaultProps(_ elem: Element, html: HTMLTag) -> ([String: String], [any Content]) {
+    static func parseDefaultProps(_ elem: Element, html: HTMLTag) -> (
+        [String: String], [any Content]
+    ) {
         let attr = HTMLUtils.convertAttr(elem.getAttributes())
         let children = HTMLUtils.parseBodyTags(elem, html: html)
 
         return (attr, children)
     }
-    
+
     func getStyle() async -> CSSRuleSet {
         var result = CSSRuleSet()
         for stylesheet in html.stylesheets {

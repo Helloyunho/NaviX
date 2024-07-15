@@ -8,7 +8,9 @@
 import Foundation
 
 extension NotificationCenter {
-    func postMain(name: Notification.Name, object: sending Any?=nil, userInfo: sending [AnyHashable: Any]?=nil) {
+    func postMain(
+        name: Notification.Name, object: sending Any?=nil, userInfo: sending [AnyHashable: Any]?=nil
+    ) {
         DispatchQueue.main.async {
             self.post(name: name, object: object, userInfo: userInfo)
         }

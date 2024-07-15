@@ -17,18 +17,18 @@ struct CSSRuleSet {
         }
         return nil
     }
-    
+
     struct CSSColorModifier: ViewModifier {
         let _color: Color?
-        
+
         init(_ color: Color?) {
             self._color = color
         }
-        
+
         init(ruleSet: CSSRuleSet) {
             self.init(ruleSet.color)
         }
-        
+
         func body(content: Self.Content) -> some View {
             if let _color {
                 content.foregroundColor(_color)
@@ -44,18 +44,18 @@ struct CSSRuleSet {
         }
         return nil
     }
-    
+
     struct CSSWidthModifier: ViewModifier {
         let _width: Int?
-        
+
         init(_ width: Int?) {
             self._width = width
         }
-        
+
         init(ruleSet: CSSRuleSet) {
             self.init(ruleSet.width)
         }
-        
+
         func body(content: Self.Content) -> some View {
             if let _width {
                 content.frame(width: CGFloat(_width))
@@ -71,18 +71,18 @@ struct CSSRuleSet {
         }
         return nil
     }
-    
+
     struct CSSHeightModifier: ViewModifier {
         let _height: Int?
-        
+
         init(_ height: Int?) {
             self._height = height
         }
-        
+
         init(ruleSet: CSSRuleSet) {
             self.init(ruleSet.height)
         }
-        
+
         func body(content: Self.Content) -> some View {
             if let _height {
                 content.frame(height: CGFloat(_height))
@@ -91,25 +91,25 @@ struct CSSRuleSet {
             }
         }
     }
-    
+
     var opacity: Double? {
         if let opacity = properties["opacity"] {
             return Double(opacity.first!)
         }
         return nil
     }
-    
+
     struct CSSOpacityModifier: ViewModifier {
         let _opacity: Double?
-        
+
         init(_ opacity: Double?) {
             self._opacity = opacity
         }
-        
+
         init(ruleSet: CSSRuleSet) {
             self.init(ruleSet.opacity)
         }
-        
+
         func body(content: Self.Content) -> some View {
             if let _opacity {
                 content.opacity(_opacity)
@@ -136,7 +136,9 @@ struct CSSRuleSet {
     func oneSideUnitToString(_ prefix: String, side: Side, suffix: String? = nil) -> String? {
         if let oneUnit = properties["\(prefix)-\(side.rawValue)\(suffix != nil ? "-suffix" : "")"] {
             return oneUnit.first!
-        } else if let fourUnitsProp = properties["\(prefix)\(suffix != nil ? "-suffix" : "")"], let fourUnits = cssSideUnitsToString(fourUnitsProp) {
+        } else if let fourUnitsProp = properties["\(prefix)\(suffix != nil ? "-suffix" : "")"],
+            let fourUnits = cssSideUnitsToString(fourUnitsProp)
+        {
             switch side {
             case .top:
                 return fourUnits.0
@@ -180,7 +182,9 @@ struct CSSRuleSet {
     func oneSideUnitToInt(_ prefix: String, side: Side, suffix: String? = nil) -> Int? {
         if let oneUnit = properties["\(prefix)-\(side.rawValue)\(suffix != nil ? "-suffix" : "")"] {
             return cssUnitToInt(oneUnit.first!)
-        } else if let fourUnitsProp = properties["\(prefix)\(suffix != nil ? "-suffix" : "")"], let fourUnits = cssSideUnitsToInt(fourUnitsProp) {
+        } else if let fourUnitsProp = properties["\(prefix)\(suffix != nil ? "-suffix" : "")"],
+            let fourUnits = cssSideUnitsToInt(fourUnitsProp)
+        {
             switch side {
             case .top:
                 return fourUnits.0
@@ -235,11 +239,21 @@ struct CSSRuleSet {
             hex.removeFirst()
             if let hexInt = Int(hex, radix: 16) {
                 if hex.count == 8 {
-                    return Color(red: Double((hexInt >> 24) & 0xFF) / 255, green: Double((hexInt >> 16) & 0xFF) / 255, blue: Double((hexInt >> 8) & 0xFF) / 255, opacity: Double(hexInt & 0xFF) / 255)
+                    return Color(
+                        red: Double((hexInt >> 24) & 0xFF) / 255,
+                        green: Double((hexInt >> 16) & 0xFF) / 255,
+                        blue: Double((hexInt >> 8) & 0xFF) / 255,
+                        opacity: Double(hexInt & 0xFF) / 255)
                 } else if hex.count == 6 {
-                    return Color(red: Double((hexInt >> 16) & 0xFF) / 255, green: Double((hexInt >> 8) & 0xFF) / 255, blue: Double(hexInt & 0xFF) / 255, opacity: 1.0)
+                    return Color(
+                        red: Double((hexInt >> 16) & 0xFF) / 255,
+                        green: Double((hexInt >> 8) & 0xFF) / 255,
+                        blue: Double(hexInt & 0xFF) / 255, opacity: 1.0)
                 } else if hex.count == 3 {
-                    return Color(red: Double((hexInt >> 8) & 0xF) * 11 / 255, green: Double((hexInt >> 4) & 0xF) * 11 / 255, blue: Double(hexInt & 0xF) * 11 / 255, opacity: 1.0)
+                    return Color(
+                        red: Double((hexInt >> 8) & 0xF) * 11 / 255,
+                        green: Double((hexInt >> 4) & 0xF) * 11 / 255,
+                        blue: Double(hexInt & 0xF) * 11 / 255, opacity: 1.0)
                 }
             }
         } else if let color = CSSColors[color] {
@@ -312,7 +326,7 @@ extension View {
                     NotificationCenter.default.postMain(name: .onClick, object: tag, userInfo: nil)
                 }
         }
-            .modifier(CSSRuleSet.CSSMarginModifier(ruleSet: ruleSet))
-            .modifier(CSSRuleSet.CSSOpacityModifier(ruleSet: ruleSet))
+        .modifier(CSSRuleSet.CSSMarginModifier(ruleSet: ruleSet))
+        .modifier(CSSRuleSet.CSSOpacityModifier(ruleSet: ruleSet))
     }
 }

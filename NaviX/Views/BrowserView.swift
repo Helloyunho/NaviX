@@ -24,7 +24,9 @@ struct BrowserView: View {
                         .textSelection(.enabled)
                 } else if let body = windowModel.tab.tree!.body {
                     BodyTagView(tag: body)
-                        .frame(minWidth: reader.size.width, maxWidth: .infinity, minHeight: reader.size.height, maxHeight: .infinity)
+                        .frame(
+                            minWidth: reader.size.width, maxWidth: .infinity,
+                            minHeight: reader.size.height, maxHeight: .infinity)
                 }
             }
         }
@@ -32,16 +34,18 @@ struct BrowserView: View {
         .onChange(of: windowModel.tab.tree) {
             processInitialHead()
         }
-        .onReceive(NotificationCenter.default.publisher(for: .attrUpdated), perform: { notification in
-            if let script = notification.object as? ScriptTag {
-                // TODO: update matching script execution
-            } else if let link = notification.object as? LinkTag {
-                // TODO: update matching link execution
-                processLinkTag(link)
-            } else if let title = notification.object as? TitleTag {
-                processTitleTag(title)
-            }
-        })
+        .onReceive(
+            NotificationCenter.default.publisher(for: .attrUpdated),
+            perform: { notification in
+                if let script = notification.object as? ScriptTag {
+                    // TODO: update matching script execution
+                } else if let link = notification.object as? LinkTag {
+                    // TODO: update matching link execution
+                    processLinkTag(link)
+                } else if let title = notification.object as? TitleTag {
+                    processTitleTag(title)
+                }
+            })
     }
 
     func processLinkTag(_ tag: LinkTag) {
@@ -66,16 +70,16 @@ struct BrowserView: View {
                     do {
                         let imageData = try await Request.fetch(url).data()
                         #if os(macOS)
-                        let image = NSImage(data: imageData)
+                            let image = NSImage(data: imageData)
                         #else
-                        let image = UIImage(data: imageData)
+                            let image = UIImage(data: imageData)
                         #endif
 
                         if let image {
                             #if os(macOS)
-                            let swiftUIImage = Image(nsImage: image)
+                                let swiftUIImage = Image(nsImage: image)
                             #else
-                            let swiftUIImage = Image(uiImage: image)
+                                let swiftUIImage = Image(uiImage: image)
                             #endif
                             await MainActor.run {
                                 windowModel.tab.favicon = swiftUIImage

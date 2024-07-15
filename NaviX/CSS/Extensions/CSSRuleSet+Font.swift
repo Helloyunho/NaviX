@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 #if os(macOS)
-extension NSFont {
-    var lineHeight: CGFloat {
-        (self.ascender + abs(self.descender) + self.leading).rounded(.up)
+    extension NSFont {
+        var lineHeight: CGFloat {
+            (self.ascender + abs(self.descender) + self.leading).rounded(.up)
+        }
     }
-}
 #endif
 
 extension CSSRuleSet {
@@ -26,7 +26,7 @@ extension CSSRuleSet {
             }
         }
     }
-    
+
     struct SingleUnderlineShape: Shape {
         func path(in rect: CGRect) -> Path {
             Path { path in
@@ -36,7 +36,7 @@ extension CSSRuleSet {
             }
         }
     }
-    
+
     struct DoubleUnderlineShape: Shape {
         let thickness: CGFloat = 2
         func path(in rect: CGRect) -> Path {
@@ -49,7 +49,7 @@ extension CSSRuleSet {
             }
         }
     }
-    
+
     struct LowUnderlineShape: Shape {
         let thickness: CGFloat = 2
         func path(in rect: CGRect) -> Path {
@@ -60,7 +60,7 @@ extension CSSRuleSet {
             }
         }
     }
-    
+
     struct StrikethroughShape: Shape {
         func path(in rect: CGRect) -> Path {
             Path { path in
@@ -70,7 +70,7 @@ extension CSSRuleSet {
             }
         }
     }
-    
+
     private struct FontOverlineModifier: ViewModifier {
         let overline: OverlineType
         let color: Color
@@ -83,7 +83,7 @@ extension CSSRuleSet {
             }
         }
     }
-    
+
     private struct FontUnderlineModifier: ViewModifier {
         let underline: UnderlineType
         let color: Color
@@ -96,13 +96,15 @@ extension CSSRuleSet {
             case .low:
                 content.overlay(LowUnderlineShape().stroke(color, lineWidth: 2))
             case .error:
-                content.overlay(SingleUnderlineShape().stroke(color, style: StrokeStyle(lineWidth: 2, lineCap: .round, dash: [2, 6])))
+                content.overlay(
+                    SingleUnderlineShape().stroke(
+                        color, style: StrokeStyle(lineWidth: 2, lineCap: .round, dash: [2, 6])))
             case .none:
                 content
             }
         }
     }
-    
+
     private struct FontStrikethroughModifier: ViewModifier {
         let strikethrough: Bool
         let color: Color
@@ -114,7 +116,7 @@ extension CSSRuleSet {
             }
         }
     }
-    
+
     struct CSSFontModifier: ViewModifier {
         let fontSize: Int
         let fontFamily: [String]
@@ -126,8 +128,13 @@ extension CSSRuleSet {
         let strikethrough: Bool
         let strikethroughColor: Color
         let lineHeight: CGFloat?
-        
-        init(fontSize: Int?, fontFamily: [String]?, fontWeight: FontWeight?, underline: UnderlineType?, underlineColor: Color?, overline: OverlineType?, overlineColor: Color?, strikethrough: Bool?, strikethroughColor: Color?, lineHeight: CGFloat?) {
+
+        init(
+            fontSize: Int?, fontFamily: [String]?, fontWeight: FontWeight?,
+            underline: UnderlineType?, underlineColor: Color?, overline: OverlineType?,
+            overlineColor: Color?, strikethrough: Bool?, strikethroughColor: Color?,
+            lineHeight: CGFloat?
+        ) {
             self.fontSize = fontSize ?? 11
             self.fontFamily = fontFamily ?? []
             self.fontWeight = fontWeight ?? .normal
@@ -139,11 +146,22 @@ extension CSSRuleSet {
             self.strikethroughColor = strikethroughColor ?? .black
             self.lineHeight = lineHeight
         }
-        
-        init(ruleSet: CSSRuleSet, defaultFontSize: Int = 11, defaultFontWeight: FontWeight = .normal, defaultUnderline: UnderlineType = .none, defaultUnderlineColor: Color = .black) {
-            self.init(fontSize: ruleSet.fontSize ?? defaultFontSize, fontFamily: ruleSet.fontFamily, fontWeight: ruleSet.fontWeight ?? defaultFontWeight, underline: ruleSet.underline ?? defaultUnderline, underlineColor: ruleSet.underlineColor ?? defaultUnderlineColor, overline: ruleSet.overline, overlineColor: ruleSet.overlineColor, strikethrough: ruleSet.strikethrough, strikethroughColor: ruleSet.strikethroughColor, lineHeight: ruleSet.lineHeight == nil ? nil : CGFloat(ruleSet.lineHeight!))
+
+        init(
+            ruleSet: CSSRuleSet, defaultFontSize: Int = 11, defaultFontWeight: FontWeight = .normal,
+            defaultUnderline: UnderlineType = .none, defaultUnderlineColor: Color = .black
+        ) {
+            self.init(
+                fontSize: ruleSet.fontSize ?? defaultFontSize, fontFamily: ruleSet.fontFamily,
+                fontWeight: ruleSet.fontWeight ?? defaultFontWeight,
+                underline: ruleSet.underline ?? defaultUnderline,
+                underlineColor: ruleSet.underlineColor ?? defaultUnderlineColor,
+                overline: ruleSet.overline, overlineColor: ruleSet.overlineColor,
+                strikethrough: ruleSet.strikethrough,
+                strikethroughColor: ruleSet.strikethroughColor,
+                lineHeight: ruleSet.lineHeight == nil ? nil : CGFloat(ruleSet.lineHeight!))
         }
-        
+
         func body(content: Self.Content) -> some View {
             Group {
                 if let lineHeight {
@@ -158,70 +176,82 @@ extension CSSRuleSet {
             }
             .modifier(FontOverlineModifier(overline: overline, color: overlineColor))
             .modifier(FontUnderlineModifier(underline: underline, color: underlineColor))
-            .modifier(FontStrikethroughModifier(strikethrough: strikethrough, color: strikethroughColor))
+            .modifier(
+                FontStrikethroughModifier(strikethrough: strikethrough, color: strikethroughColor))
         }
-        
-        #if os(macOS)
-        var font: NSFont {
-            var font = NSFont.systemFont(ofSize: CGFloat(fontSize), weight: fontWeight.toNSFontWeight())
-            let fontManager = NSFontManager.shared
-            for family in fontFamily {
-                guard fontManager.availableFontFamilies.contains(family), let families = fontManager.availableMembers(ofFontFamily: family), !families.isEmpty else { continue }
-                font = NSFont(name: (families.first!.first as? String)!, size: CGFloat(fontSize))!
-                for member in families {
-                    if let fontName = member.first as? String, let fontWeight = member[1] as? String, fontWeight == self.fontWeight.rawValue.capitalized {
-                        font = NSFont(name: fontName, size: CGFloat(fontSize))!
-                        break
-                    }
-                }
-                break
-            }
-            
-            return font
-        }
-        #else
-        var font: UIFont {
-            var font = UIFont.systemFont(ofSize: CGFloat(fontSize), weight: fontWeight.toUIFontWeight())
-            for family in fontFamily {
-                guard UIFont.familyNames.contains(family) else { continue }
-                let fontNames = UIFont.fontNames(forFamilyName: family)
-                guard !fontNames.isEmpty else { continue }
 
-                font = UIFont(name: fontNames.first!, size: CGFloat(fontSize))!
-                for fontName in fontNames {
-                    if fontName.contains("-\(fontWeight.rawValue.capitalized.replacingOccurrences(of: " ", with: ""))") {
-                        font = UIFont(name: fontName, size: CGFloat(fontSize))!
-                        break
+        #if os(macOS)
+            var font: NSFont {
+                var font = NSFont.systemFont(
+                    ofSize: CGFloat(fontSize), weight: fontWeight.toNSFontWeight())
+                let fontManager = NSFontManager.shared
+                for family in fontFamily {
+                    guard fontManager.availableFontFamilies.contains(family),
+                        let families = fontManager.availableMembers(ofFontFamily: family),
+                        !families.isEmpty
+                    else { continue }
+                    font = NSFont(
+                        name: (families.first!.first as? String)!, size: CGFloat(fontSize))!
+                    for member in families {
+                        if let fontName = member.first as? String,
+                            let fontWeight = member[1] as? String,
+                            fontWeight == self.fontWeight.rawValue.capitalized
+                        {
+                            font = NSFont(name: fontName, size: CGFloat(fontSize))!
+                            break
+                        }
                     }
+                    break
                 }
-                break
+
+                return font
             }
-            return font
-        }
+        #else
+            var font: UIFont {
+                var font = UIFont.systemFont(
+                    ofSize: CGFloat(fontSize), weight: fontWeight.toUIFontWeight())
+                for family in fontFamily {
+                    guard UIFont.familyNames.contains(family) else { continue }
+                    let fontNames = UIFont.fontNames(forFamilyName: family)
+                    guard !fontNames.isEmpty else { continue }
+
+                    font = UIFont(name: fontNames.first!, size: CGFloat(fontSize))!
+                    for fontName in fontNames {
+                        if fontName.contains(
+                            "-\(fontWeight.rawValue.capitalized.replacingOccurrences(of: " ", with: ""))"
+                        ) {
+                            font = UIFont(name: fontName, size: CGFloat(fontSize))!
+                            break
+                        }
+                    }
+                    break
+                }
+                return font
+            }
         #endif
     }
-    
+
     var fontSize: Int? {
         if let fontSize = properties["font-size"] {
             return cssUnitToInt(fontSize.first!)
         }
         return nil
     }
-    
-    var lineHeight: Int? { // wtf is this for real
+
+    var lineHeight: Int? {  // wtf is this for real
         if let lineHeight = properties["line-height"] {
             return cssUnitToInt(lineHeight.first!)
         }
         return nil
     }
-    
-    var fontFamily: [String]? { // TODO: support generic-name values
+
+    var fontFamily: [String]? {  // TODO: support generic-name values
         if let fontFamily = properties["font-family"] {
             return fontFamily
         }
         return nil
     }
-    
+
     enum FontWeight: String {
         case ultralight
         case light
@@ -229,7 +259,7 @@ extension CSSRuleSet {
         case bold
         case ultrabold
         case heavy
-        
+
         func toSwiftUIWeight() -> SwiftUI.Font.Weight {
             switch self {
             case .ultralight:
@@ -246,51 +276,51 @@ extension CSSRuleSet {
                 return .heavy
             }
         }
-        
+
         #if os(macOS)
-        func toNSFontWeight() -> NSFont.Weight {
-            switch self {
-            case .ultralight:
-                return .ultraLight
-            case .light:
-                return .light
-            case .normal:
-                return .regular
-            case .bold:
-                return .bold
-            case .ultrabold:
-                return .black
-            case .heavy:
-                return .heavy
+            func toNSFontWeight() -> NSFont.Weight {
+                switch self {
+                case .ultralight:
+                    return .ultraLight
+                case .light:
+                    return .light
+                case .normal:
+                    return .regular
+                case .bold:
+                    return .bold
+                case .ultrabold:
+                    return .black
+                case .heavy:
+                    return .heavy
+                }
             }
-        }
         #else
-        func toUIFontWeight() -> UIFont.Weight {
-            switch self {
-            case .ultralight:
-                return .ultraLight
-            case .light:
-                return .light
-            case .normal:
-                return .regular
-            case .bold:
-                return .bold
-            case .ultrabold:
-                return .black
-            case .heavy:
-                return .heavy
+            func toUIFontWeight() -> UIFont.Weight {
+                switch self {
+                case .ultralight:
+                    return .ultraLight
+                case .light:
+                    return .light
+                case .normal:
+                    return .regular
+                case .bold:
+                    return .bold
+                case .ultrabold:
+                    return .black
+                case .heavy:
+                    return .heavy
+                }
             }
-        }
         #endif
     }
-    
+
     var fontWeight: FontWeight? {
         if let fontWeight = properties["font-weight"] {
             return FontWeight(rawValue: fontWeight.first!)
         }
         return nil
     }
-    
+
     enum UnderlineType: String {
         case none
         case single
@@ -298,47 +328,47 @@ extension CSSRuleSet {
         case low
         case error
     }
-    
+
     var underline: UnderlineType? {
         if let underline = properties["underline"] {
             return UnderlineType(rawValue: underline.first!)
         }
         return nil
     }
-    
+
     var underlineColor: Color? {
         if let underlineColor = properties["underline-color"] {
             return cssColorToSwiftUI(underlineColor.first!)
         }
         return nil
     }
-    
+
     enum OverlineType: String {
         case none
         case single
     }
-    
+
     var overline: OverlineType? {
         if let overline = properties["overline"] {
             return OverlineType(rawValue: overline.first!)
         }
         return nil
     }
-    
+
     var overlineColor: Color? {
         if let overlineColor = properties["overline-color"] {
             return cssColorToSwiftUI(overlineColor.first!)
         }
         return nil
     }
-    
+
     var strikethrough: Bool? {
         if let strikethrough = properties["strikethrough"] {
             return strikethrough.first! == "true"
         }
         return nil
     }
-    
+
     var strikethroughColor: Color? {
         if let color = properties["strikethrough-color"] {
             return cssColorToSwiftUI(color.first!)

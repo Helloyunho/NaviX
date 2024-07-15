@@ -15,7 +15,8 @@ final class ScriptTag: HeadTagProtocol {
 
     @Published var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
 
@@ -30,11 +31,12 @@ final class ScriptTag: HeadTagProtocol {
 
     @Published var children: String = "" {
         didSet {
-            NotificationCenter.default.postMain(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
+            NotificationCenter.default.postMain(
+                name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
-    
-    init(html: HTMLTag, attr: [String : String], children: String) {
+
+    init(html: HTMLTag, attr: [String: String], children: String) {
         self.html = html
         self.attr = attr
         self.children = children

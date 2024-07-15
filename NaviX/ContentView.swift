@@ -16,27 +16,34 @@ struct ContentView: View {
 
     var body: some View {
         NavigationSplitView {
-            List($windowModel.tabs.indices, id: \.self, selection: $windowModel.currentTabIndexOptional) { idx in
+            List(
+                $windowModel.tabs.indices, id: \.self,
+                selection: $windowModel.currentTabIndexOptional
+            ) { idx in
                 let tab = windowModel.tabs[idx]
                 HStack {
                     if tab.loading {
                         ProgressView().progressViewStyle(.circular).controlSize(.mini)
                     }
-                    Label(title: {
-                        Text(tab.title)
-                    }, icon: {
-                        if let favicon = tab.favicon {
-                            favicon.resizable().aspectRatio(1, contentMode: .fit)
-                        } else {
-                            Image(systemName: "note")
-                        }
-                    })
+                    Label(
+                        title: {
+                            Text(tab.title)
+                        },
+                        icon: {
+                            if let favicon = tab.favicon {
+                                favicon.resizable().aspectRatio(1, contentMode: .fit)
+                            } else {
+                                Image(systemName: "note")
+                            }
+                        })
                 }
                 .contextMenu {
                     Button {
                         if windowModel.tabs.count == 1 {
                             dismissWindow()
-                        } else if windowModel.currentTabIndex == idx, idx == windowModel.tabs.count - 1 {
+                        } else if windowModel.currentTabIndex == idx,
+                            idx == windowModel.tabs.count - 1
+                        {
                             windowModel.currentTabIndex -= 1
                             windowModel.tabs.removeLast()
                         } else {
@@ -52,50 +59,59 @@ struct ContentView: View {
                 }
                 .id(tab.id)
             }
-#if os(iOS)
-            .toolbar {
-                Button(action: addTabPressed) {
-                    Label("Add Tab", systemImage: "plus")
+            #if os(iOS)
+                .toolbar {
+                    Button(action: addTabPressed) {
+                        Label("Add Tab", systemImage: "plus")
+                    }
                 }
-            }
-#endif
-#if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
-#if os(macOS)
-            ToolbarHooker(toolbar:
-                AddressToolbar(
-                    identifier: NSToolbar.Identifier("MainToolbar"),
-                    addressBarView: NSHostingView(
-                        rootView: HStack {
-                            if windowModel.tab.loading {
-                                ProgressView().progressViewStyle(.circular).frame(maxWidth: .infinity)
-                            }
-                            TextField("Type URL...", text: $addressBarContent)
-                                .textFieldStyle(.roundedBorder)
-                                .onSubmit {
-                                    onSubmitURL()
+            #endif
+            #if os(macOS)
+                .navigationSplitViewColumnWidth(min: 180, ideal: 200)
+            #endif
+            #if os(macOS)
+                ToolbarHooker(
+                    toolbar:
+                        AddressToolbar(
+                            identifier: NSToolbar.Identifier("MainToolbar"),
+                            addressBarView: NSHostingView(
+                                rootView: HStack {
+                                    if windowModel.tab.loading {
+                                        ProgressView().progressViewStyle(.circular).frame(
+                                            maxWidth: .infinity)
+                                    }
+                                    TextField("Type URL...", text: $addressBarContent)
+                                        .textFieldStyle(.roundedBorder)
+                                        .onSubmit {
+                                            onSubmitURL()
+                                        }
+                                        .frame(idealWidth: 240)
                                 }
-                                .frame(idealWidth: 240)
-                        }
-                    ),
-                    enableBackwardButton: $windowModel.backwardEnabled,
-                    enableForwardButton: $windowModel.forwardEnabled,
-                    addTabPressed: addTabPressed,
-                    backwardPressed: backwardPressed,
-                    forwardPressed: forwardPressed
+                            ),
+                            enableBackwardButton: $windowModel.backwardEnabled,
+                            enableForwardButton: $windowModel.forwardEnabled,
+                            addTabPressed: addTabPressed,
+                            backwardPressed: backwardPressed,
+                            forwardPressed: forwardPressed
+                        )
                 )
-            )
-#endif
+            #endif
         } detail: {
-#if os(macOS)
-            BrowserView()
+            #if os(macOS)
+                BrowserView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            #endif
+            #if os(iOS)
+                ToolbarHooker(
+                    container: SearchBarContainer(
+                        enableBackwardButton: $windowModel.backwardEnabled,
+                        enableForwardButton: $windowModel.forwardEnabled,
+                        textBinding: $addressBarContent, onSubmit: onSubmitURL,
+                        backwardPressed: backwardPressed, forwardPressed: forwardPressed),
+                    swiftUIView: BrowserView()
+                )
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-#endif
-#if os(iOS)
-            ToolbarHooker(container: SearchBarContainer(enableBackwardButton: $windowModel.backwardEnabled, enableForwardButton: $windowModel.forwardEnabled, textBinding: $addressBarContent, onSubmit: onSubmitURL, backwardPressed: backwardPressed, forwardPressed: forwardPressed), swiftUIView: BrowserView())
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-#endif
+            #endif
         }
         .onChange(of: windowModel.currentTabIndex) {
             matchAddressBarContent()
@@ -104,7 +120,8 @@ struct ContentView: View {
             matchAddressBarContent()
         }
         .onChange(of: windowModel.tab.historyIndex) {
-            windowModel.forwardEnabled = windowModel.tab.historyIndex < windowModel.tab.history.count - 1
+            windowModel.forwardEnabled =
+                windowModel.tab.historyIndex < windowModel.tab.history.count - 1
             windowModel.backwardEnabled = windowModel.tab.historyIndex > 0
         }
         .onAppear {
@@ -117,9 +134,9 @@ struct ContentView: View {
                 }
             }
         }
-#if os(macOS)
-        .frame(minWidth: 600)
-#endif
+        #if os(macOS)
+            .frame(minWidth: 600)
+        #endif
     }
 
     func matchAddressBarContent() {

@@ -16,19 +16,20 @@ final class ImgTag: BodyTagProtocol {
 
     @Published var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
-    
+
     var src: String? {
         attr["src"]
     }
 
     var children = [any Content]()
-    
+
     @Published var style = CSSRuleSet()
-    
-    init(html: HTMLTag, attr: [String : String]) {
+
+    init(html: HTMLTag, attr: [String: String]) {
         self.html = html
         self.attr = attr
     }
@@ -43,7 +44,7 @@ final class ImgTag: BodyTagProtocol {
 
 struct ImgTagView: View {
     @ObservedObject var tag: ImgTag
-    
+
     var body: some View {
         Group {
             if let src = tag.src, let url = URL(string: src) {

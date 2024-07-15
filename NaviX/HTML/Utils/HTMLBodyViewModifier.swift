@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HTMLBodyViewModifier: ViewModifier {
     let tag: any BodyTagProtocol
-    
+
     func body(content: Self.Content) -> some View {
         content
             .task {
@@ -20,7 +20,7 @@ struct HTMLBodyViewModifier: ViewModifier {
                     tag.style = await tag.getStyle()
                 }
             }
-            .onReceive(NotificationCenter.default.publisher(for: .stylesheetsUpdated)) {_ in
+            .onReceive(NotificationCenter.default.publisher(for: .stylesheetsUpdated)) { _ in
                 Task {
                     tag.style = await tag.getStyle()
                 }

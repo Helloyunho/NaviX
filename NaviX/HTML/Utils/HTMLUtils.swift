@@ -21,11 +21,11 @@ class HTMLUtils {
             return [String: String]()
         }
     }
-    
+
     static func checkTag(_ elem: Element, assert expected: String) throws {
         guard elem.tagName().lowercased() == expected else { throw ParseError.invalidTag }
     }
-    
+
     @MainActor
     static func parseHeadTags(_ elem: Element, html: HTMLTag) -> [any HeadTagProtocol] {
         var children = [any HeadTagProtocol]()
@@ -46,15 +46,17 @@ class HTMLUtils {
                 // TODO: Log errors to warnings
             }
         }
-        
+
         return children
     }
-    
+
     @MainActor
     static func parseBodyTags(_ elem: Element, html: HTMLTag) -> [any Content] {
         var children = [any Content]()
         for child in elem.childNodesCopy() {
-            if let str = child as? TextNode, !str.text().trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            if let str = child as? TextNode,
+                !str.text().trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            {
                 children.append(str.text())
             } else if let child = child as? Element {
                 do {
@@ -102,10 +104,10 @@ class HTMLUtils {
                 }
             }
         }
-        
+
         return children
     }
-    
+
     @MainActor
     static func getViewFromTags(_ tag: any BodyTagProtocol) -> AnyView {
         switch tag.tagName {

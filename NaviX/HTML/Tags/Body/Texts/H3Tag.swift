@@ -16,10 +16,12 @@ final class H3Tag: BodyTagProtocol {
 
     @Published var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .attrUpdated, object: self,
+                userInfo: ["oldValue": oldValue])
         }
     }
-    
+
     @Published var _children = [String]()
 
     var children: [any Content] {
@@ -29,13 +31,18 @@ final class H3Tag: BodyTagProtocol {
         set {
             let oldValue = _children
             _children = newValue.filter { $0 is String }.map { $0 as! String }
-            NotificationCenter.default.postMain(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
+            NotificationCenter.default.postMain(
+                name: .childrenUpdated, object: self,
+                userInfo: ["oldValue": oldValue as Any])
         }
     }
-    
+
     @Published var style = CSSRuleSet()
-    
-    init(html: HTMLTag, attr: [String : String], children: [any Content] = [any Content]()) {
+
+    init(
+        html: HTMLTag, attr: [String: String],
+        children: [any Content] = [any Content]()
+    ) {
         self.html = html
         self.attr = attr
         self.children = children
@@ -51,11 +58,15 @@ final class H3Tag: BodyTagProtocol {
 
 struct H3TagView: View {
     @ObservedObject var tag: H3Tag
-    
+
     var body: some View {
         Text(tag._children.joined(separator: " "))
             .textSelection(.enabled)
-            .modifier(CSSRuleSet.CSSFontModifier(ruleSet: tag.style, defaultFontSize: 20, defaultFontWeight: .bold))
+            .modifier(
+                CSSRuleSet.CSSFontModifier(
+                    ruleSet: tag.style, defaultFontSize: 20,
+                    defaultFontWeight: .bold)
+            )
             .modifier(CSSRuleSet.CSSColorModifier(ruleSet: tag.style))
             .applyCommonCSS(ruleSet: tag.style, tag: tag)
             .applyCommonListeners(tag: tag)

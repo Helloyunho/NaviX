@@ -12,7 +12,7 @@ import SwiftUI
 class HTMLTag: @unchecked Sendable, Equatable, Identifiable, Hashable {
     let tagName = "html"
     let id = UUID()
-    
+
     static func == (lhs: HTMLTag, rhs: HTMLTag) -> Bool {
         lhs.id == rhs.id
     }
@@ -25,25 +25,29 @@ class HTMLTag: @unchecked Sendable, Equatable, Identifiable, Hashable {
 
     var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
 
     var stylesheets = [CSSStylesheet]() {
         didSet {
-            NotificationCenter.default.postMain(name: .stylesheetsUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .stylesheetsUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
 
     var head: HeadTag? {
         didSet {
-            NotificationCenter.default.postMain(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
+            NotificationCenter.default.postMain(
+                name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
 
     var body: BodyTag? {
         didSet {
-            NotificationCenter.default.postMain(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
+            NotificationCenter.default.postMain(
+                name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
 

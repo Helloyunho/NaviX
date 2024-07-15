@@ -16,20 +16,21 @@ final class InputTag: InputTagProtocol {
 
     @Published var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
-    
+
     var type: String? {
         attr["type"]
     }
-    
+
     var placeholder: String? {
         attr["placeholder"]
     }
-    
+
     @Published var content: String = ""
-    
+
     @Published var _children = [String]()
 
     var children: [any Content] {
@@ -38,10 +39,10 @@ final class InputTag: InputTagProtocol {
         }
         set {}
     }
-    
+
     @Published var style = CSSRuleSet()
-    
-    init(html: HTMLTag, attr: [String : String], children: [any Content] = [any Content]()) {
+
+    init(html: HTMLTag, attr: [String: String], children: [any Content] = [any Content]()) {
         self.html = html
         self.attr = attr
         self.children = children
@@ -57,14 +58,15 @@ final class InputTag: InputTagProtocol {
 
 struct InputTagView: View {
     @ObservedObject var tag: InputTag
-    
+
     var body: some View {
         Group {
-            switch (tag.type ?? "") {
+            switch tag.type ?? "" {
             case "text":
                 TextField(tag.placeholder ?? "", text: $tag.content)
                     .onSubmit {
-                        NotificationCenter.default.postMain(name: .onSubmit, object: tag, userInfo: ["content": tag.content])
+                        NotificationCenter.default.postMain(
+                            name: .onSubmit, object: tag, userInfo: ["content": tag.content])
                     }
             default:
                 EmptyView()

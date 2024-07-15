@@ -22,7 +22,7 @@ extension HorizontalAlignment {
         }
     }
 }
-    
+
 extension VerticalAlignment {
     func toAlignment() -> Alignment {
         switch self {
@@ -38,11 +38,18 @@ extension VerticalAlignment {
     }
 }
 
-@ViewBuilder func ContainerView<Content: View>(columnGap: Int = 0, rowGap: Int = 0, direction: CSSRuleSet.Direction = .column, alignItems: CSSRuleSet.Alignment = .fill, wrap: Bool = false, @ViewBuilder content: @escaping () -> Content) -> some View {
+@ViewBuilder func ContainerView<Content: View>(
+    columnGap: Int = 0, rowGap: Int = 0, direction: CSSRuleSet.Direction = .column,
+    alignItems: CSSRuleSet.Alignment = .fill, wrap: Bool = false,
+    @ViewBuilder content: @escaping () -> Content
+) -> some View {
     switch direction {
     case .row:
         if wrap {
-            WrappingHStack(alignment: alignItems.toHorizontalAlignment().toAlignment(), horizontalSpacing: CGFloat(columnGap), verticalSpacing: CGFloat(rowGap)) {
+            WrappingHStack(
+                alignment: alignItems.toHorizontalAlignment().toAlignment(),
+                horizontalSpacing: CGFloat(columnGap), verticalSpacing: CGFloat(rowGap)
+            ) {
                 content()
             }
             .frame(maxWidth: .infinity)
@@ -54,7 +61,10 @@ extension VerticalAlignment {
         }
     case .column:
         if wrap {
-            WrappingVStack(alignment: alignItems.toVerticalAlignment().toAlignment(), verticalSpacing: CGFloat(rowGap), horizontalSpacing: CGFloat(columnGap)) {
+            WrappingVStack(
+                alignment: alignItems.toVerticalAlignment().toAlignment(),
+                verticalSpacing: CGFloat(rowGap), horizontalSpacing: CGFloat(columnGap)
+            ) {
                 content()
             }
             .frame(maxHeight: .infinity)

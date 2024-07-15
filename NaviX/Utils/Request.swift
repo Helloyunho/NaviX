@@ -20,7 +20,7 @@ class Request {
         func json() async throws -> Any
         func json<T>(_ type: T.Type) async throws -> T where T: Decodable
     }
-    
+
     struct FileResponse: Response {
         let status: Int
         let statusText: String = ""
@@ -29,45 +29,45 @@ class Request {
             "Content-Type": "text/plain"
         ]
         var ok: Bool { status >= 200 && status <= 299 }
-        
+
         func data() async throws -> Data {
             try Data(contentsOf: url)
         }
-        
+
         func text() async throws -> String? {
             try String(contentsOf: url)
         }
-        
+
         func json() async throws -> Any {
             try JSONSerialization.jsonObject(with: await data())
         }
-        
+
         func json<T>(_ type: T.Type) async throws -> T where T: Decodable {
             let decoder = JSONDecoder()
-            
+
             return try decoder.decode(type, from: await data())
         }
     }
-    
+
     struct FetchResponse: Response {
         var status: Int { resp.status }
         var statusText: String { resp.statusText }
         let resp: SwiftFetch.FetchResponse
         var headers: [String: String] { resp.headers.all() }
         var ok: Bool { resp.ok }
-        
+
         func data() async throws -> Data {
             try await resp.data()
         }
-        
+
         func text() async throws -> String? {
             try await resp.text()
         }
-        
+
         func json() async throws -> Any {
             try await resp.json()
         }
-        
+
         func json<T>(_ type: T.Type) async throws -> T where T: Decodable {
             try await resp.json(type)
         }
@@ -90,9 +90,11 @@ extension Request {
             throw AddressError.domainNotFound
         }
         let ip = try await resp.json(DNSResponsePayload.self).ip
-        return URL(string: url.absoluteString.replacingOccurrences(of: "\(url.scheme!)://\(url.host!)", with: ip))!
+        return URL(
+            string: url.absoluteString.replacingOccurrences(
+                of: "\(url.scheme!)://\(url.host!)", with: ip))!
     }
-    
+
     static func fetch(_ url: URL) async throws -> Response {
         let scheme = url.scheme ?? "buss"
         switch scheme {
@@ -112,8 +114,13 @@ extension Request {
             var url = url
             if url.host == "github.com" {
                 let branch = url.pathComponents.contains("tree") ? url.pathComponents[4] : "main"
-                let paths = url.pathComponents.contains("tree") ? url.pathComponents[5...] : url.pathComponents[3...]
-                url = URL(string: "https://raw.githubusercontent.com/\(url.pathComponents[1])/\(url.pathComponents[2])/\(branch)/\(paths.joined(separator: "/"))")!
+                let paths =
+                    url.pathComponents.contains("tree")
+                    ? url.pathComponents[5...] : url.pathComponents[3...]
+                url = URL(
+                    string:
+                        "https://raw.githubusercontent.com/\(url.pathComponents[1])/\(url.pathComponents[2])/\(branch)/\(paths.joined(separator: "/"))"
+                )!
             }
             let resp = try await SwiftFetch.fetch(url)
             return FetchResponse(resp: resp)

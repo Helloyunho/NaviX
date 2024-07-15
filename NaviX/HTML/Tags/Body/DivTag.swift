@@ -16,19 +16,21 @@ final class DivTag: BodyTagProtocol {
 
     @Published var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
 
     @Published var children: [any Content] = [] {
         didSet {
-            NotificationCenter.default.postMain(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
+            NotificationCenter.default.postMain(
+                name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
-    
+
     @Published var style = CSSRuleSet()
-    
-    init(html: HTMLTag, attr: [String : String], children: [any Content]) {
+
+    init(html: HTMLTag, attr: [String: String], children: [any Content]) {
         self.html = html
         self.attr = attr
         self.children = children
@@ -44,13 +46,17 @@ final class DivTag: BodyTagProtocol {
 
 struct DivTagView: View {
     @ObservedObject var tag: DivTag
-    
+
     var body: some View {
-        ContainerView(columnGap: tag.style.columnGap ?? 0, rowGap: tag.style.rowGap ?? 0, direction: tag.style.direction ?? .column, alignItems: tag.style.alignItems ?? .fill, wrap: tag.style.wrap) {
+        ContainerView(
+            columnGap: tag.style.columnGap ?? 0, rowGap: tag.style.rowGap ?? 0,
+            direction: tag.style.direction ?? .column, alignItems: tag.style.alignItems ?? .fill,
+            wrap: tag.style.wrap
+        ) {
             ForEach(tag.children, id: \.id) { child in
                 if let child = child as? String {
                     if tag.style.alignItems == .fill {
-                        switch (tag.style.direction ?? .column) {
+                        switch tag.style.direction ?? .column {
                         case .row:
                             Text(child)
                                 .textSelection(.enabled)
@@ -66,7 +72,7 @@ struct DivTagView: View {
                     }
                 } else if let child = child as? (any BodyTagProtocol) {
                     if tag.style.alignItems == .fill {
-                        switch (tag.style.direction ?? .column) {
+                        switch tag.style.direction ?? .column {
                         case .row:
                             HTMLUtils.getViewFromTags(child)
                                 .frame(maxHeight: .infinity)

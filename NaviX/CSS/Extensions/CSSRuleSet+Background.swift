@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import SwiftUI
 import Kroma
+import SwiftUI
 
 extension CSSRuleSet {
     var backgroundColor: Color? {
@@ -16,18 +16,18 @@ extension CSSRuleSet {
         }
         return nil
     }
-    
+
     struct CSSBackgroundColorModifier: ViewModifier {
         let backgroundColor: Color?
-        
+
         init(_ backgroundColor: Color?) {
             self.backgroundColor = backgroundColor
         }
-        
+
         init(ruleSet: CSSRuleSet) {
             self.init(ruleSet.backgroundColor)
         }
-        
+
         func body(content: Self.Content) -> some View {
             if let backgroundColor {
                 content.background(backgroundColor)

@@ -20,7 +20,8 @@ final class ATag: BodyTagProtocol {
 
     @Published var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
 
@@ -37,13 +38,14 @@ final class ATag: BodyTagProtocol {
         set {
             let oldValue = _children
             _children = newValue.filter { $0 is String }.map { $0 as! String }
-            NotificationCenter.default.postMain(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
+            NotificationCenter.default.postMain(
+                name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
-    
+
     @Published var style = CSSRuleSet()
-    
-    init(html: HTMLTag, attr: [String : String], children: [any Content] = [any Content]()) {
+
+    init(html: HTMLTag, attr: [String: String], children: [any Content] = [any Content]()) {
         self.html = html
         self.attr = attr
         self.children = children
@@ -59,30 +61,34 @@ final class ATag: BodyTagProtocol {
 
 struct ATagView: View {
     @ObservedObject var tag: ATag
-    
+
     var body: some View {
         Group {
             Text(tag._children.joined(separator: " "))
                 .textSelection(.enabled)
-                .modifier(CSSRuleSet.CSSFontModifier(ruleSet: tag.style, defaultUnderline: .single, defaultUnderlineColor: .blue))
+                .modifier(
+                    CSSRuleSet.CSSFontModifier(
+                        ruleSet: tag.style, defaultUnderline: .single, defaultUnderlineColor: .blue)
+                )
                 .modifier(CSSRuleSet.CSSColorModifier(tag.style.color ?? .blue))
                 .modifier(CSSRuleSet.CSSPaddingModifier(ruleSet: tag.style))
                 .modifier(CSSRuleSet.CSSBackgroundColorModifier(ruleSet: tag.style))
                 .modifier(CSSRuleSet.CSSBorderModifier(ruleSet: tag.style))
-            #if os(macOS)
-                .onHover { isHovered in
-                    if isHovered {
-                        NSCursor.pointingHand.push()
-                    } else {
-                        NSCursor.pop()
+                #if os(macOS)
+                    .onHover { isHovered in
+                        if isHovered {
+                            NSCursor.pointingHand.push()
+                        } else {
+                            NSCursor.pop()
+                        }
                     }
-                }
-            #else
-                .hoverEffect()
-            #endif
+                #else
+                    .hoverEffect()
+                #endif
                 .onTapGesture {
                     if let href = tag.href {
-                        NotificationCenter.default.postMain(name: .changeURLRequested, object: tag, userInfo: ["url": href])
+                        NotificationCenter.default.postMain(
+                            name: .changeURLRequested, object: tag, userInfo: ["url": href])
                     }
                     NotificationCenter.default.postMain(name: .onClick, object: tag, userInfo: nil)
                 }

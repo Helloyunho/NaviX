@@ -15,17 +15,19 @@ final class HeadTag: TagProtocol {
 
     @Published var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
 
     @Published var children: [any HeadTagProtocol]? = nil {
         didSet {
-            NotificationCenter.default.postMain(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
+            NotificationCenter.default.postMain(
+                name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
-    
-    init(html: HTMLTag, attr: [String : String], children: [any HeadTagProtocol]) {
+
+    init(html: HTMLTag, attr: [String: String], children: [any HeadTagProtocol]) {
         self.html = html
         self.attr = attr
         self.children = children

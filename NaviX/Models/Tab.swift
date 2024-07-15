@@ -7,8 +7,8 @@
 
 import Foundation
 import SwiftFetch
-import SwiftUI
 import SwiftSoup
+import SwiftUI
 
 extension NSNotification.Name {
     static let historyUpdated = NSNotification.Name("historyUpdated")
@@ -51,7 +51,7 @@ struct Tab: Equatable, Hashable {
     static func == (lhs: Tab, rhs: Tab) -> Bool {
         lhs.id == rhs.id
     }
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(history)
@@ -80,7 +80,7 @@ struct Tab: Equatable, Hashable {
 
     mutating func changeURL(url: URL) async {
         DispatchQueue.main.sync {
-            history.removeSubrange(historyIndex + 1 ..< history.count)
+            history.removeSubrange(historyIndex + 1..<history.count)
             history.append(url)
             historyIndex += 1
         }

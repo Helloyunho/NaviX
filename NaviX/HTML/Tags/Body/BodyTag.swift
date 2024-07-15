@@ -16,7 +16,8 @@ final class BodyTag: TagProtocol {
 
     @Published var attr: [String: String] = [:] {
         didSet {
-            NotificationCenter.default.postMain(name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
+            NotificationCenter.default.postMain(
+                name: .attrUpdated, object: self, userInfo: ["oldValue": oldValue])
         }
     }
 
@@ -24,11 +25,12 @@ final class BodyTag: TagProtocol {
 
     @Published var children: [any Content] = [] {
         didSet {
-            NotificationCenter.default.postMain(name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
+            NotificationCenter.default.postMain(
+                name: .childrenUpdated, object: self, userInfo: ["oldValue": oldValue as Any])
         }
     }
-    
-    init(html: HTMLTag, attr: [String : String], children: [any Content]) {
+
+    init(html: HTMLTag, attr: [String: String], children: [any Content]) {
         self.html = html
         self.attr = attr
         self.children = children
@@ -57,7 +59,7 @@ final class BodyTag: TagProtocol {
 
 struct BodyTagView: View {
     @ObservedObject var tag: BodyTag
-    
+
     var body: some View {
         Group {
             VStack(spacing: 10) {
@@ -85,7 +87,7 @@ struct BodyTagView: View {
                 tag.style = await tag.getStyle()
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .stylesheetsUpdated)) {_ in
+        .onReceive(NotificationCenter.default.publisher(for: .stylesheetsUpdated)) { _ in
             Task {
                 tag.style = await tag.getStyle()
             }

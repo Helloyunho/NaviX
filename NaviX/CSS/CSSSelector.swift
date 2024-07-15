@@ -11,13 +11,13 @@ struct CSSSelector: Hashable, Sendable {
     let tag: String
     let `class`: String
     let children: [CSSSelector]
-    
+
     func hash(into hasher: inout Hasher) {
         hasher.combine(tag)
         hasher.combine(self.class)
         hasher.combine(children)
     }
-    
+
     func check(for tag: any TagProtocol, html: HTMLTag? = nil) async -> Bool {
         // for now html is not required
         if let c = await tag.attr["class"] {
@@ -26,7 +26,7 @@ struct CSSSelector: Hashable, Sendable {
             return await tag.tagName == self.tag.lowercased()
         }
     }
-    
+
     private static func parseSingular(tokens: [CSSToken], idx: inout Int) throws -> CSSSelector {
         var tag = ""
         var c = ""
@@ -35,23 +35,23 @@ struct CSSSelector: Hashable, Sendable {
         }
         try CSSStylesheet.checkToken(token, type: .identifier)
         tag = token.value
-        c = token.value // for now
+        c = token.value  // for now
         idx += 1
-        
+
         return CSSSelector(tag: tag, class: c, children: [])
     }
-    
+
     static func parse(tokens: [CSSToken]) throws -> CSSSelector {
         var idx = 0
         return try Self.parse(tokens: tokens, idx: &idx)
     }
-    
+
     static func parse(tokens: [CSSToken], idx: inout Int) throws -> CSSSelector {
         var result: CSSSelector
         var token: CSSToken {
             tokens[idx]
         }
-        
+
         let oneSelector = try parseSingular(tokens: tokens, idx: &idx)
         if token.type == .comma {
             var children = [oneSelector]
@@ -63,7 +63,7 @@ struct CSSSelector: Hashable, Sendable {
         } else {
             result = oneSelector
         }
-        
+
         return result
     }
 }

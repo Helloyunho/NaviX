@@ -35,11 +35,15 @@ struct CSSStylesheet {
     }
 
     static func checkToken(_ token: CSSToken, type: CSSTokenType) throws {
-        guard token.type == type else { throw CSSError.unexpectedToken(token.start, type, token.type) }
+        guard token.type == type else {
+            throw CSSError.unexpectedToken(token.start, type, token.type)
+        }
     }
 
     static func parse(_ css: String) throws -> CSSStylesheet {
-        let tokens = try CSSToken.tokenize(css).filter { ![.comment, .commentMultiline].contains($0.type) }
+        let tokens = try CSSToken.tokenize(css).filter {
+            ![.comment, .commentMultiline].contains($0.type)
+        }
         var idx = 0
         var token: CSSToken {
             tokens[idx]
